@@ -9,6 +9,7 @@ import edu.uga.cs.rentaride.persistence.impl.Persistent;
  *
  */
 public class AdministratorImpl
+    extends Persistent      //Dont know if this is right becuase Admin etends User
     implements Administrator
 {
 }

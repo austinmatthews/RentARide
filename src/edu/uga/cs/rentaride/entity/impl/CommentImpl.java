@@ -1,6 +1,6 @@
-package edu.uga.cs.rentaride.entity;
+package edu.uga.cs.rentaride.entity.impl;
 
-import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 /** This class represents a comment made by a specific Customer regarding a specific Rental experience.
  *

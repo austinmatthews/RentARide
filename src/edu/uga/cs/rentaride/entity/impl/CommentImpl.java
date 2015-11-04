@@ -34,30 +34,48 @@ public CommentImpl
     /** Return the comment string.
      * @return a String this is this comment.
      */
-    public String getComment();
+    public String getComment()
+    {
+        return text;
+    }
     
     /** Set the new value of this comment.
      * @param comment a String which is the new comment.
      */
-    public void   setComment( String comment );
+    public void   setComment( String comment )
+    {
+        this.text = comment
+    }
     
     /** Return the Rental object this comment is linked to.
      * @return the Rental object for this comment.
      */
-    public Rental getRental();
+    public Rental getRental() 
+    {
+        return rental;
+    }
     
     /** Set the new Rental object linked to this comment.
      * @param rental the new Rental object this comment should be linked to.
      */
-    public void   setRental( Rental rental );
+    public void   setRental( Rental rental )
+    {
+        this.rental = rental;
+    }
     
     /** Returns the customer who commented on a rental.
      * @return the Customer who made this comment
      */
-    public Customer getCustomer();
+    public Customer getCustomer()
+    {
+        return customer;
+    }
     
     /** Set the new Customer who made this comment.
      * @param customer ths new Customer who made this comment.
      */
-    public void   setCustomer( Customer customer );
+    public void   setCustomer( Customer customer )
+    {
+        this.customer = customer;
+    }
 }

@@ -10,7 +10,8 @@ import edu.uga.cs.rentaride.persistence.Persistable;
  *
  */
 public interface Rental 
-    extends Persistable
+    extends Persistent
+    implements Rental
 {
     /** Return the date when the vehicle in this rental was picked up.
      * @return the pickup date for this rental

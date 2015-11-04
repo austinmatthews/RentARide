@@ -8,16 +8,24 @@ import edu.uga.cs.rentaride.persistence.Persistable;
  * The types should be similar to sedan, pickup, luxury sedan, etc.
  *
  */
-public interface VehicleType
-    extends Persistable
+public class VehicleTypeImpl
+    extends Persistent
+    implements VehicleType
 {
+    // VehicleType attributes
+    private String      vehicleType;
+    
     /** Return the description of this vehicle type.
      * @return description of this vehicle type
      */
-    public String getType();
+    public String getType(){
+        return vehicleType;
+    }
     
     /** Set the description of this vehicle type.
      * @param type the new description of this vehicle type
      */
-    public void setType( String type );
+    public void setType( String type ){
+        this.vehicleType = type;
+    }
 }

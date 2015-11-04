@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.entity;
+package edu.uga.cs.rentaride.entity.impl;
 
 
 import edu.uga.cs.rentaride.persistence.Persistable;
@@ -13,7 +13,7 @@ public class VehicleTypeImpl
     implements VehicleType
 {
     // VehicleType attributes
-    private String      vehicleType;
+    private String vehicleType;
     
     /** Return the description of this vehicle type.
      * @return description of this vehicle type

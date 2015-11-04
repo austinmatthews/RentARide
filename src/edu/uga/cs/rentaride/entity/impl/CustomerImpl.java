@@ -10,6 +10,7 @@ import edu.uga.cs.rentaride.RARException;
  */
 public interface Customer 
     extends User
+    implements Customer
 {
     /** Return the expiration Date of this Customer's membership in Rent-A-Ride.
      * @return the membership expiration Date for this customer 

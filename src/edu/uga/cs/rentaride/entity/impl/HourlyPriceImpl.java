@@ -8,7 +8,8 @@ import edu.uga.cs.rentaride.persistence.Persistable;
  *
  */
 public interface HourlyPrice
-    extends Persistable
+    extends Persistent 
+    implements HourlyPrice
 {
     /** Return the minimum hours for this price setting.
      * @return the minimum hours for this price setting

@@ -7,6 +7,7 @@ import edu.uga.cs.rentaride.persistence.Persistable;
  */
 public interface Comment 
     extends Persistable
+    implements Comment
 {
     /** Return the comment string.
      * @return a String this is this comment.

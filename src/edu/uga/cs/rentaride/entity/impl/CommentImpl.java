@@ -1,14 +1,36 @@
 package edu.uga.cs.rentaride.entity.impl;
 
+import java.util.Date;
+
+import edu.uga.cs.rentaride.entity.Comment;
+import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 /** This class represents a comment made by a specific Customer regarding a specific Rental experience.
  *
  */
-public interface Comment 
-    extends Persistable
+public CommentImpl
+    extends Persistent
     implements Comment
 {
+    //Comment attributes
+    private String  text
+    private Date    date
+    private Customer    customer
+    private Rental  rental
+    
+    //When creating a brand new comment, customer and rental need to be persistent
+    public CommentImpl(String text, Date date, Customer customer, Rental rental) 
+    {
+        super(-1);
+        /*CHECK FOR PERSISTENCE AND THROW ERROR!!*/
+        this.text = text
+        this.date = date
+        this.customer = customer
+        this.rental = rental
+    }
+    
     /** Return the comment string.
      * @return a String this is this comment.
      */

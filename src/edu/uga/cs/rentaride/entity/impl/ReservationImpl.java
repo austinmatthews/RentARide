@@ -3,7 +3,11 @@ package edu.uga.cs.rentaride.entity.impl;
 import java.util.Date;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
+import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Rental;
 
 
 /** This class represents a reservation made by a Rent-A-Ride customer, for a vehicle type at a
@@ -16,7 +20,7 @@ public class ReservationImpl
     extends Persistent
     implements Reservation
 {
-    
+     
     // Reservatio attributes
     private Date pickupTime;
     private int rentalDuration;
@@ -24,6 +28,20 @@ public class ReservationImpl
     private VehicleType vehhicleType;
     private RentalLocation rentalLocation;
     private Rental rental;
+    
+    /**
+     * 
+     */
+     public ReservationImpl(Date pickupTime, int rentalDuration, Customer customer, VehicleType vehicleType,
+                            RentalLocation rentalLocation, Rental rental){
+        this.pickupTime = pickupTime;
+        this.rentalDuration = rentalDuration;
+        this.customer = customer;
+        this.vehicleType = vehicleType;
+        this.rentalLocation = rentalLocation;
+        this.rental = rental;
+     }
+    
     /** Return the intended pickup time.
      * @return the pickup time for this reservation
      */

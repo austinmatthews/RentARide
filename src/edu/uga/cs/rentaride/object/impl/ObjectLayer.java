@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.object;
+package edu.uga.cs.rentaride.object.impl;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -18,11 +18,24 @@ import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 
+import edu.uga.cs.rentaride.entity.impl.AdministratorImpl;
+import edu.uga.cs.rentaride.entity.impl.CommentImpl;
+import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
+import edu.uga.cs.rentaride.entity.impl.HourlyPriceImpl;
+import edu.uga.cs.rentaride.entity.impl.RentARideConfigImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
+import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleConditionImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleStatusImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
 
-
+import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
 /**
- * This is the interface to the Object Layer subsystem of the Rent-A-Ride system.
+ * This is the Object Layer subsystem of the Rent-A-Ride system.
  * 
  * For each class, there are four basic operations: create, find, store, and delete.
  * 
@@ -35,8 +48,23 @@ import edu.uga.cs.rentaride.entity.VehicleType;
  *     -- if the persistent identifier attribute is provided, only one object is returned;
  *     -- if some of the attributes are provided, some of the matching objects are returned.
  */
-public interface ObjectLayer
+public ObjectLayerImpl
+    implements ObjectLayer
 {
+    PersitenceLayer persistence = null;
+    
+    public ObjectLayerImpl()
+    {
+        this.persistence = null;
+        System.out.println("ObjectLayerImpl.ObjectLayerImpl(): initialized");
+    }
+    
+    public ObjectLayerImpl( PersistenceLayer persistence)
+    {
+        this.persistence = persistence;
+        System.out.println("ObjectLayerImpl.ObjectLayerImpl(persistence): initialized");
+    }
+    
     /**
      * Create a new Administrator object, given the set of initial attribute values.
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.

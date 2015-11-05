@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.entity;
+package edu.uga.cs.rentaride.entity.impl;
 
 import edu.uga.cs.rentaride.persistence.Persistable;
 
@@ -7,26 +7,39 @@ import edu.uga.cs.rentaride.persistence.Persistable;
  * This is a singleton class.
  *
  */
-public interface RentARideConfig 
-    extends Persistable
+public class RentARideConfigImpl
+    extends Persistent
+    implements RentARideConfig
 {
+    // Config attricbutes
+    private int membershipPrice;
+    private int overtimePenalty;
+    
     /** Return the current price of the Rent-A-Ride membership.
      * @return the Rent-A-Ride current price (in cents) of the Rent-A-Ride membership
      */
-    public int getMembershipPrice();
+    public int getMembershipPrice(){
+        return membershipPrice;
+    }
     
     /** Set the price of the Rent-A-Ride membership.
      * @param membershipPrice the new price (in cents) of the Rent-A-Ride membership
      */
-    public void setMembershipPrice( int membershipPrice );
+    public void setMembershipPrice( int membershipPrice ){
+        this.membershipPrice = membershipPrice;
+    }
     
     /** Return the current overtime penalty of the Rent-A-Ride membership.
      * @return the Rent-A-Ride current overtime penalty (in cents)
      */
-    public int getOvertimePenalty();
+    public int getOvertimePenalty(){
+        return overtimePenalty;
+    }
     
     /** Set the overtime penalty of the Rent-A-Ride membership.
      * @param overtimePenalty the new overtime penalty (in cents)
      */
-    public void setOvertimePenalty( int overtimePenalty );
+    public void setOvertimePenalty( int overtimePenalty ){
+        this.overtimePenalty = ovetimePenalty;
+    }
 }

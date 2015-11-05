@@ -2,15 +2,15 @@ package edu.uga.cs.rentaride.entity.impl;
 
 import java.util.Date;
 
-import edu.uga.cs.rentaride.persistence.Persistable;
-
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
+import edu.uga.cs.rentaride.entity.UserStatus;
 
 /** This is the base class of all known users of the Rent-A-Ride system.
  *
  */
 public class UserImpl
     extends Persistent
-    implements USer
+    implements User
 {
     // User attributes
     private String fName;
@@ -20,6 +20,19 @@ public class UserImpl
     private String password;
     private Date createDate;
     private UserStatus userStatus;
+    
+    /**
+     * Constructor for UserImpl
+     */
+     public UserImpl(String fName, String lName, String uName, 
+                    String email, String password, Date createDate, UserStatus userStatus){
+         this.fName = fName;
+         this.lName = lName;
+         this.password = password;
+         this.createDate = createDate;
+         this.userStatus = userStatus;
+     }
+    
     /** Return the user's first name.
      * @return the user's first name
      */

@@ -1,5 +1,5 @@
 
-package edu.uga.rentaride.persistence.impl;
+package edu.uga.cs.rentaride.persistence.impl;
 
 import edu.uga.rentaride.persistence.Persistable;
 

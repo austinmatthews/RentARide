@@ -23,7 +23,9 @@ public class UserImpl
     
     /**
      * Constructor for UserImpl
+     * This would never need to be instantiated, right?
      */
+    /*
      public UserImpl(String fName, String lName, String uName, 
                     String email, String password, Date createDate, UserStatus userStatus){
          this.fName = fName;
@@ -32,6 +34,7 @@ public class UserImpl
          this.createDate = createDate;
          this.userStatus = userStatus;
      }
+    */
     
     /** Return the user's first name.
      * @return the user's first name

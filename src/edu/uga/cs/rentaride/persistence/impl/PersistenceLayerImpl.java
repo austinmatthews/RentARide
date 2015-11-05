@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.persistence;
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.util.Iterator;
 
@@ -23,7 +23,8 @@ import edu.uga.cs.rentaride.entity.VehicleType;
  * store operation does an update, if the given argument has already been stored previously
  * (i.e., it is already persistent).
  */
-public interface PersistenceLayer
+public class PersistenceLayerImpl
+    implements PersistenceLayer
 {
     
     /** 

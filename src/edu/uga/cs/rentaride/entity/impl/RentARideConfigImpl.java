@@ -1,6 +1,6 @@
 package edu.uga.cs.rentaride.entity.impl;
 
-import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 /** This class represents the configuration parameters of the Rent-A-Ride system.
  * Note that the prices are always expressed in Cents, not Dollars.
@@ -11,9 +11,17 @@ public class RentARideConfigImpl
     extends Persistent
     implements RentARideConfig
 {
+
     // Config attricbutes
     private int membershipPrice;
     private int overtimePenalty;
+    
+    /**
+     * 
+     */
+     public RentARideConfigImpl(){
+         // placeholder?
+     }
     
     /** Return the current price of the Rent-A-Ride membership.
      * @return the Rent-A-Ride current price (in cents) of the Rent-A-Ride membership

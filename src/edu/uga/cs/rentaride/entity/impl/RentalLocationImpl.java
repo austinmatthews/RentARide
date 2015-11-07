@@ -2,6 +2,7 @@ package edu.uga.cs.rentaride.entity.impl;
 
 
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
+import edu.uga.cs.rentaride.entity.RentalLocation;
 
 /** This class represents a rental location in the Rent-A-Ride system.
  *
@@ -19,6 +20,7 @@ public class RentalLocationImpl
      * 
      */
      public RentalLocationImpl(String name, String address, int capacity){
+         super(-1);
          this.name = name;
          this.address = address;
          this.capacity = capacity;

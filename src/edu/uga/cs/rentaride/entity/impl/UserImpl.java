@@ -9,16 +9,16 @@ import edu.uga.cs.rentaride.entity.UserStatus;
  *
  */
 public class UserImpl
-    extends Persistent
+    extends Persistent //How to do super(-1) with no constuctor
     implements User
 {
     // User attributes
-    private String fName;
-    private String lName;
-    private String uName;
-    private String email;
-    private String password;
-    private Date createDate;
+    protected String fName;
+    protected String lName;
+    protected String uName;
+    protected String email;
+    protected String password;
+    protected Date createDate;
     private UserStatus userStatus;
     
     /**

@@ -202,13 +202,19 @@ public ObjectLayerImpl
      * @param capacity the capacity of the location
      * @return the new RentalLocation object instance with the given attribute values
      */
-    public RentalLocation createRentalLocation( String name, String address, int capacity );
+    public RentalLocation createRentalLocation( String name, String address, int capacity )
+    {
+        return new RentalLocationImpl(name, address, capacity);
+    }
 
     /**
      * Create a new RentalLocation object with undefined attribute values.
      * @return the new RentalLocation object instance
      */
-    public RentalLocation createRentalLocation();
+    public RentalLocation createRentalLocation()
+    {
+        return new RentalLocationImpl(null, null, null);
+    }
 
     /**
      * Return an iterator of RentalLocation objects satisfying the search criteria given in the modelRentalLocation object.

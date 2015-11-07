@@ -13,12 +13,12 @@ public class UserImpl
     implements User
 {
     // User attributes
-    protected String fName;
-    protected String lName;
-    protected String uName;
-    protected String email;
-    protected String password;
-    protected Date createDate;
+    private String fName;
+    private String lName;
+    private String uName;
+    private String email;
+    private String password;
+    private Date createDate;
     private UserStatus userStatus;
     
     /**

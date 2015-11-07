@@ -156,7 +156,13 @@ public ObjectLayerImpl
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.
      * @return the new Customer object instance
      */
-    public Customer createCustomer(); 
+    public Customer createCustomer()
+    {
+        //use customer constructor once it has been created
+        //figure out how to set ID to -1 with the double inheritance and whatnot
+        //use the set User status method to set the userStatus to Active
+        //set everything to null
+    }
     
     /**
      * Return an iterator of Customer objects satisfying the search criteria given in the modelCustomer object.
@@ -164,21 +170,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located Customer objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Customer> findCustomer( Customer modelCustomer ) throws RARException;
+    public Iterator<Customer> findCustomer( Customer modelCustomer ) throws RARException 
+    {
+        return persistence.restoreCustomer( modelCustomer );
+    }
     
     /**
      * Store a given Customer object in persistent data store.
      * @param customer the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public void storeCustomer( Customer customer ) throws RARException;
+    public void storeCustomer( Customer customer ) throws RARException
+    {
+        persistence.storeCustomer( customer );
+    }
     
     /**
      * Delete this Customer object.
      * @param customer the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public void deleteCustomer( Customer customer ) throws RARException;      
+    public void deleteCustomer( Customer customer ) throws RARException
+    {
+        persistence.deleteCustomer( customer );
+    }
 
     /**
      * Create a new RentalLocation object, given the set of initial attribute values.

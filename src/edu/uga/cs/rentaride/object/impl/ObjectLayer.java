@@ -222,21 +222,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located RentalLocation objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<RentalLocation> findRentalLocation( RentalLocation modelRentalLocation ) throws RARException;
+    public Iterator<RentalLocation> findRentalLocation( RentalLocation modelRentalLocation ) throws RARException
+    {
+        return persistence.restoreRentalLocation( modelRentalLocation );
+    }
     
     /**
      * Store a given RentalLocation object in persistent data store.
      * @param rentalLocation the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public int storeRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        //Check with kochut. this should be void return value
+    }
     
     /**
      * Delete this RentalLocation object.
      * @param rentalLocation the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRentalLocation( RentalLocation rentalLocation ) throws RARException;    
+    public int deleteRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        //Check with kochut. this should be void return value
+    }
 
     /**
      * Create a new Reservation object, given the set of initial attribute values.

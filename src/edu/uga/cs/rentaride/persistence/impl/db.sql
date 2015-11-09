@@ -1,18 +1,25 @@
--- phpMyAdmin SQL Dump
--- version 4.2.10
--- http://www.phpmyadmin.net
---
--- Host: localhost:8889
--- Generation Time: Nov 03, 2015 at 07:49 PM
--- Server version: 5.5.38
--- PHP Version: 5.5.18
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+DROP DATABASE IF EXISTS `RentARideDatabase`;
+
+CREATE DATABASE IF NOT EXISTS RentARideDatabase;
+
+USE RentARideDatabase;
+
+DROP TABLE IF EXISTS `HourlyPrice`;
+DROP TABLE IF EXISTS `Rental`;
+DROP TABLE IF EXISTS `RentalLocations`;
+DROP TABLE IF EXISTS `RentARideConfig`;
+DROP TABLE IF EXISTS `Reservations`;
+DROP TABLE IF EXISTS `Users`;
+DROP TABLE IF EXISTS `Vehicle`;
+DROP TABLE IF EXISTS `VehicleType`;
 
 --
 -- Database: `RentARideDatabase`
 --
+
+-- disable foreign key checks to create tables in any order
+SET foreign_key_checks = 0;
 
 -- --------------------------------------------------------
 
@@ -22,8 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Comments` (
   `customer` varchar(255) NOT NULL,
-  `rental` varchar(255) NOT NULL,
-  `comment` varchar(255) NOT NULL
+  `rental` int(11) NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  
+  INDEX(customer),
+
+  FOREIGN KEY(customer)
+  	  REFERENCES Users(userName),
+	
+  INDEX(rental),
+
+  FOREIGN KEY(rental)
+  	  REFERENCES Rental(rentalNo)
+
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -36,6 +55,8 @@ CREATE TABLE `HourlyPrice` (
   `maxHours` int(11) NOT NULL,
   `mineHours` int(11) NOT NULL,
   `price` int(11) NOT NULL
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -45,9 +66,18 @@ CREATE TABLE `HourlyPrice` (
 --
 
 CREATE TABLE `Rental` (
+  `rentalNo` int(11) NOT NULL AUTO_INCREMENT,
   `customer` varchar(255) NOT NULL,
   `pickupTime` date NOT NULL,
-  `returnTime` date NOT NULL
+  `returnTime` date NOT NULL,
+
+  PRIMARY KEY(rentalNo),
+
+  INDEX(customer),
+  FOREIGN KEY(customer)
+  	  REFERENCES Users(userName)
+
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -59,7 +89,11 @@ CREATE TABLE `Rental` (
 CREATE TABLE `RentalLocations` (
   `address` varchar(255) NOT NULL,
   `capacity` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `locationName` varchar(255) NOT NULL,
+
+  PRIMARY KEY(locationName)
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -82,27 +116,39 @@ CREATE TABLE `RentARideConfig` (
 CREATE TABLE `Reservations` (
   `customer` varchar(255) NOT NULL,
   `pickupTime` date NOT NULL,
-  `rental` varchar(255) NOT NULL,
+  `rental` int(11) NOT NULL,
   `rentalDuration` int(11) NOT NULL,
   `rentalLocation` varchar(255) NOT NULL,
-  `vehicleType` varchar(255) NOT NULL
+  `vehicleType` varchar(255) NOT NULL,
+
+  PRIMARY KEY(customer,pickupTime),
+
+  INDEX(rental),
+  FOREIGN KEY(rental)
+  	  REFERENCES Rentals(rentalNo)
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `User`
+-- Table structure for table `Users`
 --
 
-CREATE TABLE `User` (
-`id` int(11) NOT NULL,
+CREATE TABLE `Users` (
+  `id` int(11) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `userName` varchar(255) NOT NULL,
   `emailAddress` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `createdDate` date NOT NULL,
-  `userStatus` varchar(255) NOT NULL
+  `userStatus` varchar(255) NOT NULL,
+
+  PRIMARY KEY(userName)
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -121,47 +167,17 @@ CREATE TABLE `Vehicle` (
   `rentalLocation` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `vehicleType` varchar(255) NOT NULL,
-  `year` int(11) NOT NULL
+  `vehicleYear` int(11) NOT NULL,
+
+  PRIMARY KEY(registrationTag),
+
+  INDEX(rentalLocation),
+  FOREIGN KEY(rentalLocation)
+  	  REFERENCES RentalLocations(locationName)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `VehicleType`
---
 
-CREATE TABLE `VehicleType` (
-  `type` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `User`
---
-ALTER TABLE `User`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `Vehicle`
---
-ALTER TABLE `Vehicle`
- ADD PRIMARY KEY (`registrationTag`);
-
---
--- Indexes for table `VehicleType`
---
-ALTER TABLE `VehicleType`
- ADD PRIMARY KEY (`type`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `User`
---
-ALTER TABLE `User`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+SET foreign_key_checks = 1;

@@ -12,4 +12,6 @@ public class AdministratorImpl
     implements Administrator
 {
     //still need to implement the constructor!!
+    //use the setters from the User class
+    //this class does not extend persistent so figure out how to set persistence to (-1)
 }

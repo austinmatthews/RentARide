@@ -77,14 +77,22 @@ public ObjectLayerImpl
      * @return the new Administrator object instance with the given attribute values, UserStatus is UserStatus.ACTIVE
      */
     public Administrator createAdministrator( String firstName, String lastName, String userName, 
-                                              String emailAddress, String password, Date createDate );
+                                              String emailAddress, String password, Date createDate )
+    {
+        //just call the AmninistratorImpl constructor once it is created. not sure how to set ID to -1 with the 
+        //double inheritance
+    }
 
     /**
      * Create a new Administrator object with undefined attribute values.
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.
      * @return the new Administrator object instance
      */
-    public Administrator createAdministrator(); 
+    public Administrator createAdministrator()
+    {
+        //just call the AmninistratorImpl constructor once it is created. not sure how to set ID to -1 with the 
+        //double inheritance. everythind is set to Null
+    }
     
     /**
      * Return an iterator of Administrator objects satisfying the search criteria given in the modelAdministrator object.
@@ -92,21 +100,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located Administrator objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Administrator> findAdministrator( Administrator modelAdministrator ) throws RARException;
+    public Iterator<Administrator> findAdministrator( Administrator modelAdministrator ) throws RARException
+    {
+        return persistence.restoreAdministrator( modelAdministrator );
+    }
     
     /**
      * Store a given Administrator object in persistent data store.
      * @param administrator the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public void storeAdministrator( Administrator administrator ) throws RARException;
+    public void storeAdministrator( Administrator administrator ) throws RARException
+    {
+        persistence.storeAdministrator( administrator );
+    }
     
     /**
      * Delete this Administrator object.
      * @param administrator the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public void deleteAdministrator( Administrator administrator ) throws RARException; 
+    public void deleteAdministrator( Administrator administrator ) throws RARException
+    {
+        persistence.deleteAdministrator( administrator );
+    }
     
     /**
      * Create a new Customer object, given the set of initial attribute values.
@@ -127,14 +144,25 @@ public ObjectLayerImpl
      */
     public Customer createCustomer( String firstName, String lastName, String userName, String emailAddress, 
             String password, Date createDate, Date membershipExpiration, String licenseState, 
-            String licenseNumber, String residenceAddress, String cardNumber, Date cardExpiration );
+            String licenseNumber, String residenceAddress, String cardNumber, Date cardExpiration )
+    {
+        //use customer constructor once it has been created
+        //figure out how to set ID to -1 with the double inheritance and whatnot
+        //use the set User status method to set the userStatus to Active
+    }
 
     /**
      * Create a new Customer object with undefined attribute values.
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.
      * @return the new Customer object instance
      */
-    public Customer createCustomer(); 
+    public Customer createCustomer()
+    {
+        //use customer constructor once it has been created
+        //figure out how to set ID to -1 with the double inheritance and whatnot
+        //use the set User status method to set the userStatus to Active
+        //set everything to null
+    }
     
     /**
      * Return an iterator of Customer objects satisfying the search criteria given in the modelCustomer object.
@@ -142,21 +170,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located Customer objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Customer> findCustomer( Customer modelCustomer ) throws RARException;
+    public Iterator<Customer> findCustomer( Customer modelCustomer ) throws RARException 
+    {
+        return persistence.restoreCustomer( modelCustomer );
+    }
     
     /**
      * Store a given Customer object in persistent data store.
      * @param customer the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public void storeCustomer( Customer customer ) throws RARException;
+    public void storeCustomer( Customer customer ) throws RARException
+    {
+        persistence.storeCustomer( customer );
+    }
     
     /**
      * Delete this Customer object.
      * @param customer the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public void deleteCustomer( Customer customer ) throws RARException;      
+    public void deleteCustomer( Customer customer ) throws RARException
+    {
+        persistence.deleteCustomer( customer );
+    }
 
     /**
      * Create a new RentalLocation object, given the set of initial attribute values.
@@ -165,13 +202,19 @@ public ObjectLayerImpl
      * @param capacity the capacity of the location
      * @return the new RentalLocation object instance with the given attribute values
      */
-    public RentalLocation createRentalLocation( String name, String address, int capacity );
+    public RentalLocation createRentalLocation( String name, String address, int capacity )
+    {
+        return new RentalLocationImpl(name, address, capacity);
+    }
 
     /**
      * Create a new RentalLocation object with undefined attribute values.
      * @return the new RentalLocation object instance
      */
-    public RentalLocation createRentalLocation();
+    public RentalLocation createRentalLocation()
+    {
+        return new RentalLocationImpl(null, null, null);
+    }
 
     /**
      * Return an iterator of RentalLocation objects satisfying the search criteria given in the modelRentalLocation object.
@@ -179,21 +222,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located RentalLocation objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<RentalLocation> findRentalLocation( RentalLocation modelRentalLocation ) throws RARException;
+    public Iterator<RentalLocation> findRentalLocation( RentalLocation modelRentalLocation ) throws RARException
+    {
+        return persistence.restoreRentalLocation( modelRentalLocation );
+    }
     
     /**
      * Store a given RentalLocation object in persistent data store.
      * @param rentalLocation the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public int storeRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        //Check with kochut. this should be void return value
+    }
     
     /**
      * Delete this RentalLocation object.
      * @param rentalLocation the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRentalLocation( RentalLocation rentalLocation ) throws RARException;    
+    public int deleteRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        //Check with kochut. this should be void return value
+    }
 
     /**
      * Create a new Reservation object, given the set of initial attribute values.

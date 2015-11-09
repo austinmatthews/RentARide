@@ -25,6 +25,8 @@ public CustomerImpl
                         String residenceAddress, String cardNumber, Date cardExpiration)
     {
         //super(-1); ??
+        //need this to intantiate the User variables as well
+        //perhaps use the setters from the User class bc the variables are private
         this.membershipExpiration = membershipExpiration;
         this.licenseState = licenseState;
         this.licenseNumber = licenseNumber;

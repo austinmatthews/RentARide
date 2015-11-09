@@ -9,7 +9,7 @@ import edu.uga.cs.rentaride.entity.UserStatus;
  *
  */
 public class UserImpl
-    extends Persistent
+    extends Persistent //How to do super(-1) with no constuctor
     implements User
 {
     // User attributes

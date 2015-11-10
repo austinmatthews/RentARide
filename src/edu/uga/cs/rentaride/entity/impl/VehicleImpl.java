@@ -4,6 +4,12 @@ import java.util.Date;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.VehicleStatus;
+import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.VehicleCondition;
+import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Vehicle;
 
 
 
@@ -26,7 +32,22 @@ public class VehicleImpl
     private VehicleStatus status;
     private VehicleCondition condition;
     private VehicleType type;
-    private String location;
+    private RentalLocation location;
+    
+    public VehicleImpl( VehicleType type, String make, String model, int year, String tag, int mileage, Date lastServiced, 
+                        RentalLocation location, VehicleCondition condition, VehicleStatus status) 
+    {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.mileage = mileage;
+        this.tag = tage;
+        this.lastServiced = lastServiced;
+        this.status = status;
+        this.condition = condition;
+        this.type = type;
+        this.location = location;
+    }
     
     /** Return the make of this vehicle.
      * @return the make of this vehicle

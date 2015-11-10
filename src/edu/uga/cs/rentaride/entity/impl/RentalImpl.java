@@ -18,17 +18,11 @@ public class RentalImpl
 {
     // Rental attributes
     private Date pickupTime;
-    private Date returnTime;
     private Reservation reservation;
     private Vehicle vehicle;
     private Customer customer;
+    private Date returnTime;
     
-    /**
-     *  
-     */
-    public RentalImpl(){
-        
-    }
     
     /**
      *  Constructor for RentalImpl

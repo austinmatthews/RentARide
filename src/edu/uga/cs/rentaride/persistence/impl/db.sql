@@ -1,9 +1,9 @@
 
-DROP DATABASE IF EXISTS `RentARideDatabase`;
+DROP DATABASE IF EXISTS `team9`;
 
-CREATE DATABASE IF NOT EXISTS RentARideDatabase;
+CREATE DATABASE IF NOT EXISTS team9;
 
-USE RentARideDatabase;
+USE team9;
 
 DROP TABLE IF EXISTS `HourlyPrice`;
 DROP TABLE IF EXISTS `Rental`;
@@ -28,6 +28,7 @@ SET foreign_key_checks = 0;
 --
 
 CREATE TABLE `Comments` (
+  `commentDate` datetime NOT NULL,
   `customer` varchar(255) NOT NULL,
   `rental` int(11) NOT NULL,
   `comment` varchar(255) NOT NULL,
@@ -68,8 +69,8 @@ CREATE TABLE `HourlyPrice` (
 CREATE TABLE `Rental` (
   `rentalNo` int(11) NOT NULL AUTO_INCREMENT,
   `customer` varchar(255) NOT NULL,
-  `pickupTime` date NOT NULL,
-  `returnTime` date NOT NULL,
+  `pickupTime` datetime NOT NULL,
+  `returnTime` datetime NOT NULL,
   `condition` ENUM('good','cleaningNeeded','maintenanceNeeded'),
   PRIMARY KEY(rentalNo),
 
@@ -115,7 +116,7 @@ CREATE TABLE `RentARideConfig` (
 
 CREATE TABLE `Reservations` (
   `customer` varchar(255) NOT NULL,
-  `pickupTime` date NOT NULL,
+  `pickupTime` datetime NOT NULL,
   `rental` int(11) NOT NULL,
   `rentalDuration` int(11) NOT NULL,
   `rentalLocation` varchar(255) NOT NULL,
@@ -143,7 +144,7 @@ CREATE TABLE `Users` (
   `userName` varchar(255) NOT NULL,
   `emailAddress` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `createdDate` date NOT NULL,
+  `createdDate` datetime NOT NULL,
   `userStatus` ENUM('active','removed','terminated'),
   `userType` ENUM('admin','customer'), 
 
@@ -160,7 +161,7 @@ CREATE TABLE `Users` (
 
 CREATE TABLE `Vehicle` (
   `registrationTag` varchar(255) NOT NULL,
-  `lastService` date NOT NULL,
+  `lastService` datetime NOT NULL,
   `make` varchar(255) NOT NULL,
   `mileage` int(11) NOT NULL,
   `model` varchar(255) NOT NULL,

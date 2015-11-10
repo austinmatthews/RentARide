@@ -7,7 +7,6 @@ import edu.uga.cs.rentaride.persistence.impl.Persistent;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.Rental;
 
 
 /** This class represents a reservation made by a Rent-A-Ride customer, for a vehicle type at a
@@ -27,19 +26,17 @@ public class ReservationImpl
     private Customer customer;
     private VehicleType vehhicleType;
     private RentalLocation rentalLocation;
-    private Rental rental;
     
     /**
      * 
      */
      public ReservationImpl(Date pickupTime, int rentalDuration, Customer customer, VehicleType vehicleType,
-                            RentalLocation rentalLocation, Rental rental){
+                            RentalLocation rentalLocation){
         this.pickupTime = pickupTime;
         this.rentalDuration = rentalDuration;
         this.customer = customer;
         this.vehicleType = vehicleType;
         this.rentalLocation = rentalLocation;
-        this.rental = rental;
      }
     
     /** Return the intended pickup time.
@@ -107,17 +104,5 @@ public class ReservationImpl
      */
     public void           setRentalLocation( RentalLocation rentalLocation ){
         this.rentalLocation = rentalLocation;
-    }
-    /**
-     * @return
-     */
-    public Rental         getRental(){
-        return rental;
-    }
-    /**
-     * @param rental
-     */
-    public void           setRental( Rental rental ){
-        this.rental = rental;
     }
 }

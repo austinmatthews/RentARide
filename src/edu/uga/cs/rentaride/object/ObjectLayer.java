@@ -158,14 +158,14 @@ public interface ObjectLayer
      * @param rentalLocation the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public void storeRentalLocation( RentalLocation rentalLocation ) throws RARException;
     
     /**
      * Delete this RentalLocation object.
      * @param rentalLocation the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRentalLocation( RentalLocation rentalLocation ) throws RARException;    
+    public void deleteRentalLocation( RentalLocation rentalLocation ) throws RARException;    
 
     /**
      * Create a new Reservation object, given the set of initial attribute values.
@@ -199,14 +199,14 @@ public interface ObjectLayer
      * @param reservation the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeReservation( Reservation reservation ) throws RARException;
+    public void storeReservation( Reservation reservation ) throws RARException;
     
     /**
      * Delete this Reservation object.
      * @param reservation the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteReservation( Reservation reservation ) throws RARException;
+    public void deleteReservation( Reservation reservation ) throws RARException;
 
     /**
      * Create a new Rental object, given the set of initial attribute values.
@@ -238,14 +238,14 @@ public interface ObjectLayer
      * @param rental the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRental( Rental rental ) throws RARException;
+    public void storeRental( Rental rental ) throws RARException;
     
     /**
      * Delete this Rental object.
      * @param rental the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRental( Rental rental ) throws RARException;    
+    public void deleteRental( Rental rental ) throws RARException;    
     
     /**
      * Create a new VehicleType object, given the set of initial attribute value.
@@ -273,14 +273,14 @@ public interface ObjectLayer
      * @param vehicleType the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeVehicleType( VehicleType vehicleType ) throws RARException;
+    public void storeVehicleType( VehicleType vehicleType ) throws RARException;
     
     /**
      * Delete this VehicleType object.
      * @param vehicleType the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteVehicleType( VehicleType vehicleType ) throws RARException;
+    public void deleteVehicleType( VehicleType vehicleType ) throws RARException;
 
     /**
      * Create a new Vehicle object, given the set of initial attribute value.
@@ -320,14 +320,14 @@ public interface ObjectLayer
      * @param vehicle the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeVehicle( Vehicle vehicle ) throws RARException;
+    public void storeVehicle( Vehicle vehicle ) throws RARException;
     
     /**
      * Delete this Vehicle object.
      * @param vehicle the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteVehicle( Vehicle vehicle ) throws RARException;
+    public void deleteVehicle( Vehicle vehicle ) throws RARException;
 
     /**
      * Create a new Comment object, given the set of initial attribute value.
@@ -358,14 +358,14 @@ public interface ObjectLayer
      * @param comment the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeComment( Comment comment ) throws RARException;
+    public void storeComment( Comment comment ) throws RARException;
     
     /**
      * Delete this Comment object.
      * @param comment the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteComment( Comment coment ) throws RARException;
+    public void deleteComment( Comment coment ) throws RARException;
 
     /**
      * Create a new HourlyPrice object, given the set of initial attribute values.
@@ -397,14 +397,14 @@ public interface ObjectLayer
      * @param hourlyPrice the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public void storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
     
     /**
      * Delete this HourlyPrice object.
      * @param hourlyPrice the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public void deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
 
     /**
      * Return the RentARideConfig object.  The RentARideConfig class is a singleton class,
@@ -418,7 +418,7 @@ public interface ObjectLayer
      * @param rentARideConfig the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentARideCfg( RentARideConfig rentARideCfg ) throws RARException;
+    public void storeRentARideCfg( RentARideConfig rentARideCfg ) throws RARException;
     
     // Associations
     //

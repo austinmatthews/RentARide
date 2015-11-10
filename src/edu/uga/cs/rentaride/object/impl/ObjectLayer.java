@@ -480,14 +480,17 @@ public ObjectLayerImpl
      */
     public Comment createComment( String comment, Rental rental, Customer customer ) throws RARException
     {
-        
+        //our constructor has a date attribute but no date getters and setters. Do we need date? $$$$$$$$$$$$$
     }
 
     /**
      * Create a new Comment object with undefined attribute values.
      * @return the new Comment object instance
      */
-    public Comment createComment();
+    public Comment createComment() 
+    {
+        //implement when figure out date $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    }
 
     /**
      * Return an iterator of Comment objects satisfying the search criteria given in the modelComment object.
@@ -495,21 +498,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located Comment objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Comment> findComment( Comment modelComment ) throws RARException;
+    public Iterator<Comment> findComment( Comment modelComment ) throws RARException
+    {
+        return persistence.restoreComment( modelComment );
+    }
     
     /**
      * Store a given Comment object in persistent data store.
      * @param comment the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeComment( Comment comment ) throws RARException;
+    public void storeComment( Comment comment ) throws RARException
+    {
+        persistence.storeComment(comment);
+    }
     
     /**
      * Delete this Comment object.
      * @param comment the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteComment( Comment coment ) throws RARException;
+    public void deleteComment( Comment coment ) throws RARException
+    {
+        persistence.deleteComment(comment);
+    }
 
     /**
      * Create a new HourlyPrice object, given the set of initial attribute values.
@@ -520,13 +532,19 @@ public ObjectLayerImpl
      * @return the new HourlyPrice object instance with the given attribute values
      * @throws RARException in case the vehicleType is null
      */
-    public HourlyPrice createHourlyPrice( int minHrs, int maxHrs, int price, VehicleType vehicleType ) throws RARException;
+    public HourlyPrice createHourlyPrice( int minHrs, int maxHrs, int price, VehicleType vehicleType ) throws RARException
+    {
+        return new HourlyPriceImpl( minHrs, maxHrs, price, vehicleType );
+    }
 
     /**
      * Create a new HourlyPrice object with undefined attribute values.
      * @return the new HourlyPrice object instance
      */
-    public HourlyPrice createHourlyPrice();
+    public HourlyPrice createHourlyPrice() 
+    {
+        return new HourlyPriceImpl( null, null, null, null );
+    }
 
     /**
      * Return an iterator of HourlyPrice objects satisfying the search criteria given in the modelHourlyPrice object.
@@ -534,35 +552,50 @@ public ObjectLayerImpl
      * @return an Iterator of the located HourlyPrice objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<HourlyPrice> findHourlyPrice( HourlyPrice modelHourlyPrice ) throws RARException;
+    public Iterator<HourlyPrice> findHourlyPrice( HourlyPrice modelHourlyPrice ) throws RARException
+    {
+        return persistence.restoreHourlyPrice( modelHourlyPrice );
+    }
     
     /**
      * Store a given HourlyPrice object in persistent data store.
      * @param hourlyPrice the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public int storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    {
+        persistence.storeHourlyPrice( hourlyPrice );
+    }
     
     /**
      * Delete this HourlyPrice object.
      * @param hourlyPrice the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public int deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    {
+        persistence.deleteHourlyPrice( hourlyPrice );
+    }
 
     /**
      * Return the RentARideConfig object.  The RentARideConfig class is a singleton class,
      * so only one object will exist.
      * @return the RentARideConfig object
      */
-    public RentARideConfig findRentARideCfg();
+    public RentARideConfig findRentARideCfg()
+    {
+        //NOT Sure how to implement this! $$$$$$$$$$$$$$$$$$$$$$$$$$$
+    }
     
     /**
      * Store a given RentARideConfig object in persistent data store.
      * @param rentARideConfig the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentARideCfg( RentARideConfig rentARideCfg ) throws RARException;
+    public int storeRentARideCfg( RentARideConfig rentARideCfg ) throws RARException
+    {
+        //NOT Sure how to implement this! $$$$$$$$$$$$$$$$$$$$$$$$$$$
+    }
     
     // Associations
     //

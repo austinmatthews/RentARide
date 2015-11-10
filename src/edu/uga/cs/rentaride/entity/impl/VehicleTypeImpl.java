@@ -15,6 +15,11 @@ public class VehicleTypeImpl
     // VehicleType attributes
     private String vehicleType;
     
+    public VehicleTypeImpl( String type )
+    {
+        this.vehicleType = type;
+    }
+    
     /** Return the description of this vehicle type.
      * @return description of this vehicle type
      */

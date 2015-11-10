@@ -145,6 +145,7 @@ CREATE TABLE `Users` (
   `password` varchar(255) NOT NULL,
   `createdDate` date NOT NULL,
   `userStatus` ENUM('active','removed','terminated'),
+  `userType` ENUM('admin','customer'), 
 
   PRIMARY KEY(userName)
 
@@ -177,6 +178,13 @@ CREATE TABLE `Vehicle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
+
+CREATE TABLE `VehicleType` (
+  `typeName` varchar(255) NOT NULL,
+  PRIMARY KEY(typeName)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 SET foreign_key_checks = 1;

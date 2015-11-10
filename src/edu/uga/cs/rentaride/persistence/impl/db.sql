@@ -70,7 +70,7 @@ CREATE TABLE `Rental` (
   `customer` varchar(255) NOT NULL,
   `pickupTime` date NOT NULL,
   `returnTime` date NOT NULL,
-
+  `condition` ENUM('good','cleaningNeeded','maintenanceNeeded'),
   PRIMARY KEY(rentalNo),
 
   INDEX(customer),
@@ -144,7 +144,7 @@ CREATE TABLE `Users` (
   `emailAddress` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `createdDate` date NOT NULL,
-  `userStatus` varchar(255) NOT NULL,
+  `userStatus` ENUM('active','removed','terminated'),
 
   PRIMARY KEY(userName)
 
@@ -159,13 +159,12 @@ CREATE TABLE `Users` (
 
 CREATE TABLE `Vehicle` (
   `registrationTag` varchar(255) NOT NULL,
-  `vehicleCondition` varchar(255) NOT NULL,
   `lastService` date NOT NULL,
   `make` varchar(255) NOT NULL,
   `mileage` int(11) NOT NULL,
   `model` varchar(255) NOT NULL,
   `rentalLocation` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status` ENUM('inLocation','inRental'),
   `vehicleType` varchar(255) NOT NULL,
   `vehicleYear` int(11) NOT NULL,
 

@@ -1,19 +1,21 @@
-package edu.uga.clubs.persistence.impl;
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.entity.Club;
-import edu.uga.clubs.entity.Membership;
-import edu.uga.clubs.entity.Person;
+import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.clubs.object.ObjectLayer;
 
 
-public class MembershipIterator
-    implements Iterator<Membership>
+public class VehicleIterator
+    implements Iterator<Vehicle>
 {
     private ResultSet   rs = null;
     private ObjectLayer objectLayer = null;
@@ -21,8 +23,8 @@ public class MembershipIterator
 
     // these two will be used to create a new object
     //
-    public MembershipIterator( ResultSet rs, ObjectLayer objectLayer )
-            throws ClubsException
+    public VehicleIterator( ResultSet rs, ObjectLayer objectLayer )
+            throws RARException
     { 
         this.rs = rs;
         this.objectLayer = objectLayer;
@@ -30,7 +32,7 @@ public class MembershipIterator
             more = rs.next();
         }
         catch( Exception e ) {  // just in case...
-            throw new ClubsException( "MembershipIterator: Cannot create an iterator; root cause: " + e );
+            throw new RARException( "VehicleIterator: Cannot create an iterator; root cause: " + e );
         }
     }
 
@@ -39,46 +41,34 @@ public class MembershipIterator
         return more; 
     }
 
-    public Membership next() 
+    public Vehicle next() 
     {
-        long   id;
-        Date   joined;
-        long   personid;
-        String userName;
-        String password;
-        String email;
-        String firstName;
-        String lastName;
-        String personaddress;
-        String phone;
-        long   clubid;
-        String clubname;
-        String clubaddress;
-        Date   establishedOn;
-        long   clubFounderId;
-        Person person = null;
-        Person founder = null;
-        Membership membership = null;
-
+        
+        VehicleCondition condition = null;
+        Date lastServiced;
+        String make;
+        int mileage;
+        String model;
+        String registrationTag;
+        RentalLocation rentalLocation = null;
+        VehicleStatus vehicleStatus = null;
+        VehicleType vehicleType = null;
+        int year;
+        
+        
         if( more ) {
 
             try {
-                clubname = rs.getString( 1 );
-                clubaddress = rs.getString( 2 );
-                establishedOn = rs.getDate( 3 );
-                clubFounderId = rs.getLong( 4 );
-                id = rs.getLong( 5 );
-                clubid = rs.getLong( 6 );
-                personid = rs.getLong( 7 );
-                joined = rs.getDate( 8 );
-                userName = rs.getString( 9 );
-                password = rs.getString( 10 );
-                email = rs.getString( 11 );
-                firstName = rs.getString( 12 );
-                lastName = rs.getString( 13 );
-                personaddress = rs.getString( 14 );
-                phone = rs.getString( 15 );
-
+                registrationTag = rs.getString( "registrationTag" );
+                lastServiced = rs.getDate( "lastService" );
+                make = rs.getString( "make" );
+                mileage = rs.getInteger( "mileage");
+                model = rs.getString( "model" );
+                rentalLocation = rs.getString( "rentalLocation" );
+                vehicleStatus = rs.getLong( "status" );
+                vehicleType = rs.getDate( "vehicleType" );
+                year = rs.getString( "vehicleYear" );
+            
                 more = rs.next();
             }
             catch( Exception e ) {      // just in case...

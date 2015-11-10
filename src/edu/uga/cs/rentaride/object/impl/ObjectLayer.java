@@ -232,9 +232,9 @@ public ObjectLayerImpl
      * @param rentalLocation the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentalLocation( RentalLocation rentalLocation ) throws RARException
+    public void storeRentalLocation( RentalLocation rentalLocation ) throws RARException
     {
-        //Check with kochut. this should be void return value
+        persistence.storeRentalLocation( rentalLocation );
     }
     
     /**
@@ -242,9 +242,9 @@ public ObjectLayerImpl
      * @param rentalLocation the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRentalLocation( RentalLocation rentalLocation ) throws RARException
+    public void deleteRentalLocation( RentalLocation rentalLocation ) throws RARException
     {
-        //Check with kochut. this should be void return value
+        persistence.deleteRentalLocation( rentalLocation );
     }
 
     /**
@@ -258,13 +258,19 @@ public ObjectLayerImpl
      * @throws RARException in case either the vehicleType, rentalLocation, or customer is null
      */
     public Reservation createReservation( VehicleType vehicleType, RentalLocation rentalLocation, Customer customer,
-            Date pickupTime, int rentalDuration ) throws RARException;
+            Date pickupTime, int rentalDuration ) throws RARException
+    {
+        return new ReservationImpl( pickupTime, rentalDuration, customer, vehicleType, rentalLocation );
+    }
 
     /**
      * Create a new Reservation object with undefined attribute values.
      * @return the new Reservation object instance
      */
-    public Reservation createReservation();
+    public Reservation createReservation() 
+    {
+        return new ReservationImpl( null, null, null, null, null);
+    }
 
     /**
      * Return an iterator of Reservation objects satisfying the search criteria given in the modelReservation object.
@@ -272,21 +278,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located Reservation objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Reservation> findReservation( Reservation modelReservation ) throws RARException;
+    public Iterator<Reservation> findReservation( Reservation modelReservation ) throws RARException
+    {
+        return persistence.restoreReservation ( modelReservation );
+    }
     
     /**
      * Store a given Reservation object in persistent data store.
      * @param reservation the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeReservation( Reservation reservation ) throws RARException;
+    public void storeReservation( Reservation reservation ) throws RARException
+    {
+        persistence.storeReservation( reservation );
+    }
     
     /**
      * Delete this Reservation object.
      * @param reservation the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteReservation( Reservation reservation ) throws RARException;
+    public void deleteReservation( Reservation reservation ) throws RARException
+    {
+        persistence.deleteReservation( reservation );
+    }
 
     /**
      * Create a new Rental object, given the set of initial attribute values.
@@ -297,13 +312,19 @@ public ObjectLayerImpl
      * @return the new Reservation object instance with the given attribute values
      * @throws RARException in case either the reservation, vehicle, or customer is null
      */
-    public Rental createRental( Reservation reservation, Customer customer, Vehicle vehicle, Date pickupTime ) throws RARException;
+    public Rental createRental( Reservation reservation, Customer customer, Vehicle vehicle, Date pickupTime ) throws RARException
+    {
+        //ask about return time $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    }
 
     /**
      * Create a new Rental object with undefined attribute values.
      * @return the new Rental object instance
      */
-    public Rental createRental();
+    public Rental createRental()
+    {
+        //ask about return time $$$$$$$$$$$$$$$$$$$$$$$$$$$
+    }
 
     /**
      * Return an iterator of Rental objects satisfying the search criteria given in the modelRental object.
@@ -311,34 +332,49 @@ public ObjectLayerImpl
      * @return an Iterator of the located Rental objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Rental> findRental( Rental modelRental ) throws RARException;
+    public Iterator<Rental> findRental( Rental modelRental ) throws RARException
+    {
+        return persistence.restoreRental( modelRental );
+    }
     
     /**
      * Store a given Rental object in persistent data store.
      * @param rental the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRental( Rental rental ) throws RARException;
+    public void storeRental( Rental rental ) throws RARException 
+    {
+        persistence.storeRental(rental);
+    }
     
     /**
      * Delete this Rental object.
      * @param rental the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRental( Rental rental ) throws RARException;    
+    public int deleteRental( Rental rental ) throws RARException 
+    {
+        persistence.deleteRental( rental );
+    }
     
     /**
      * Create a new VehicleType object, given the set of initial attribute value.
      * @param type the description of the vehicle type, e.g. "Sedan", "Pickup", etc.
      * @return the new VehicleType object instance with the given attribute value
      */
-    public VehicleType createVehicleType( String type );
+    public VehicleType createVehicleType( String type ) 
+    {
+        return new VehicleTypeImpl( type );
+    }
 
     /**
      * Create a new VehicleType object with undefined attribute values.
      * @return the new VehicleType object instance
      */
-    public VehicleType createVehicleType();
+    public VehicleType createVehicleType()
+    {
+        return new VehicleTypeImpl( null );
+    }
 
     /**
      * Return an iterator of VehicleType objects satisfying the search criteria given in the modelVehicleType object.
@@ -346,21 +382,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located VehicleType objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<VehicleType> findVehicleType( VehicleType modelVehicleType ) throws RARException;
+    public Iterator<VehicleType> findVehicleType( VehicleType modelVehicleType ) throws RARException
+    {
+        return persistence.restorVehicleType( modelVehicleType );
+    }
     
     /**
      * Store a given VehicleType object in persistent data store.
      * @param vehicleType the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeVehicleType( VehicleType vehicleType ) throws RARException;
+    public void storeVehicleType( VehicleType vehicleType ) throws RARException
+    {
+        persistence.storeVehicleType( vehicleType );
+    }
     
     /**
      * Delete this VehicleType object.
      * @param vehicleType the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteVehicleType( VehicleType vehicleType ) throws RARException;
+    public void deleteVehicleType( VehicleType vehicleType ) throws RARException
+    {
+        persistence.deleteVehicleType( vehicleType );
+    }
 
     /**
      * Create a new Vehicle object, given the set of initial attribute value.
@@ -379,13 +424,20 @@ public ObjectLayerImpl
      */
     public Vehicle createVehicle( VehicleType vehicleType, String make, String model,
             int year, String registrationTag, int mileage, Date lastServiced, 
-            RentalLocation rentalLocation, VehicleCondition vehicleCondition, VehicleStatus vehicleStatus ) throws RARException;
+            RentalLocation rentalLocation, VehicleCondition vehicleCondition, VehicleStatus vehicleStatus ) throws RARException
+    {
+        return new VehicleImpl( vehicleType, make, model, year, registrationTag, mileage, lastServiced, 
+                                 rentalLocation, vehicleCondition, vehicleStatus );
+    }
 
     /**
      * Create a new Vehicle object with undefined attribute values.
      * @return the new Vehicle object instance
      */
-    public Vehicle createVehicle();
+    public Vehicle createVehicle() 
+    {
+        return new VehicleImpl( null, null, null, null, null, null, null, null, null, null);
+    }
 
     /**
      * Return an iterator of Vehicle objects satisfying the search criteria given in the modelVehicle object.
@@ -393,21 +445,30 @@ public ObjectLayerImpl
      * @return an Iterator of the located Vehicle objects
      * @throws RARException in case there is a problem with the retrieval of the requested objects
      */
-    public Iterator<Vehicle> findVehicle( Vehicle modelVehicle ) throws RARException;
+    public Iterator<Vehicle> findVehicle( Vehicle modelVehicle ) throws RARException
+    {
+        return persistence.restoreVehicle( modelVehicle );
+    }
     
     /**
      * Store a given Vehicle object in persistent data store.
      * @param vehicle the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeVehicle( Vehicle vehicle ) throws RARException;
+    public void storeVehicle( Vehicle vehicle ) throws RARException
+    {
+        persistence.storeVehicle( vehicle );
+    }
     
     /**
      * Delete this Vehicle object.
      * @param vehicle the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteVehicle( Vehicle vehicle ) throws RARException;
+    public int deleteVehicle( Vehicle vehicle ) throws RARException
+    {
+        persistence.deleteVehicle( vehicle );
+    }
 
     /**
      * Create a new Comment object, given the set of initial attribute value.
@@ -417,7 +478,10 @@ public ObjectLayerImpl
      * @return the new Comment object instance with the given attribute values
      * @throws RARException in case either the rental and/or the customer is null
      */
-    public Comment createComment( String comment, Rental rental, Customer customer ) throws RARException;
+    public Comment createComment( String comment, Rental rental, Customer customer ) throws RARException
+    {
+        
+    }
 
     /**
      * Create a new Comment object with undefined attribute values.

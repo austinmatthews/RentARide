@@ -75,4 +75,20 @@ public HourlyPriceImpl
     {
         this.price = price;
     }
+    
+     /** Return the VehichleType for this hourly price setting.
+     * @return the VehicleType of this hourly price setting
+     */
+    public VehicleType getVehicleType()
+    {
+        return vehicleType;
+    }
+    
+    /** Set the new VehicleType for this hourly price setting.
+     * @param price the new VehicleType of this hourly setting
+     */
+    public void setPrice( VehicleType type )
+    {
+        this.vehicleType = type;
+    }
 }

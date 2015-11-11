@@ -185,15 +185,6 @@ public ObjectLayerImpl
         persistence.storeCustomer( customer );
     }
     
-    /**
-     * Delete this Customer object.
-     * @param customer the object to be deleted.
-     * @throws RARException in case there is a problem with the deletion of the object
-     */
-    public void deleteCustomer( Customer customer ) throws RARException
-    {
-        persistence.deleteCustomer( customer );
-    }
 
     /**
      * Create a new RentalLocation object, given the set of initial attribute values.

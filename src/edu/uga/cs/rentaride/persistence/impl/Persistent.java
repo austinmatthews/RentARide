@@ -1,7 +1,7 @@
 
 package edu.uga.cs.rentaride.persistence.impl;
 
-import edu.uga.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.Persistable;
 
 
 public abstract class Persistent 

@@ -69,13 +69,6 @@ public class PersistenceLayerImpl
     public void storeCustomer( Customer customer ) throws RARException;
     
     /** 
-     * Delete a given Customer object from the persistent data store.
-     * @param customer the Customer to be deleted
-     * @throws RARException in case an error occurred during the delete operation 
-     */
-    public void deleteCustomer( Customer customer ) throws RARException;      
-    
-    /** 
      * Restore all RentalLocation objects that match attributes of the model RentalLocation.
      * @param modelRentalLocation the model RentalLocation; if null is provided, all RentalLocation objects will be returned
      * @return an Iterator of the located RentalLocation objects

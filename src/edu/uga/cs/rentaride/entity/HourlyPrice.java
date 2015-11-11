@@ -42,4 +42,14 @@ public interface HourlyPrice
      * @throws RARException in case the price value is not positive
      */
     public void setPrice( int price ) throws RARException;
+    
+     /** Return the VehichleType for this hourly price setting.
+     * @return the VehicleType of this hourly price setting
+     */
+    public VehicleType getVehicleType();
+    
+    /** Set the new VehicleType for this hourly price setting.
+     * @param price the new VehicleType of this hourly setting
+     */
+    public void setPrice( VehicleType type );
 }

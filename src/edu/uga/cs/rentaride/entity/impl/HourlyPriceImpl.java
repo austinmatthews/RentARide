@@ -1,7 +1,7 @@
 package edu.uga.cs.rentaride.entity.impl;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.VehicleType;
 

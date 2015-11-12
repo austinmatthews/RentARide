@@ -1,4 +1,4 @@
--- Lauren 
+
 DROP DATABASE IF EXISTS `team9`;
 
 CREATE DATABASE IF NOT EXISTS team9;
@@ -169,6 +169,7 @@ CREATE TABLE `Vehicle` (
   `status` ENUM('inLocation','inRental'),
   `vehicleType` varchar(255) NOT NULL,
   `vehicleYear` int(11) NOT NULL,
+  `vehicleCondition` ENUM(`good`, `cleaningNeeded`,`maintenanceNeeded`),
 
   PRIMARY KEY(registrationTag),
 

@@ -32,6 +32,7 @@ public class ReservationImpl
      */
      public ReservationImpl(Date pickupTime, int rentalDuration, Customer customer, VehicleType vehicleType,
                             RentalLocation rentalLocation){
+        super(-1);
         this.pickupTime = pickupTime;
         this.rentalDuration = rentalDuration;
         this.customer = customer;

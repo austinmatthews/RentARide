@@ -79,8 +79,7 @@ public ObjectLayerImpl
     public Administrator createAdministrator( String firstName, String lastName, String userName, 
                                               String emailAddress, String password, Date createDate )
     {
-        //just call the AmninistratorImpl constructor once it is created. not sure how to set ID to -1 with the 
-        //double inheritance
+        return new AdministratorImpl(firstName, lastName, userName, emailAddress, password, createDate, UserStatus.ACTIVE);
     }
 
     /**
@@ -90,8 +89,7 @@ public ObjectLayerImpl
      */
     public Administrator createAdministrator()
     {
-        //just call the AmninistratorImpl constructor once it is created. not sure how to set ID to -1 with the 
-        //double inheritance. everythind is set to Null
+        return new AdministratorImpl(null, null, null, null, null, null, UserStatus.ACTIVE);
     }
     
     /**
@@ -146,9 +144,9 @@ public ObjectLayerImpl
             String password, Date createDate, Date membershipExpiration, String licenseState, 
             String licenseNumber, String residenceAddress, String cardNumber, Date cardExpiration )
     {
-        //use customer constructor once it has been created
-        //figure out how to set ID to -1 with the double inheritance and whatnot
-        //use the set User status method to set the userStatus to Active
+        return new CustomerImpl(membershipExpiration, licenseState, licenseNumber,residenceAddress, cardNumber, 
+                        cardExpiration, firstName, lastName, userName, emailAddress, password, createDate, 
+                        UserStatus.ACTIVE);
     }
 
     /**
@@ -158,10 +156,9 @@ public ObjectLayerImpl
      */
     public Customer createCustomer()
     {
-        //use customer constructor once it has been created
-        //figure out how to set ID to -1 with the double inheritance and whatnot
-        //use the set User status method to set the userStatus to Active
-        //set everything to null
+        return new CustomerImpl(null, null, null,null, null, 
+                        null, null, null, null, null, null, null, 
+                        UserStatus.ACTIVE);
     }
     
     /**
@@ -471,7 +468,7 @@ public ObjectLayerImpl
      */
     public Comment createComment( String comment, Rental rental, Customer customer ) throws RARException
     {
-        //our constructor has a date attribute but no date getters and setters. Do we need date? $$$$$$$$$$$$$
+         //implement when figure out date $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     }
 
     /**

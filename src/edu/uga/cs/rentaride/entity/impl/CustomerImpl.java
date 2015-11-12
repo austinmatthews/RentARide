@@ -26,20 +26,13 @@ public CustomerImpl
                         String lName, String uName, String email, String password, 
                         Date createDate, UserStatus userStatus)
     {
-        //super(-1); ??
+        super(fName, lName, uName, email, password, createDate, userStatus);
         this.membershipExpiration = membershipExpiration;
         this.licenseState = licenseState;
         this.licenseNumber = licenseNumber;
         this.residenceAddress = residenceAddress;
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
-        super.setFirstName(fName);
-        super.setLastName(lName);
-        super.setUserName(uName);
-        super.setPassword(password);
-        super.setEmailAddress(email);
-        super.setCreatedDate(createDate);
-        super.setUserStatus(userStatus);
     }
     
     /** Return the expiration Date of this Customer's membership in Rent-A-Ride.

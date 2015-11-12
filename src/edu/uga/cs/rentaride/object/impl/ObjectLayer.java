@@ -303,6 +303,8 @@ public ObjectLayerImpl
     public Rental createRental( Reservation reservation, Customer customer, Vehicle vehicle, Date pickupTime ) throws RARException
     {
         //ask about return time $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        //getter and setter for return time in entity class
+        //What should create rental set the return time as?
     }
 
     /**
@@ -468,7 +470,8 @@ public ObjectLayerImpl
      */
     public Comment createComment( String comment, Rental rental, Customer customer ) throws RARException
     {
-         //implement when figure out date $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+         // date attribute? $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+         // no getter and setter for date in entity class but it is in the class diagram
     }
 
     /**

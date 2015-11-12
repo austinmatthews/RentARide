@@ -14,10 +14,13 @@ import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
 
+import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
+
 
 
 /**
- * This is the interface to the Persistence Layer subsystem of the Rent-A-Ride system.
+ * This class implements the Persistence Layer subsystem of the Rent-A-Ride system.
  * 
  * Each entity class has three types of operations: restore, store, and delete.  The
  * store operation does an update, if the given argument has already been stored previously
@@ -26,6 +29,16 @@ import edu.uga.cs.rentaride.entity.VehicleType;
 public class PersistenceLayerImpl
     implements PersistenceLayer
 {
+    private AdministratorManager administratorManager = null;
+    private CommentManager commentManager = null;
+    private CustomerManager customerManager = null;
+    private HourlyPriceManager ;
+    private RentARideConfigManager ;
+    private Rental;
+    private RentalLocation;
+    private Reservation;
+    private Vehicle;
+    private VehicleType
     
     /** 
      * Restore all Administrator objects that match attributes of the model Administrator.

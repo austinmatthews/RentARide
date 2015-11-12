@@ -4,6 +4,7 @@ import java.util.Date;
 
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 import edu.uga.cs.rentaride.entity.UserStatus;
+import edu.uga.cs.rentaride.entity.User;
 
 /** This is the base class of all known users of the Rent-A-Ride system.
  *

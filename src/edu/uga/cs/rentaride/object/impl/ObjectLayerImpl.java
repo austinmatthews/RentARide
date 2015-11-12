@@ -48,7 +48,7 @@ import edu.uga.cs.rentaride.persistence.PersistenceLayer;
  *     -- if the persistent identifier attribute is provided, only one object is returned;
  *     -- if some of the attributes are provided, some of the matching objects are returned.
  */
-public ObjectLayerImpl
+public class ObjectLayerImpl
     implements ObjectLayer
 {
     PersitenceLayer persistence = null;

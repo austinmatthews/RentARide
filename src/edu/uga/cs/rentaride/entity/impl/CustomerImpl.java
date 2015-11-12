@@ -22,17 +22,24 @@ public CustomerImpl
     private Date    cardExpiration;
     
     public CustomerImpl(Date membershipExpiration, String licenseState, String licenseNumber, 
-                        String residenceAddress, String cardNumber, Date cardExpiration)
+                        String residenceAddress, String cardNumber, Date cardExpiration, String fName,
+                        String lName, String uName, String email, String password, 
+                        Date createDate, UserStatus userStatus)
     {
         //super(-1); ??
-        //need this to intantiate the User variables as well
-        //perhaps use the setters from the User class bc the variables are private
         this.membershipExpiration = membershipExpiration;
         this.licenseState = licenseState;
         this.licenseNumber = licenseNumber;
         this.residenceAddress = residenceAddress;
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
+        super.setFirstName(fName);
+        super.setLastName(lName);
+        super.setUserName(uName);
+        super.setPassword(password);
+        super.setEmailAddress(email);
+        super.setCreatedDate(createDate);
+        super.setUserStatus(userStatus);
     }
     
     /** Return the expiration Date of this Customer's membership in Rent-A-Ride.

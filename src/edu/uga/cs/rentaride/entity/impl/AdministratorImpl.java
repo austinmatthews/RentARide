@@ -14,13 +14,6 @@ public class AdministratorImpl
 {
     public AdministratorImpl(String fName, String lName, String uName, 
                     String email, String password, Date createDate, UserStatus userStatus){
-         super.setFirstName(fName);
-         super.setLastName(lName);
-         super.setUserName(uName);
-         super.setPassword(password);
-         super.setEmailAddress(email);
-         super.setCreatedDate(createDate);
-         super.setUserStatus(userStatus);
-         //HOW TO DO PERSISTENCE!!!!!!!!!
+         super(fName, lName, uName, email, password, createDate, userStatus);
      }
 }

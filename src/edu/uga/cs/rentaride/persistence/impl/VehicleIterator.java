@@ -7,11 +7,13 @@ import java.util.NoSuchElementException;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.Reservation;
+//import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.VehicleCondition;
+import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.clubs.object.ObjectLayer;
+//import edu.uga.cs.rentaride.entity.Rental;
+import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
 public class VehicleIterator
@@ -43,58 +45,62 @@ public class VehicleIterator
 
     public Vehicle next() 
     {
-        
-        VehicleCondition condition = null;
-        Date lastServiced;
-        String make;
+    	long id;    
+    	Date lastServiced;
         int mileage;
-        String model;
-        String registrationTag;
-        RentalLocation rentalLocation = null;
-        VehicleStatus vehicleStatus = null;
-        VehicleType vehicleType = null;
         int year;
+        String model;
+        String make;
+        String registrationTag;
+        String rentalLocation;
+        String vehicleStatus;
+        String vehicleType;
+        String vehicleCondition;
+        RentalLocation RL = null; 
+        VehicleStatus VS = null;
+        VehicleType VT = null;
+        VehicleCondition VC = null;
+        Vehicle vehicle = null;
         
         
         if( more ) {
 
             try {
+            	id = rs.getLong("id");
                 registrationTag = rs.getString( "registrationTag" );
                 lastServiced = rs.getDate( "lastService" );
                 make = rs.getString( "make" );
-                mileage = rs.getInteger( "mileage");
+                mileage = rs.getInt( "mileage");
                 model = rs.getString( "model" );
                 rentalLocation = rs.getString( "rentalLocation" );
-                vehicleStatus = rs.getLong( "status" );
-                vehicleType = rs.getDate( "vehicleType" );
-                year = rs.getString( "vehicleYear" );
-            
+                vehicleStatus = rs.getString( "status" );
+                vehicleType = rs.getString( "vehicleType" );
+                year = rs.getInt( "vehicleYear" );
+                vehicleCondition = rs.getString("vehicleCondition");
                 more = rs.next();
             }
             catch( Exception e ) {      // just in case...
-                throw new NoSuchElementException( "PersonIterator: No next Person object; root cause: " + e );
+                throw new NoSuchElementException( "VehicleIterator: No next Vehicle object; root cause: " + e );
             }
             
-            person = objectLayer.createPerson( userName, password, email, firstName, lastName, personaddress, phone );
-            person.setId( personid );
-            founder = objectLayer.createPerson( null, null, null, null, null, null, null );
-            founder.setId( clubFounderId );
-            Club club = null;
+            
+            VT = objectLayer.createVehicleType(vehicleType); 
+            RL = objectLayer.createRentalLocation(rentalLocation, null, -1); // this doesn't seem right
+            VC = VehicleCondition.valueOf(vehicleCondition);
+            VS = VehicleStatus.valueOf(vehicleStatus);
             try {
-                club = objectLayer.createClub( clubname, clubaddress, establishedOn, founder );
-                club.setId( clubid );
-                membership = objectLayer.createMembership( person, club, joined );
-                membership.setId( id );
+                vehicle = objectLayer.createVehicle(VT, make, model, year, registrationTag, mileage, lastServiced, RL, VC, VS); 
+                vehicle.setId( id );
             }
-            catch( ClubsException ce ) {
+            catch( RARException ce ) {
                 ce.printStackTrace();
                 System.out.println( ce );
             }
 
-            return membership;
+            return vehicle;
         }
         else {
-            throw new NoSuchElementException( "PersonIterator: No next Person object" );
+            throw new NoSuchElementException( "VehicleIterator: No next Vehicle object" );
         }
     }
 

@@ -17,6 +17,7 @@ public class VehicleTypeImpl
     
     public VehicleTypeImpl( String type )
     {
+        super(-1);
         this.vehicleType = type;
     }
     

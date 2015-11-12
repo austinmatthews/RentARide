@@ -7,6 +7,7 @@ import edu.uga.cs.rentaride.persistence.impl.Persistent;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Reservation;
 
 
 /** This class represents a reservation made by a Rent-A-Ride customer, for a vehicle type at a

@@ -19,6 +19,7 @@ public HourlyPriceImpl
     private VehicleType vehicleType;
     
     public HourlyPriceImpl(int minHours, int maxHours, int price, VehicleType vehicleType) {
+        super(-1);
         this.minHours = minHours;
         this.maxHours = maxHours;
         this.price = price;

@@ -37,6 +37,7 @@ public class VehicleImpl
     public VehicleImpl( VehicleType type, String make, String model, int year, String tag, int mileage, Date lastServiced, 
                         RentalLocation location, VehicleCondition condition, VehicleStatus status) 
     {
+        super(-1);
         this.make = make;
         this.model = model;
         this.year = year;

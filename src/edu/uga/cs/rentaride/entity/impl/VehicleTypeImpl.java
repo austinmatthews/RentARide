@@ -1,7 +1,8 @@
 package edu.uga.cs.rentaride.entity.impl;
 
 
-import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
+import edu.uga.cs.rentaride.entity.VehicleType;
 
 
 /** This class represents possible vehicle types of all vehicles in the Rent-A-Ride system.

@@ -9,8 +9,8 @@ import edu.uga.cs.rentaride.entity.User;
 /** This is the base class of all known users of the Rent-A-Ride system.
  *
  */
-public class UserImpl
-    extends Persistent //How to do super(-1) with no constuctor
+public abstract class UserImpl
+    extends Persistent 
     implements User
 {
     // User attributes
@@ -24,18 +24,20 @@ public class UserImpl
     
     /**
      * Constructor for UserImpl
-     * This would never need to be instantiated, right?
      */
-    /*
+    
      public UserImpl(String fName, String lName, String uName, 
                     String email, String password, Date createDate, UserStatus userStatus){
+         super(-1);
          this.fName = fName;
          this.lName = lName;
+         this.uName = uName;
+         this.email = email;
          this.password = password;
          this.createDate = createDate;
          this.userStatus = userStatus;
      }
-    */
+    
     
     /** Return the user's first name.
      * @return the user's first name

@@ -1,4 +1,4 @@
-
+-- Lauren 
 DROP DATABASE IF EXISTS `team9`;
 
 CREATE DATABASE IF NOT EXISTS team9;

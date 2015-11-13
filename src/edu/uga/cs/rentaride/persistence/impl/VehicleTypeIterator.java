@@ -1,4 +1,3 @@
-
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.ResultSet;
@@ -39,6 +38,7 @@ public class VehicleTypeIterator
 
     public VehicleType next() 
     {
+    	long id;
     	String type;
     	VehicleType VT = null;
         
@@ -46,6 +46,7 @@ public class VehicleTypeIterator
         if( more ) {
 
             try {
+            	id = rs.getLong("id");
                 type = rs.getString("TypeName");
                 more = rs.next();
             }
@@ -56,10 +57,12 @@ public class VehicleTypeIterator
 
             //try {
             VT = objectLayer.createVehicleType(type); 
+            VT.setId(id);
             //}
             //catch( RARException ce ) {
+            //	// TODO: Figure out why RARException is not called for VehicleType
             //   ce.printStackTrace();
-            //    System.out.println( ce );
+            //   System.out.println( ce );
             //}
 
             return VT;

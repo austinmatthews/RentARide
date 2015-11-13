@@ -36,7 +36,7 @@ public class ReservationIterator
             more = rs.next();
         }
         catch( Exception e ) {  // just in case...
-            throw new RARException( "VehicleIterator: Cannot create an iterator; root cause: " + e );
+            throw new RARException( "ReservationIterator: Cannot create an iterator; root cause: " + e );
         }
     }
 
@@ -93,7 +93,7 @@ public class ReservationIterator
             return reservation;
         }
         else {
-            throw new NoSuchElementException( "ReservaionIterator: No next Reservation object" );
+            throw new NoSuchElementException( "ReservationIterator: No next Reservation object" );
         }
     }
 

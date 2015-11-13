@@ -52,14 +52,14 @@ public class VehicleIterator
         String model;
         String make;
         String registrationTag;
-        String rentalLocation;
-        String vehicleStatus;
-        String vehicleType;
-        String vehicleCondition;
-        RentalLocation RL = null; 
-        VehicleStatus VS = null;
-        VehicleType VT = null;
-        VehicleCondition VC = null;
+        String RL;
+        String VS;
+        String VT;
+        String VC;
+        RentalLocation rentalLocation = null; 
+        VehicleStatus vehicleStatus = null;
+        VehicleType vehicleType = null;
+        VehicleCondition vehicleCondition = null;
         Vehicle vehicle = null;
         
         
@@ -72,11 +72,11 @@ public class VehicleIterator
                 make = rs.getString( "make" );
                 mileage = rs.getInt( "mileage");
                 model = rs.getString( "model" );
-                rentalLocation = rs.getString( "rentalLocation" );
-                vehicleStatus = rs.getString( "status" );
-                vehicleType = rs.getString( "vehicleType" );
+                RL = rs.getString( "rentalLocation" );
+                VS = rs.getString( "status" );
+                VT = rs.getString( "vehicleType" );
                 year = rs.getInt( "vehicleYear" );
-                vehicleCondition = rs.getString("vehicleCondition");
+                VC = rs.getString("vehicleCondition");
                 more = rs.next();
             }
             catch( Exception e ) {      // just in case...
@@ -84,12 +84,13 @@ public class VehicleIterator
             }
             
             
-            VT = objectLayer.createVehicleType(vehicleType); 
-            RL = objectLayer.createRentalLocation(rentalLocation, null, -1); // this doesn't seem right
-            VC = VehicleCondition.valueOf(vehicleCondition);
-            VS = VehicleStatus.valueOf(vehicleStatus);
+            vehicleType = objectLayer.createVehicleType(vehicleType); 
+            rentalLocation = objectLayer.createRentalLocation(rentalLocation, null, -1); // this doesn't seem right
+            vehicleCondition = VehicleCondition.valueOf(vehicleCondition);
+            vehicleStatus = VehicleStatus.valueOf(vehicleStatus);
             try {
-                vehicle = objectLayer.createVehicle(VT, make, model, year, registrationTag, mileage, lastServiced, RL, VC, VS); 
+                vehicle = objectLayer.createVehicle(vehicleType, make, model, year, 
+                                        registrationTag, mileage, lastServiced, rentalLocation, vehicleCondition, vehicleStatus); 
                 vehicle.setId( id );
             }
             catch( RARException ce ) {

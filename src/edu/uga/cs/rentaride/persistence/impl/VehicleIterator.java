@@ -84,10 +84,10 @@ public class VehicleIterator
             }
             
             
-            vehicleType = objectLayer.createVehicleType(vehicleType); 
-            rentalLocation = objectLayer.createRentalLocation(rentalLocation, null, -1); // this doesn't seem right
-            vehicleCondition = VehicleCondition.valueOf(vehicleCondition);
-            vehicleStatus = VehicleStatus.valueOf(vehicleStatus);
+            vehicleType = objectLayer.createVehicleType(VT); 
+            rentalLocation = objectLayer.createRentalLocation(RL, null, -1); // this doesn't seem right
+            vehicleCondition = VehicleCondition.valueOf(VC);
+            vehicleStatus = VehicleStatus.valueOf(VS);
             try {
                 vehicle = objectLayer.createVehicle(vehicleType, make, model, year, 
                                         registrationTag, mileage, lastServiced, rentalLocation, vehicleCondition, vehicleStatus); 

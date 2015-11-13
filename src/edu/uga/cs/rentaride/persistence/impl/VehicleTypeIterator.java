@@ -40,7 +40,7 @@ public class VehicleTypeIterator
     {
     	long id;
     	String type;
-    	VehicleType VT = null;
+    	VehicleType vehicleType = null;
         
         
         if( more ) {
@@ -56,8 +56,8 @@ public class VehicleTypeIterator
             
 
             //try {
-            VT = objectLayer.createVehicleType(type); 
-            VT.setId(id);
+            vehicleType = objectLayer.createVehicleType(type); 
+            vehicleType.setId(id);
             //}
             //catch( RARException ce ) {
             //	// TODO: Figure out why RARException is not called for VehicleType
@@ -65,7 +65,7 @@ public class VehicleTypeIterator
             //   System.out.println( ce );
             //}
 
-            return VT;
+            return vehicleType;
         }
         else {
             throw new NoSuchElementException( "VehicleTypeIterator: No next VehicleType object" );

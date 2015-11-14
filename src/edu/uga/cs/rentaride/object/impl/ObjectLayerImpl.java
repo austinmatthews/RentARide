@@ -471,8 +471,7 @@ public class ObjectLayerImpl
      */
     public Comment createComment( String comment, Rental rental, Customer customer ) throws RARException
     {
-         // date attribute? $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-         // no getter and setter for date in entity class but it is in the class diagram
+        return new CommentImpl(comment, customer, rental);
     }
 
     /**
@@ -481,7 +480,7 @@ public class ObjectLayerImpl
      */
     public Comment createComment() 
     {
-        //implement when figure out date $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        return new CommentImpl(null, null, null);
     }
 
     /**

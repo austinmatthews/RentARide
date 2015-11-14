@@ -21,12 +21,12 @@ public CommentImpl
     private Rental  rental
     
     //When creating a brand new comment, customer and rental need to be persistent
-    public CommentImpl(String text, Date date, Customer customer, Rental rental) 
+    public CommentImpl(String text, Customer customer, Rental rental) 
     {
         super(-1);
         /*CHECK FOR PERSISTENCE AND THROW ERROR!!*/
         this.text = text
-        this.date = date
+        this.date = new Date();
         this.customer = customer
         this.rental = rental
     }

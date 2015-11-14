@@ -71,7 +71,7 @@ CREATE TABLE `Rental` (
   `customer` varchar(255) NOT NULL,
   `pickupTime` datetime NOT NULL,
   `returnTime` datetime NOT NULL,
-  `condition` ENUM('good','cleaningNeeded','maintenanceNeeded'),
+  `condition` ENUM('good','cleaningNeeded','maintenanceNeeded') NOT NULL,
   PRIMARY KEY(rentalNo),
 
   INDEX(customer),
@@ -115,14 +115,16 @@ CREATE TABLE `RentARideConfig` (
 --
 
 CREATE TABLE `Reservations` (
+
   `customer` varchar(255) NOT NULL,
   `pickupTime` datetime NOT NULL,
   `rental` int(11) NOT NULL,
   `rentalDuration` int(11) NOT NULL,
   `rentalLocation` varchar(255) NOT NULL,
   `vehicleType` varchar(255) NOT NULL,
+  `reservationID` int(11)NOT NULL AUTO_INCREMENT,
 
-  PRIMARY KEY(customer,pickupTime),
+  PRIMARY KEY(reservationID),
 
   INDEX(rental),
   FOREIGN KEY(rental)
@@ -145,8 +147,8 @@ CREATE TABLE `Users` (
   `emailAddress` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `createdDate` datetime NOT NULL,
-  `userStatus` ENUM('active','removed','terminated'),
-  `userType` ENUM('admin','customer'), 
+  `userStatus` ENUM('active','removed','terminated') NOT NULL,
+  `userType` ENUM('admin','customer') NOT NULL, 
 
   PRIMARY KEY(userName)
 
@@ -166,12 +168,13 @@ CREATE TABLE `Vehicle` (
   `mileage` int(11) NOT NULL,
   `model` varchar(255) NOT NULL,
   `rentalLocation` varchar(255) NOT NULL,
-  `status` ENUM('inLocation','inRental'),
+  `status` ENUM('inLocation','inRental') NOT NULL,
   `vehicleType` varchar(255) NOT NULL,
   `vehicleYear` int(11) NOT NULL,
-  `vehicleCondition` ENUM(`good`, `cleaningNeeded`,`maintenanceNeeded`),
+  `vehicleCondition` ENUM('good', 'cleaningNeeded','maintenanceNeeded') NOT NULL,
+  `vehicleId` int(11) NOT NULL AUTO_INCREMENT,
 
-  PRIMARY KEY(registrationTag),
+  PRIMARY KEY(vehicleId),
 
   INDEX(rentalLocation),
   FOREIGN KEY(rentalLocation)
@@ -183,8 +186,10 @@ CREATE TABLE `Vehicle` (
 
 
 CREATE TABLE `VehicleType` (
+
   `typeName` varchar(255) NOT NULL,
-  PRIMARY KEY(typeName)
+  `vehicleTypeId` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(vehicleTypeId)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 

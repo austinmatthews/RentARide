@@ -37,4 +37,14 @@ public interface Comment
      * @param customer ths new Customer who made this comment.
      */
     public void   setCustomer( Customer customer );
+    
+    /** Returns the Date of the comment on a rental.
+     * @return the Date of the comment
+     */
+    public Date getDate();
+    
+    /** Set the Date of this comment.
+     * @param Date ths new Date of the comment.
+     */
+    public void   setDate( Date date );
 }

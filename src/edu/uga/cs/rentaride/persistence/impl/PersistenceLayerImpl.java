@@ -1,5 +1,6 @@
 package edu.uga.cs.rentaride.persistence.impl;
 
+import java.sql.Connection;
 import java.util.Iterator;
 
 import edu.uga.cs.rentaride.RARException;
@@ -32,13 +33,28 @@ public class PersistenceLayerImpl
     private AdministratorManager administratorManager = null;
     private CommentManager commentManager = null;
     private CustomerManager customerManager = null;
-    private HourlyPriceManager ;
-    private RentARideConfigManager ;
-    private Rental;
-    private RentalLocation;
-    private Reservation;
-    private Vehicle;
-    private VehicleType
+    private HourlyPriceManager hourlyPriceManager = null;
+    private RentARideConfigManager rentARideConfigManager = null;
+    private RentalManger rentalManger = null;
+    private RentalLocationManger rentalLocationManger = null;
+    private ReservationManger reservationManger = null;
+    private VehicleManger vehicleManger = null;
+    private VehicleTypeManger vehicleTypeManger = null;
+    
+    public PersistenceLayerImpl( Connection conn, ObjectLayer objectLayer )
+    {
+        administratorManager = new AdministratorManager( conn, objectLayer);
+        commentManager = new CommentManager( conn, objectLayer);
+        customerManager = new CustomerManager( conn, objectLayer);
+        hourlyPriceManager = new HourlyPriceManager( conn, objectLayer);
+         rentARideConfigManager = new RentARideConfigManager( conn, objectLayer);
+        rentalManger = new RentalManger( conn, objectLayer);
+        rentalLocationManger = new RentalLocationManger( conn, objectLayer);
+        reservationManger = new ReservationManger( conn, objectLayer);
+        vehicleManger = new VehicleManger( conn, objectLayer);
+        vehicleTypeManger = new VehicleTypeManger( conn, objectLayer);
+        System.out.println("PersistenceLayerImpl.PersistenceLayerImpl(conn,objectLayer): initialized");
+    }
     
     /** 
      * Restore all Administrator objects that match attributes of the model Administrator.

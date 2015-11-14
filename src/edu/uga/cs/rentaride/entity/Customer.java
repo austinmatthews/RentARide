@@ -42,16 +42,6 @@ public interface Customer
      */
     public void   setLicenseNumber( String licenseNumber );
     
-    /** Return the residence address of this customer.
-     * @return the address of this customer's residence
-     */
-    public String getResidenceAddress();
-    
-    /** Set the new residence address of this customer.
-     * @param residenceAddress the new residence address of this customer
-     */
-    public void   setResidenceAddress( String residenceAddress );
-    
     /** Return the credit card number of this customer.
      * @return the credit card number of this customer
      */

@@ -78,4 +78,20 @@ public CommentImpl
     {
         this.customer = customer;
     }
+    
+    /** Returns the Date of the comment on a rental.
+     * @return the Date of the comment
+     */
+    public Date getDate()
+    {
+        return date;
+    }
+    
+    /** Set the Date of this comment.
+     * @param Date ths new Date of the comment.
+     */
+    public void   setDate( Date date )
+    {
+        this.date = date;
+    }
 }

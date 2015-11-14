@@ -80,4 +80,14 @@ public interface User
      * @param userStatus the new status of this user (must be ACTIVE, REMOVED, or TERMINATED)
      */
     public void setUserStatus( UserStatus userStatus );
+     
+    /** Return the residence address of this user.
+     * @return the address of this user's residence
+     */
+    public String getResidenceAddress();
+    
+    /** Set the new residence address of this user.
+     * @param residenceAddress the new residence address of this user
+     */
+    public void   setResidenceAddress( String residenceAddress );
 }

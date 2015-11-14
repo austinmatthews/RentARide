@@ -19,6 +19,7 @@ public abstract class UserImpl
     private String uName;
     private String email;
     private String password;
+    private String residenceAddress;
     private Date createDate;
     private UserStatus userStatus;
     
@@ -27,7 +28,7 @@ public abstract class UserImpl
      */
     
      public UserImpl(String fName, String lName, String uName, 
-                    String email, String password, Date createDate, UserStatus userStatus){
+                    String email, String password, Date createDate, UserStatus userStatus, String residenceAddress){
          super(-1);
          this.fName = fName;
          this.lName = lName;
@@ -36,6 +37,7 @@ public abstract class UserImpl
          this.password = password;
          this.createDate = createDate;
          this.userStatus = userStatus;
+         this.residenceAddress = residenceAddress;
      }
     
     
@@ -135,5 +137,21 @@ public abstract class UserImpl
      */
     public void setUserStatus( UserStatus userStatus ){
         this.userStatus = userStatus;
+    }
+    
+    /** Return the residence address of this user.
+     * @return the address of this user's residence
+     */
+    public String getResidenceAddress()
+    {
+        return residenceAddress;
+    }
+    
+    /** Set the new residence address of this user.
+     * @param residenceAddress the new residence address of this user
+     */
+    public void   setResidenceAddress( String residenceAddress )
+    {
+        this.residenceAddress = residenceAddress;
     }
 }

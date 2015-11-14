@@ -17,7 +17,6 @@ public CustomerImpl
     private Date    membershipExpiration;
     private String  licenseState;
     private String  licenseNumber;
-    private String  residenceAddress;
     private String  cardNumber;
     private Date    cardExpiration;
     
@@ -26,11 +25,10 @@ public CustomerImpl
                         String lName, String uName, String email, String password, 
                         Date createDate, UserStatus userStatus)
     {
-        super(fName, lName, uName, email, password, createDate, userStatus);
+        super(fName, lName, uName, email, password, createDate, userStatus, residenceAddress);
         this.membershipExpiration = membershipExpiration;
         this.licenseState = licenseState;
         this.licenseNumber = licenseNumber;
-        this.residenceAddress = residenceAddress;
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
     }
@@ -83,22 +81,6 @@ public CustomerImpl
     public void   setLicenseNumber( String licenseNumber )
     {
         this.licenseNumber = licenseNumber;
-    }
-    
-    /** Return the residence address of this customer.
-     * @return the address of this customer's residence
-     */
-    public String getResidenceAddress()
-    {
-        return residenceAddress;
-    }
-    
-    /** Set the new residence address of this customer.
-     * @param residenceAddress the new residence address of this customer
-     */
-    public void   setResidenceAddress( String residenceAddress )
-    {
-        this.residenceAddress = residenceAddress;
     }
     
     /** Return the credit card number of this customer.

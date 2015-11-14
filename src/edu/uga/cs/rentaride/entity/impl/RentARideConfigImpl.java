@@ -19,8 +19,11 @@ public class RentARideConfigImpl
     /**
      * 
      */
-     public RentARideConfigImpl(){
-         // placeholder?
+     public RentARideConfigImpl( int membershipPrice, int overtimePenalty)
+     {
+         super(-1);
+         this.membershipPrice = membershipPrice;
+         this.overtimePenalty = overtimePenalty;
      }
     
     /** Return the current price of the Rent-A-Ride membership.

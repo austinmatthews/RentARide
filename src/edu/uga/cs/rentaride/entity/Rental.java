@@ -53,13 +53,24 @@ public interface Rental
      */
     public void setVehicle( Vehicle vehicle );
     
-    /** Return the customer involved in this rental.
-     * @return the Customer object of this rental
+     /** Get the charges involved in this rental.
+     * @return charges the int charges for this rental
      */
-    public Customer getCustomer();
+    public int getCharges();
     
-    /** Set the customer involved in this rental.
-     * @param customer the new Customer for this rental
+     /** Set the charges involved in this rental.
+     * @param charges the new Customer for this rental
+     */
+    public void setCharges( int charges );
+    
+     /** Get the Customer involved in this rental.
+     * @return Customer the Customer for this rental
+     */
+    public Customer setCustomer();
+    
+    /** Set the Customer involved in this rental.
+     * @param Customer the new Customer for this rental
      */
     public void setCustomer( Customer customer );
+    
 }

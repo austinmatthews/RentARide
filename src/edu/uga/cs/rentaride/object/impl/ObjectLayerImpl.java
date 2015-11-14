@@ -302,6 +302,7 @@ public class ObjectLayerImpl
      */
     public Rental createRental( Reservation reservation, Customer customer, Vehicle vehicle, Date pickupTime ) throws RARException
     {
+        //add charges to this for the constructor?$$$$$$$$$$$
         //ask about return time $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         //getter and setter for return time in entity class
         //What should create rental set the return time as?

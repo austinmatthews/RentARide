@@ -22,18 +22,20 @@ public class RentalImpl
     private Vehicle vehicle;
     private Customer customer;
     private Date returnTime;
+    private int charges;
     
     
     /**
      *  Constructor for RentalImpl
      */
-    public RentalImpl(Date pickupTime, Date returnTime, Reservation reservation, Vehicle vehicle, Customer customer){
+    public RentalImpl(Date pickupTime, Date returnTime, Reservation reservation, Vehicle vehicle, Customer customer, int charges){
         super(-1);
         this.pickupTime = pickupTime;
         this.returnTime = returnTime;
         this.reservation = reservation;
         this.vehicle = vehicle;
         this.customer = customer;
+        this.charges = charges;
         
     }
     
@@ -107,4 +109,19 @@ public class RentalImpl
     public void setCustomer( Customer customer ){
         this.customer = customer;
     }
+    
+    /** Return the charges involved in this rental.
+     * @return the int charges of this rental
+     */
+    public int getCharges(){
+        return charges
+    }
+    
+    /** Set the charges involved in this rental.
+     * @param charges the new charges for this rental
+     */
+    public void setCustomer( int charges ){
+        this.charges = charges;
+    }
+    
 }

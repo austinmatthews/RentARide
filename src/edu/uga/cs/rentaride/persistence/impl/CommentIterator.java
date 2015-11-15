@@ -6,26 +6,25 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
-import edu.uga.cs.rentaride.entity.VehicleType;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
+import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
+import edu.uga.cs.rentaride.object.impl.ObjectLayerImpl;
+import edu.uga.cs.rentaride.entity.impl.CommentImpl;
+import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalImpl;
 
 
 public class CommentIterator
-    implements Iterator<Comment>
+    implements Iterator<CommentImpl>
 {
     private ResultSet   rs = null;
-    private ObjectLayer objectLayer = null;
+    private ObjectLayerImpl objectLayer = null;
     private boolean     more = false;
 
     // these two will be used to create a new object
     //
-    public CommentIterator( ResultSet rs, ObjectLayer objectLayer )
+    public CommentIterator( ResultSet rs, ObjectLayerImpl objectLayer )
             throws RARException
     { 
         this.rs = rs;
@@ -43,15 +42,15 @@ public class CommentIterator
         return more; 
     }
 
-    public Vehicle next() 
+    public CommentImpl next() 
     {
-    	Comment comment
+    	CommentImpl comment;
     	Date commentDate;
     	String customerID;
     	int rentalNo;
     	String commentText;
-    	Rental rental = null;
-    	Customer customer =null;
+    	RentalImpl rental = null;
+    	CustomerImpl customer =null;
     	
         
         
@@ -59,7 +58,7 @@ public class CommentIterator
 
             try {
             	commentDate = rs.getDate("commentDate");
-            	customerID = rs.getInt("customer");
+            	customerID = rs.getString("customer");
             	rentalNo = rs.getInt("rental");
             	commentText = rs.getString("comment");
             	
@@ -69,8 +68,8 @@ public class CommentIterator
                 throw new NoSuchElementException( "CommentIterator: No next Comment object; root cause: " + e );
             }
             
-            rental = objectLayer.createRental(rentalNo);
-            customer = objectLayer.createCustomer(customerID);
+            rental = objectLayer.findRental(rentalNo);
+            customer = objectLayer.findCustomer(customerID);
             
             try {
                 comment = objectLayer.createComment(commentText,rental,customer);

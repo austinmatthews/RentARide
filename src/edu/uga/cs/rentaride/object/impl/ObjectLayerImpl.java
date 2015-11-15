@@ -27,12 +27,10 @@ import edu.uga.cs.rentaride.entity.impl.RentalImpl;
 import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
 import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
-import edu.uga.cs.rentaride.entity.impl.VehicleConditionImpl;
-import edu.uga.cs.rentaride.entity.impl.VehicleStatusImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
 
 import edu.uga.cs.rentaride.object.ObjectLayer;
-import edu.uga.cs.rentaride.persistence.PersistenceLayer;
+import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
 /**
  * This is the Object Layer subsystem of the Rent-A-Ride system.
@@ -51,7 +49,7 @@ import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 public class ObjectLayerImpl
     implements ObjectLayer
 {
-    PersitenceLayer persistence = null;
+	PersistenceLayerImpl persistence = null;
     
     public ObjectLayerImpl()
     {
@@ -59,7 +57,7 @@ public class ObjectLayerImpl
         System.out.println("ObjectLayerImpl.ObjectLayerImpl(): initialized");
     }
     
-    public ObjectLayerImpl( PersistenceLayer persistence)
+    public ObjectLayerImpl( PersistenceLayerImpl persistence)
     {
         this.persistence = persistence;
         System.out.println("ObjectLayerImpl.ObjectLayerImpl(persistence): initialized");
@@ -89,7 +87,7 @@ public class ObjectLayerImpl
      */
     public Administrator createAdministrator()
     {
-        return new AdministratorImpl(null, null, null, null, null, null, UserStatus.ACTIVE);
+        return new AdministratorImpl(null, null, null, null, null, null, UserStatus.ACTIVE); //change the enum instead of using userstatus entity
     }
     
     /**
@@ -146,7 +144,7 @@ public class ObjectLayerImpl
     {
         return new CustomerImpl(membershipExpiration, licenseState, licenseNumber,residenceAddress, cardNumber, 
                         cardExpiration, firstName, lastName, userName, emailAddress, password, createDate, 
-                        UserStatus.ACTIVE);
+                        UserStatus.ACTIVE); //userstatus enum
     }
 
     /**
@@ -158,7 +156,7 @@ public class ObjectLayerImpl
     {
         return new CustomerImpl(null, null, null,null, null, 
                         null, null, null, null, null, null, null, 
-                        UserStatus.ACTIVE);
+                        UserStatus.ACTIVE); //userstatus enum
     }
     
     /**
@@ -201,7 +199,7 @@ public class ObjectLayerImpl
      */
     public RentalLocation createRentalLocation()
     {
-        return new RentalLocationImpl(null, null, null);
+        return new RentalLocationImpl(null, null, null); //no constructor taking 3 nulls - use empty strings and 0 for cap maybe?
     }
 
     /**
@@ -257,7 +255,7 @@ public class ObjectLayerImpl
      */
     public Reservation createReservation() 
     {
-        return new ReservationImpl( null, null, null, null, null);
+        return new ReservationImpl( null, null, null, null, null); //no all null constructor
     }
 
     /**
@@ -375,7 +373,7 @@ public class ObjectLayerImpl
      */
     public Iterator<VehicleType> findVehicleType( VehicleType modelVehicleType ) throws RARException
     {
-        return persistence.restorVehicleType( modelVehicleType );
+        return persistence.restoreVehicleType( modelVehicleType );
     }
     
     /**

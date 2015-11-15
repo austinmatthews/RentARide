@@ -9,7 +9,7 @@ import edu.uga.cs.rentaride.entity.VehicleType;
  * The price value is represented in Cents, not Dollars.
  *
  */
-public HourlyPriceImpl
+public class HourlyPriceImpl
     extends Persistent 
     implements HourlyPrice
 {

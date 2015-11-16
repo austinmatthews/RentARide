@@ -10,25 +10,25 @@ import edu.uga.cs.rentaride.persistence.impl.Persistent;
 /** This class represents a comment made by a specific Customer regarding a specific Rental experience.
  *
  */
-public CommentImpl
+public class CommentImpl
     extends Persistent
     implements Comment
 {
     //Comment attributes
-    private String  text
-    private Date    date
-    private Customer    customer
-    private Rental  rental
+    private String  text;
+    private Date    date;
+    private Customer    customer;
+    private Rental  rental;
     
     //When creating a brand new comment, customer and rental need to be persistent
     public CommentImpl(String text, Customer customer, Rental rental) 
     {
         super(-1);
         /*CHECK FOR PERSISTENCE AND THROW ERROR!!*/
-        this.text = text
+        this.text = text;
         this.date = new Date();
-        this.customer = customer
-        this.rental = rental
+        this.customer = customer;
+        this.rental = rental;
     }
     
     /** Return the comment string.
@@ -44,7 +44,7 @@ public CommentImpl
      */
     public void   setComment( String comment )
     {
-        this.text = comment
+        this.text = comment;
     }
     
     /** Return the Rental object this comment is linked to.
@@ -82,6 +82,9 @@ public CommentImpl
     /** Returns the Date of the comment on a rental.
      * @return the Date of the comment
      */
+    
+    
+    
     public Date getDate()
     {
         return date;

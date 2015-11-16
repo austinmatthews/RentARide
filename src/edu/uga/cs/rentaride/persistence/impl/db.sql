@@ -68,7 +68,6 @@ CREATE TABLE `Rental` (
   `customer` varchar(255) NOT NULL,
   `pickupTime` datetime NOT NULL,
   `returnTime` datetime NOT NULL,
-  `condition` ENUM('good','cleaningNeeded','maintenanceNeeded') NOT NULL,
   PRIMARY KEY(rentalNo),
 
   INDEX(customer),

@@ -169,9 +169,9 @@ CREATE TABLE `Vehicle` (
   `vehicleType` varchar(255) NOT NULL,
   `vehicleYear` int(11) NOT NULL,
   `vehicleCondition` ENUM('good', 'cleaningNeeded','maintenanceNeeded') NOT NULL,
-  `vehicleId` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicleID` int(11) NOT NULL AUTO_INCREMENT,
 
-  PRIMARY KEY(vehicleId),
+  PRIMARY KEY(vehicleID),
 
   INDEX(rentalLocation),
   FOREIGN KEY(rentalLocation)

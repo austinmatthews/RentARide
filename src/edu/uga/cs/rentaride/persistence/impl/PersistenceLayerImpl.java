@@ -47,7 +47,7 @@ public class PersistenceLayerImpl
         commentManager = new CommentManager( conn, objectLayer);
         customerManager = new CustomerManager( conn, objectLayer);
         hourlyPriceManager = new HourlyPriceManager( conn, objectLayer);
-         rentARideConfigManager = new RentARideConfigManager( conn, objectLayer);
+        rentARideConfigManager = new RentARideConfigManager( conn, objectLayer);
         rentalManger = new RentalManger( conn, objectLayer);
         rentalLocationManger = new RentalLocationManger( conn, objectLayer);
         reservationManger = new ReservationManger( conn, objectLayer);
@@ -62,7 +62,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located Administrator objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Administrator> restoreAdministrator( Administrator modelAdministrator ) throws RARException;
+    public Iterator<Administrator> restoreAdministrator( Administrator modelAdministrator ) throws RARException
+    {
+        return administratorManager.restore( modelAdministrator );
+    }
     
     /** 
      * Store a given Administrator object in the persistent data store.  
@@ -71,14 +74,20 @@ public class PersistenceLayerImpl
      * @param administrator the Administrator to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeAdministrator( Administrator administrator ) throws RARException;
+    public void storeAdministrator( Administrator administrator ) throws RARException
+    {
+        administratorManager.save( administrator );
+    }
     
     /** 
      * Delete a given Administrator object from the persistent data store.
      * @param administrator the Administrator to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteAdministrator( Administrator administrator ) throws RARException; 
+    public void deleteAdministrator( Administrator administrator ) throws RARException
+    {
+        administratorManager.delete( administrator );
+    }
     
     /** 
      * Restore all Customer objects that match attributes of the model Customer.
@@ -86,7 +95,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located Customer objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Customer> restoreCustomer( Customer modelCustomer ) throws RARException;
+    public Iterator<Customer> restoreCustomer( Customer modelCustomer ) throws RARException
+    {
+        return customerManager.restore( modelCustomer );
+    }
     
     /** 
      * Store a given Customer object in the persistent data store.
@@ -95,7 +107,10 @@ public class PersistenceLayerImpl
      * @param customer the Customer to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeCustomer( Customer customer ) throws RARException;
+    public void storeCustomer( Customer customer ) throws RARException
+    {
+        customerManager.save( customer );
+    }
     
     /** 
      * Restore all RentalLocation objects that match attributes of the model RentalLocation.
@@ -103,7 +118,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located RentalLocation objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<RentalLocation> restoreRentalLocation( RentalLocation modelRentalLocation ) throws RARException;
+    public Iterator<RentalLocation> restoreRentalLocation( RentalLocation modelRentalLocation ) throws RARException
+    {
+        return rentalLocationManager.restore( modelRentalLocation );
+    }
     
     /** 
      * Store a given RentalLocation object in the persistent data store.
@@ -112,14 +130,20 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public void storeRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        rentalLocationManager.save( rentalLocation );
+    }
     
     /** 
      * Delete a given RentalLocation object from the persistent data store.
      * @param rentalLocation the RentalLocation to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteRentalLocation( RentalLocation rentalLocation ) throws RARException;    
+    public void deleteRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        rentalLocationManager.delete( rentalLocation );
+    }
     
     /** 
      * Restore all Reservation objects that match attributes of the model Reservation.
@@ -127,7 +151,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located Reservation objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Reservation> restoreReservation( Reservation modelReservation ) throws RARException;
+    public Iterator<Reservation> restoreReservation( Reservation modelReservation ) throws RARException
+    {
+        return reservationManager.restore( modelReservation );
+    }
     
     /** 
      * Store a given Reservation object in the persistent data store.
@@ -136,14 +163,20 @@ public class PersistenceLayerImpl
      * @param administrator the administrator to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeReservation( Reservation reservation ) throws RARException;
+    public void storeReservation( Reservation reservation ) throws RARException
+    {
+        reservationManager.save( reservation );
+    }
     
     /** 
      * Delete a given Reservation object from the persistent data store.
      * @param reservation the Reservation to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteReservation( Reservation reservation ) throws RARException;
+    public void deleteReservation( Reservation reservation ) throws RARException
+    {
+        reservationManager.delete( reservation );
+    }
     
     /** 
      * Restore all Rental objects that match attributes of the model Rental.
@@ -151,7 +184,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located Rental objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Rental> restoreRental( Rental modelRental ) throws RARException;
+    public Iterator<Rental> restoreRental( Rental modelRental ) throws RARException
+    {
+        return rentalManager.restore( modelRental );
+    }
     
     /** 
      * Store a given Rental object in the persistent data store.
@@ -160,14 +196,20 @@ public class PersistenceLayerImpl
      * @param rental the Rental to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeRental( Rental rental ) throws RARException;
+    public void storeRental( Rental rental ) throws RARException
+    {
+        rentalManager.save( rental );
+    }
     
     /** 
      * Delete a given Rental object from the persistent data store.
      * @param rental the Rental to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteRental( Rental rental ) throws RARException;    
+    public void deleteRental( Rental rental ) throws RARException
+    {
+        rentalManager.delete( rental );
+    }
     
     /** 
      * Restore all VehicleType objects that match attributes of the model VehicleType.
@@ -175,7 +217,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located VehicleType objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<VehicleType> restoreVehicleType( VehicleType modelVehicleType ) throws RARException;
+    public Iterator<VehicleType> restoreVehicleType( VehicleType modelVehicleType ) throws RARException
+    {
+        return vehicleTypeManager.restore( modelVehicleType );
+    }
 
     /** 
      * Store a given VehicleType object in the persistent data store.  
@@ -184,14 +229,20 @@ public class PersistenceLayerImpl
      * @param vehicleType the VehicleType to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeVehicleType( VehicleType vehicleType ) throws RARException;
+    public void storeVehicleType( VehicleType vehicleType ) throws RARException
+    {
+        vehicleTypeManager.save( vehicleType );
+    }
     
     /** 
      * Delete a given VehicleType object from the persistent data store.
      * @param vehicleType the VehicleType to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteVehicleType( VehicleType vehicleType ) throws RARException;
+    public void deleteVehicleType( VehicleType vehicleType ) throws RARException
+    {
+        vehicleTypeManager.delete( vehicleType );
+    }
     
     /** 
      * Restore all Vehicle objects that match attributes of the model Vehicle.
@@ -199,7 +250,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located Vehicle objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Vehicle> restoreVehicle( Vehicle modelVehicle ) throws RARException;
+    public Iterator<Vehicle> restoreVehicle( Vehicle modelVehicle ) throws RARException
+    {
+        return vehicleManager.restore( modelVehicle );
+    }
     
     /** 
      * Store a given Vehicle object in the persistent data store.
@@ -208,14 +262,20 @@ public class PersistenceLayerImpl
      * @param vehicle the Vehicle to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeVehicle( Vehicle vehicle ) throws RARException;
+    public void storeVehicle( Vehicle vehicle ) throws RARException
+    {
+        vehicleManager.save( vehicle );
+    }
     
     /** 
      * Delete a given Vehicle object from the persistent data store.
      * @param vehicle the Vehicle to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteVehicle( Vehicle vehicle ) throws RARException;
+    public void deleteVehicle( Vehicle vehicle ) throws RARException
+    {
+        vehicleManager.delete( vehicle );
+    }
     
     /** 
      * Restore all Comment objects that match attributes of the model Comment.
@@ -223,7 +283,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located Comment objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Comment> restoreComment( Comment modelComment ) throws RARException;
+    public Iterator<Comment> restoreComment( Comment modelComment ) throws RARException
+    {
+        return commentManager.restore( modelComment );
+    }
     
     /** 
      * Store a given Comment object in the persistent data store.
@@ -232,14 +295,20 @@ public class PersistenceLayerImpl
      * @param comment the Comment to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeComment( Comment comment ) throws RARException;
+    public void storeComment( Comment comment ) throws RARException
+    {
+        commentManager.save( comment );
+    }
     
     /** 
      * Delete a given Comment object from the persistent data store.
      * @param comment the Comment to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteComment( Comment coment ) throws RARException;
+    public void deleteComment( Comment coment ) throws RARException
+    {
+        commentManager.delete( comment );
+    }
     
     /** 
      * Restore all HourlyPrice objects that match attributes of the model HourlyPrice.
@@ -247,7 +316,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of the located HourlyPrice objects
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<HourlyPrice> restoreHourlyPrice( HourlyPrice modelHourlyPrice ) throws RARException;
+    public Iterator<HourlyPrice> restoreHourlyPrice( HourlyPrice modelHourlyPrice ) throws RARException
+    {
+        return hourlyPriceManager.restore( modelHourlyPrice );
+    }
     
     /** 
      * Store a given HourlyPrice object in the persistent data store.
@@ -256,14 +328,20 @@ public class PersistenceLayerImpl
      * @param hourlyPrice the HourlyPrice to be stored
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public void storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    {
+        hourlyPriceManager.save( hourlyPrice );
+    }
     
     /** 
      * Delete a given HourlyPrice object from the persistent data store.
      * @param hourlyPrice the HourlyPrice to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public void deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    {
+        hourlyPriceManager.delete( hourlyPrice );
+    }
 
     /** 
      * Restore the RentARideConfig object. The RentARideConfig is a singleton class, so there
@@ -271,7 +349,10 @@ public class PersistenceLayerImpl
      * @return RentARideConfig the RentARideConfig configuration singleton object
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public RentARideConfig restoreRentARideConfig() throws RARException;
+    public RentARideConfig restoreRentARideConfig() throws RARException
+    {
+        return rentARideConfigManager.restore( );
+    }
     
     /** 
      * Store the RentARideConfig object.
@@ -280,7 +361,10 @@ public class PersistenceLayerImpl
      * @param rentARideConfig the RentARideConfig object to be stored
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void storeRentARideConfig( RentARideConfig rentARideConfig ) throws RARException;
+    public void storeRentARideConfig( RentARideConfig rentARideConfig ) throws RARException
+    {
+        rentARideConfigManager.save( rentARideConfig );
+    }
 
     // Associations
     //

@@ -1,5 +1,7 @@
 package edu.uga.cs.rentaride.entity;
 
+import java.util.Date;
+
 import edu.uga.cs.rentaride.persistence.Persistable;
 
 /** This class represents a comment made by a specific Customer regarding a specific Rental experience.
@@ -46,5 +48,5 @@ public interface Comment
     /** Set the Date of this comment.
      * @param Date ths new Date of the comment.
      */
-    public void   setDate( Date date );
+    public void setDate( Date date );
 }

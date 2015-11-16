@@ -21,14 +21,14 @@ public abstract class UserImpl
     private String password;
     private String residenceAddress;
     private Date createDate;
-    private UserStatus userStatus;
+    private String userStatus;
     
     /**
      * Constructor for UserImpl
      */
     
      public UserImpl(String fName, String lName, String uName, 
-                    String email, String password, Date createDate, UserStatus userStatus, String residenceAddress){
+                    String email, String password, Date createDate, String userStatus, String residenceAddress){
          super(-1);
          this.fName = fName;
          this.lName = lName;

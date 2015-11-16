@@ -28,15 +28,12 @@ SET foreign_key_checks = 0;
 --
 
 CREATE TABLE `Comments` (
+  `commentID` int(11) NOT NULL AUTO_INCREMENT,
   `commentDate` datetime NOT NULL,
-  `customer` varchar(255) NOT NULL,
   `rental` int(11) NOT NULL,
   `comment` varchar(255) NOT NULL,
   
-  INDEX(customer),
-
-  FOREIGN KEY(customer)
-  	  REFERENCES Users(userName),
+  PRIMARY KEY(commentID),
 	
   INDEX(rental),
 

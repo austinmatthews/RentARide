@@ -135,7 +135,7 @@ public abstract class UserImpl
     /** Set the current status of this user (must be ACTIVE, REMOVED, or TERMINATED)
      * @param userStatus the new status of this user (must be ACTIVE, REMOVED, or TERMINATED)
      */
-    public void setUserStatus( UserStatus userStatus ){
+    public void setUserStatus( String userStatus ){
         this.userStatus = userStatus;
     }
     

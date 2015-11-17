@@ -19,16 +19,20 @@ public class WriteTest
          ObjectLayer objectLayer = null;
          PersistenceLayer persistence = null;
          
-         Club        bridge;
-         Club        chess;
-         Club        tennis;
-         Club        running;
-         Person      joe;
-         Person      mary;
-         Person      bob;
-         Person      julie;
-         Person      heather;
-         Membership  membership;
+         Administrator        admin;
+         Comment        comment;
+         Customer        customer;
+         HourlyPrice        hourlyPrice;
+         Rental      rental;
+         RentalLocation      rentalLocation;
+         RentARideConfig      config;
+         Reservation      reservation;
+         User      user;
+         UserStatus  userstatus;
+         Vehicle	vehicle;
+         VehicleCondition	vehicleCondition;
+         VehicleStatus	vehicleStatus;
+         VehicleType	vehicleType;
          
          // get a database connection
          try {
@@ -43,23 +47,29 @@ public class WriteTest
          // obtain a reference to Persistence module and connect it to the ObjectModel        
          persistence = new PersistenceLayerImpl( conn, objectLayer ); 
          // connect the ObjectModel module to the Persistence module
-         objectLayer.setPersistence( persistence );   
+        // objectLayer.setPersistence( persistence );   
 
          try {
              
              // create a few people
-             joe = objectLayer.createPerson( "joe", "joepass", "joe@mail.com", "Joe", "Doe", "133 Maple St., Big Town, AZ. 87888", "333-4456" );
-             mary = objectLayer.createPerson( "mary", "marypass", "mary@mail.com", "Mary", "Swift", "14 Oak Dr., Small Town, TX. 77888", "444-9876" );
+
+        	 admin = objectLayer.createAdministrator("jon", "doe", "adminuser", "admin@test.com", "pass", new Date());
+        	 
+             /*mary = objectLayer.createPerson( "mary", "marypass", "mary@mail.com", "Mary", "Swift", "14 Oak Dr., Small Town, TX. 77888", "444-9876" );
              bob = objectLayer.createPerson( "bob", "bobpass", "bob@mail.com", "Robert", "Wilson", "33 Cedar Cr., Middle Town, NV. 81888", "567-7788" );
              julie = objectLayer.createPerson( "julie", "juliepass", "julie@mail.com", "Julie", "Hart", "99 Magnolia St., Splash Town, NY. 21888", "364-7592" );
              heather = objectLayer.createPerson( "heather", "heatherpass", "julie@mail.com", "Heather", "Brooks", "1 Pine Ave., Boom Town, GA. 30688", "339-9923" );
-             
-             persistence.savePerson( joe );
+             */
+             persistence.storeAdministrator(admin);
+            
+             /*
              persistence.savePerson( mary );
              persistence.savePerson( bob );
              persistence.savePerson( julie );
              persistence.savePerson( heather );
+             */
              
+             /*
              bridge = objectLayer.createClub( "Bridge", "33 Leaf St., Blossom, OR. 88888", new Date(), joe );
              persistence.saveClub( bridge );
              
@@ -95,11 +105,11 @@ public class WriteTest
              
              membership = objectLayer.createMembership( joe, chess, new Date() );
              persistence.saveMembership( membership );
-             
+             */
              System.out.println( "Entity objects created and saved in the persistence module" );
              
          }
-         catch( ClubsException ce) {
+         catch( RARException ce) {
              System.err.println( "Exception: " + ce );
              ce.printStackTrace();
          }

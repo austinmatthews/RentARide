@@ -492,7 +492,7 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Vehicle> restoreVehicletRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public Iterator<Vehicle> restoreVehicleRentalLocation( RentalLocation rentalLocation ) throws RARException;
 
     /** 
      * Delete a link between a Vehicle and a RentalLocation.

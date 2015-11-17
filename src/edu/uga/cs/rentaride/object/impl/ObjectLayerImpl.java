@@ -3,7 +3,6 @@ package edu.uga.cs.rentaride.object.impl;
 import java.util.Date;
 import java.util.Iterator;
 
-
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
@@ -13,11 +12,11 @@ import edu.uga.cs.rentaride.entity.RentARideConfig;
 import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.UserStatus;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
-
 import edu.uga.cs.rentaride.entity.impl.AdministratorImpl;
 import edu.uga.cs.rentaride.entity.impl.CommentImpl;
 import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
@@ -28,7 +27,6 @@ import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
 import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
-
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
@@ -77,7 +75,7 @@ public class ObjectLayerImpl
     public Administrator createAdministrator( String firstName, String lastName, String userName, 
                                               String emailAddress, String password, Date createDate )
     {
-        return new AdministratorImpl(firstName, lastName, userName, emailAddress, password, createDate, UserStatus.ACTIVE);
+        return new AdministratorImpl(firstName, lastName, userName, emailAddress, password, createDate, UserStatus.ACTIVE, "admin");
     }
 
     /**
@@ -87,7 +85,7 @@ public class ObjectLayerImpl
      */
     public Administrator createAdministrator()
     {
-        return new AdministratorImpl(null, null, null, null, null, null, UserStatus.ACTIVE); //change the enum instead of using userstatus entity
+        return new AdministratorImpl(null, null, null, null, null, null, UserStatus.ACTIVE,"admin"); //change the enum instead of using userstatus entity
     }
     
     /**
@@ -199,7 +197,7 @@ public class ObjectLayerImpl
      */
     public RentalLocation createRentalLocation()
     {
-        return new RentalLocationImpl(null, null, null); //no constructor taking 3 nulls - use empty strings and 0 for cap maybe?
+        return new RentalLocationImpl("", "", 0); //no constructor taking 3 nulls - use empty strings and 0 for cap maybe?
     }
 
     /**
@@ -255,7 +253,7 @@ public class ObjectLayerImpl
      */
     public Reservation createReservation() 
     {
-        return new ReservationImpl( null, null, null, null, null); //no all null constructor
+        return new ReservationImpl( new Date(), 0, createCustomer(), createVehicleType(), createRentalLocation()); //no all null constructor
     }
 
     /**

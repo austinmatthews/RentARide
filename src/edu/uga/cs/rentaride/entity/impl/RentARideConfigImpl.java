@@ -1,5 +1,6 @@
 package edu.uga.cs.rentaride.entity.impl;
 
+import edu.uga.cs.rentaride.entity.RentARideConfig;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 /** This class represents the configuration parameters of the Rent-A-Ride system.
@@ -51,6 +52,6 @@ public class RentARideConfigImpl
      * @param overtimePenalty the new overtime penalty (in cents)
      */
     public void setOvertimePenalty( int overtimePenalty ){
-        this.overtimePenalty = ovetimePenalty;
+        this.overtimePenalty = overtimePenalty;
     }
 }

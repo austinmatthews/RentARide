@@ -1,16 +1,18 @@
 package edu.uga.cs.rentaride.entity.impl;
 
 import java.util.Date;
+
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.User;
+import edu.uga.cs.rentaride.entity.UserStatus;
 import edu.uga.cs.rentaride.RARException;
 
 
 /** This class represents information about a registered customer of Rent-A-Ride.
  *
  */
-public CustomerImpl
-    extends User
+public class CustomerImpl
+    extends UserImpl
     implements Customer
 {
     //attributes
@@ -48,7 +50,7 @@ public CustomerImpl
     public void   setMembershipExpiration( Date membershipExpiration ) throws RARException
     {
         //check for RARException
-        this.membershipExpiration = membershipExpiration
+        this.membershipExpiration = membershipExpiration;
     }
     
     /** Return the license state for this customer.
@@ -114,4 +116,118 @@ public CustomerImpl
     {
         this.cardExpiration = cardExpiration;
     }
+
+	@Override
+	public String getFirstName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setFirstName(String firstName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getLastName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLastName(String lastName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getEmailAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setEmailAddress(String emailAddress) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPassword(String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Date getCreatedDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public UserStatus getUserStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUserStatus(UserStatus userStatus) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getResidenceAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setResidenceAddress(String residenceAddress) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setId(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPersistent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

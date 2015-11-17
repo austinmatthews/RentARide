@@ -5,6 +5,7 @@ import java.util.Date;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.Reservation;
@@ -25,7 +26,7 @@ public class ReservationImpl
     private Date pickupTime;
     private int rentalDuration;
     private Customer customer;
-    private VehicleType vehhicleType;
+    private VehicleType vehicleType;
     private RentalLocation rentalLocation;
     
     /**
@@ -107,4 +108,16 @@ public class ReservationImpl
     public void           setRentalLocation( RentalLocation rentalLocation ){
         this.rentalLocation = rentalLocation;
     }
+
+	@Override
+	public Rental getRental() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRental(Rental rental) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -52,7 +52,8 @@ CREATE TABLE `Comments` (
 CREATE TABLE `HourlyPrice` (
   `maxHours` int(11) NOT NULL,
   `mineHours` int(11) NOT NULL,
-  `price` int(11) NOT NULL
+  `price` int(11) NOT NULL,
+  `hourlyPriceID` int(11) NOT NULL AUTO_INCREMENT
 
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -87,6 +88,7 @@ CREATE TABLE `RentalLocations` (
   `address` varchar(255) NOT NULL,
   `capacity` int(11) NOT NULL,
   `locationName` varchar(255) NOT NULL,
+  `rentalID` int(11) NOT NULL AUTO_INCREMENT,
 
   PRIMARY KEY(locationName)
 
@@ -101,7 +103,8 @@ CREATE TABLE `RentalLocations` (
 
 CREATE TABLE `RentARideConfig` (
   `membershipPrice` int(11) NOT NULL,
-  `overtimePenalty` int(11) NOT NULL
+  `overtimePenalty` int(11) NOT NULL,
+  `configID` int(11) NOT NULL AUTO_INCREMENT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

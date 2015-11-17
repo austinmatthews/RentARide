@@ -53,8 +53,9 @@ CREATE TABLE `HourlyPrice` (
   `maxHours` int(11) NOT NULL,
   `mineHours` int(11) NOT NULL,
   `price` int(11) NOT NULL,
-  `hourlyPriceID` int(11) NOT NULL AUTO_INCREMENT
+  `hourlyPriceID` int(11) NOT NULL AUTO_INCREMENT,
 
+  PRIMARY KEY(hourlyPriceID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -90,7 +91,7 @@ CREATE TABLE `RentalLocations` (
   `locationName` varchar(255) NOT NULL,
   `rentalID` int(11) NOT NULL AUTO_INCREMENT,
 
-  PRIMARY KEY(locationName)
+  PRIMARY KEY(rentalID)
 
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -104,7 +105,8 @@ CREATE TABLE `RentalLocations` (
 CREATE TABLE `RentARideConfig` (
   `membershipPrice` int(11) NOT NULL,
   `overtimePenalty` int(11) NOT NULL,
-  `configID` int(11) NOT NULL AUTO_INCREMENT
+  `configID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(configID)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -173,11 +175,8 @@ CREATE TABLE `Vehicle` (
   `vehicleCondition` ENUM('good', 'cleaningNeeded','maintenanceNeeded') NOT NULL,
   `vehicleID` int(11) NOT NULL AUTO_INCREMENT,
 
-  PRIMARY KEY(vehicleID),
+  PRIMARY KEY(vehicleID)
 
-  INDEX(rentalLocation),
-  FOREIGN KEY(rentalLocation)
-  	  REFERENCES RentalLocations(locationName)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

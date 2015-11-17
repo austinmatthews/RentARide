@@ -42,7 +42,7 @@ public class VehicleImpl
         this.model = model;
         this.year = year;
         this.mileage = mileage;
-        this.tag = tage;
+        this.tag = tag;
         this.lastServiced = lastServiced;
         this.status = status;
         this.condition = condition;

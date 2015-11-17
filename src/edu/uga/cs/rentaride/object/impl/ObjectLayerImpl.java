@@ -770,7 +770,7 @@ public class ObjectLayerImpl
      */
     public void deleteVehicleVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException
     {
-        persistence.deleteVehicleVehicleVehicleType( vehicle, vehicleType );
+        persistence.deleteVehicleVehicleType( vehicle, vehicleType );
         //Should this be 3 vehicles?? $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         //also 3 vehicles in persistence layer
     }

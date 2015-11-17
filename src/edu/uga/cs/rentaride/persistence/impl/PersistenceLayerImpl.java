@@ -534,7 +534,7 @@ public class PersistenceLayerImpl
      * @param vehicleType the VehicleType
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteVehicleVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException;
+    public void deleteVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException;
 
     // VehicleType--has-->PriceSetting   multiplicity: 1 - *
     //

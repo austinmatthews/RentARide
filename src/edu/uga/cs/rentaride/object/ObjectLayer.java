@@ -550,7 +550,7 @@ public interface ObjectLayer
      * @param vehicleType the vehicle type
      * @throws RARException in case either the vehicle or vehicleType is null or another error occurs
      */
-    public void deleteVehicleVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException;
+    public void deleteVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException;
 
     // Reservation--hasType-->VehicleType   multiplicity: * - 1
     //

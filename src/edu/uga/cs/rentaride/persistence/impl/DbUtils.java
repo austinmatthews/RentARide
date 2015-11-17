@@ -17,7 +17,7 @@ import edu.uga.cs.rentaride.RARException;
  */
 public class DbUtils {
 
-    private static Logger log = SessionManager.getLog();
+	//private static Logger log = SessionManager.getLog();
     
 
     /**
@@ -31,7 +31,7 @@ public class DbUtils {
             conn.setAutoCommit(false);
         } 
         catch( SQLException ex ) {
-            log.error( "DbUtils.disableAutoCommit: SQLException on setting auto-commit false ", ex );
+            //log.error( "DbUtils.disableAutoCommit: SQLException on setting auto-commit false ", ex );
             throw new RARException( "DbUtils.disableAutoCommit: Transaction error. " + ex.getMessage() );
         }
     }
@@ -47,7 +47,7 @@ public class DbUtils {
             conn.setAutoCommit(true);
         } 
         catch( SQLException ex ) {
-            log.error( "DbUtils.enableAutoCommit: SQLException on setting auto-commit true ", ex );
+            //log.error( "DbUtils.enableAutoCommit: SQLException on setting auto-commit true ", ex );
             throw new RARException( "DbUtils.enableAutoCommit: Transaction error. " + ex.getMessage() );
         }
     }
@@ -62,7 +62,7 @@ public class DbUtils {
         try {
             conn.commit();
         } catch (SQLException ex) {
-            log.error("DbUtils.commit: SQLException on commit ", ex);
+            //log.error("DbUtils.commit: SQLException on commit ", ex);
             throw new RARException( "DbUtils.commit: SQLException on commit " + ex.getMessage() );
         }
     }
@@ -77,7 +77,7 @@ public class DbUtils {
         try {
             conn.rollback();
         } catch (SQLException ex) {
-            log.error( "DbUtils.rollback: SQLException on rollback ", ex );
+            //log.error( "DbUtils.rollback: SQLException on rollback ", ex );
             throw new RARException( "DbUtils.rollback: Unable to rollback transaction. " + ex.getMessage() );
         }
     }
@@ -94,7 +94,7 @@ public class DbUtils {
             Class.forName(DbAccessConfig.DB_DRIVE_NAME);
         } 
         catch (ClassNotFoundException ex) {
-            log.error( "DbUtils.connect:  unable to find JDBC Driver", ex );
+            //log.error( "DbUtils.connect:  unable to find JDBC Driver", ex );
             throw new RARException( "DbUtils.connect: Unable to find Driver" );
         }
         try {
@@ -103,7 +103,7 @@ public class DbUtils {
                                                 DbAccessConfig.DB_CONNECTION_PWD );
         } 
         catch (SQLException ex) {
-            log.error( "DbUtils.connect: Unable to connect to database", ex );
+            //log.error( "DbUtils.connect: Unable to connect to database", ex );
             throw new RARException( "DbUtils.connect: Unable to connect to database " + ex.getMessage() );
         }
     }

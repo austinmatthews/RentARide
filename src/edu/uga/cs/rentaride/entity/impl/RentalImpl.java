@@ -4,6 +4,7 @@ import java.util.Date;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
+import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.Customer;
@@ -43,7 +44,7 @@ public class RentalImpl
      * @return the pickup date for this rental
      */
     public Date getPickupTime(){
-        return pickupTime
+        return pickupTime;
     }
     
     /** Set the date when the vehicle in this rental was picked up.
@@ -100,7 +101,7 @@ public class RentalImpl
      * @return the Customer object of this rental
      */
     public Customer getCustomer(){
-        return customer
+        return customer;
     }
     
     /** Set the customer involved in this rental.
@@ -114,7 +115,7 @@ public class RentalImpl
      * @return the int charges of this rental
      */
     public int getCharges(){
-        return charges
+        return charges;
     }
     
     /** Set the charges involved in this rental.
@@ -123,5 +124,17 @@ public class RentalImpl
     public void setCustomer( int charges ){
         this.charges = charges;
     }
+
+	@Override
+	public void setCharges(int charges) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Customer setCustomer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

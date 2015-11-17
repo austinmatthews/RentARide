@@ -339,7 +339,7 @@ public class ObjectLayerImpl
      * @param rental the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteRental( Rental rental ) throws RARException 
+    public void deleteRental( Rental rental ) throws RARException 
     {
         persistence.deleteRental( rental );
     }
@@ -423,7 +423,9 @@ public class ObjectLayerImpl
      */
     public Vehicle createVehicle() 
     {
-        return new VehicleImpl( null, null, null, null, null, null, null, null, null, null);
+        return new VehicleImpl( createVehicleType(), "","",0,"",0,new Date(),createRentalLocation(),VehicleCondition.GOOD,VehicleStatus.INLOCATION);
+        		
+        	
     }
 
     /**
@@ -452,7 +454,7 @@ public class ObjectLayerImpl
      * @param vehicle the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteVehicle( Vehicle vehicle ) throws RARException
+    public void deleteVehicle( Vehicle vehicle ) throws RARException
     {
         persistence.deleteVehicle( vehicle );
     }
@@ -505,7 +507,7 @@ public class ObjectLayerImpl
      * @param comment the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public void deleteComment( Comment coment ) throws RARException
+    public void deleteComment( Comment comment ) throws RARException
     {
         persistence.deleteComment(comment);
     }
@@ -530,7 +532,7 @@ public class ObjectLayerImpl
      */
     public HourlyPrice createHourlyPrice() 
     {
-        return new HourlyPriceImpl( null, null, null, null );
+        return new HourlyPriceImpl( 0, 0, 0, createVehicleType() );
     }
 
     /**
@@ -549,7 +551,7 @@ public class ObjectLayerImpl
      * @param hourlyPrice the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    public void storeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
     {
         persistence.storeHourlyPrice( hourlyPrice );
     }
@@ -559,7 +561,7 @@ public class ObjectLayerImpl
      * @param hourlyPrice the object to be deleted.
      * @throws RARException in case there is a problem with the deletion of the object
      */
-    public int deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    public void deleteHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
     {
         persistence.deleteHourlyPrice( hourlyPrice );
     }
@@ -568,10 +570,14 @@ public class ObjectLayerImpl
      * Return the RentARideConfig object.  The RentARideConfig class is a singleton class,
      * so only one object will exist.
      * @return the RentARideConfig object
+     * @throws RARException 
      */
-    public RentARideConfig findRentARideCfg()
+    public RentARideConfig findRentARideConfig() throws RARException
     {
         //NOT Sure how to implement this! $$$$$$$$$$$$$$$$$$$$$$$$$$$
+    	//i think this is right, every other function throws RARException
+    	return persistence.restoreRentARideConfig(); 
+    	
     }
     
     /**
@@ -579,9 +585,10 @@ public class ObjectLayerImpl
      * @param rentARideConfig the object to be persisted
      * @throws RARException in case there was an error while persisting the object
      */
-    public int storeRentARideCfg( RentARideConfig rentARideCfg ) throws RARException
+    public void storeRentARideCfg( RentARideConfig rentARideCfg ) throws RARException
     {
         //NOT Sure how to implement this! $$$$$$$$$$$$$$$$$$$$$$$$$$$
+    	persistence.storeRentARideConfig(rentARideCfg);
     }
     
     // Associations

@@ -17,7 +17,8 @@ import edu.uga.cs.rentaride.entity.VehicleType;
 
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
-
+import edu.uga.cs.rentaride.persistence.*;
+import edu.uga.cs.rentaride.persistence.impl.*;
 
 
 /**
@@ -35,11 +36,11 @@ public class PersistenceLayerImpl
     private CustomerManager customerManager = null;
     private HourlyPriceManager hourlyPriceManager = null;
     private RentARideConfigManager rentARideConfigManager = null;
-    private RentalManger rentalManger = null;
-    private RentalLocationManger rentalLocationManger = null;
-    private ReservationManger reservationManger = null;
-    private VehicleManger vehicleManger = null;
-    private VehicleTypeManger vehicleTypeManger = null;
+    private RentalManager rentalManger = null;
+    private RentalLocationManager rentalLocationManger = null;
+    private ReservationManager reservationManger = null;
+    private VehicleManager vehicleManger = null;
+    private VehicleTypeManager vehicleTypeManger = null;
     
     public PersistenceLayerImpl( Connection conn, ObjectLayer objectLayer )
     {

@@ -21,14 +21,14 @@ public abstract class UserImpl
     private String password;
     private String residenceAddress;
     private Date createDate;
-    private String userStatus;
+    private UserStatus userStatus;
     
     /**
      * Constructor for UserImpl
      */
     
      public UserImpl(String fName, String lName, String uName, 
-                    String email, String password, Date createDate, String userStatus, String residenceAddress){
+                    String email, String password, Date createDate, UserStatus userStatus, String residenceAddress){
          super(-1);
          this.fName = fName;
          this.lName = lName;
@@ -135,7 +135,7 @@ public abstract class UserImpl
     /** Set the current status of this user (must be ACTIVE, REMOVED, or TERMINATED)
      * @param userStatus the new status of this user (must be ACTIVE, REMOVED, or TERMINATED)
      */
-    public void setUserStatus( String userStatus ){
+    public void setUserStatus( UserStatus userStatus ){
         this.userStatus = userStatus;
     }
     

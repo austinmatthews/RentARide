@@ -12,9 +12,19 @@ public class AdministratorImpl
     extends UserImpl      
     implements Administrator
 {
+    private UserStatus userStatus;
+
+	
     public AdministratorImpl(String fName, String lName, String uName, 
-                    String email, String password, Date createDate, String userStatus,String address){
+                    String email, String password, Date createDate, UserStatus userStatus,String address){
          
     		super(fName, lName, uName, email, password, createDate, userStatus,address);
      }
+
+	@Override
+	public void setUserStatus(UserStatus userStatus) {
+		// TODO Auto-generated method stub
+		this.userStatus = userStatus;
+		
+	}
 }

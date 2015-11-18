@@ -1,8 +1,6 @@
 
 
 
-
-
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
@@ -106,7 +104,7 @@ class RentalLocationManager
     public Iterator<RentalLocation> restore(RentalLocation rentalLocation)
             throws RARException
     {
-        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        //String       selectClubSql = "select id, name, address, established, founderid from rentalLocation";
         String       selectRLSql = "select rl.address, rl.capacity, rl.locationName " +
                                       " from RentalLocations rl where ";
         Statement    stmt = null;
@@ -160,41 +158,48 @@ class RentalLocationManager
 
         throw new RARException( "RentalLocationManager.restore: Could not restore persistent RentalLocation object" );
     }
-    /*
-     * I dont know what the equivalent of this would be for us
-    public Person restoreEstablishedBy( Club club )
-            throws ClubsException
+
+    
+    
+    
+    
+    public Iterator<Vehicle> restoreVehicleRentalLocation( RentalLocation rentalLocation ) 
+            throws RARException
     {
-        String       selectPersonSql = "select p.id, p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, p.phone from person p, club c where p.id = c.founderid";
+        String selectPersonSql = "select rl.address, rl.capacity, rl.locationName, v.reservationTag, v.lastService, v.make, v.milage, v.model, v.rentalLocation, v.status, v.vehicleType, v.vehicleYear, v.vehicleCondition " +
+                                 "from vehicle v, rentalLocation rl where v.vehicleID = rl.rentalID";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
         condition.setLength( 0 );
-
+        
         // form the query based on the given Person object instance
         query.append( selectPersonSql );
-
-        if( club != null ) {
-            if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and c.id = " + club.getId() );
-            else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and c.name = '" + club.getName() + "'" );
+        
+        if( rentalLocation != null ) {
+            
+        	if( rentalLocation.getId() >= 0 ) // id is unique, so it is sufficient to get a rentalLocation
+                query.append( " and rl.rentalID = " + rentalLocation.getId() );
+        	else if( rentalLocation.getName() != null )
+                query.append( " and rl.locationName = '" + rentalLocation.getName() + "'" );
             else {
-
-                if( club.getAddress() != null )
-                    condition.append( " and c.address = '" + club.getAddress() + "'" );
-
-                if( club.getEstablishedOn() != null ) {
-                    condition.append( " and c.established = '" + club.getEstablishedOn() + "'" );
-                }
-
+                if( rentalLocation.getAddress() != null )
+                    condition.append( " rl.address = '" + rentalLocation.getAddress() + "'" );
+                else
+                    condition.append( " AND rl.address = '" + rentalLocation.getAddress() + "'" );
+                
+                if( rentalLocation.getCapacity() != 0 && condition.length() == 0 )
+                    condition.append( " rl.capacity = '" + rentalLocation.getCapacity() + "'" );
+                else
+                    condition.append( " AND rl.capacity = '" + rentalLocation.getCapacity() + "'" );
+                
                 if( condition.length() > 0 ) {
                     query.append( condition );
                 }
             }
         }
-
+                
         try {
 
             stmt = conn.createStatement();
@@ -203,22 +208,18 @@ class RentalLocationManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                Iterator<Person> personIter = new PersonIterator( r, objectLayer );
-                if( personIter != null && personIter.hasNext() ) {
-                    return personIter.next();
-                }
-                else
-                    return null;
+                return new VehicleIterator( r, objectLayer );
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object; Root cause: " + e );
+            throw new RARException( "RentalLocationManager.restoreVehicleRentalLocation: Could not restore persistent Vehicle objects; Root cause: " + e );
         }
 
-        // if we reach this point, it's an error
-        throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object" );
+        throw new RARException( "RentalLocationManager.restoreVehicleRentalLocation: Could not restore persistent Vehicle objects" );
     }
-    */
+    
+    
+    
     public void delete(RentalLocation rentalLocation)
             throws RARException
     {

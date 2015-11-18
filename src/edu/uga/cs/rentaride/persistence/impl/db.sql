@@ -51,7 +51,7 @@ CREATE TABLE `Comments` (
 
 CREATE TABLE `HourlyPrice` (
   `maxHours` int(11) NOT NULL,
-  `mineHours` int(11) NOT NULL,
+  `minHours` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `hourlyPriceID` int(11) NOT NULL AUTO_INCREMENT,
 

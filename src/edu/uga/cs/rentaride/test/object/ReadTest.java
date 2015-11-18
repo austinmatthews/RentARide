@@ -3,15 +3,13 @@ package edu.uga.cs.rentaride.test.object;
 import java.sql.Connection;
 import java.util.Iterator;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.entity.Club;
-import edu.uga.clubs.entity.Membership;
-import edu.uga.clubs.entity.Person;
-import edu.uga.clubs.object.ObjectLayer;
-import edu.uga.clubs.object.impl.ObjectLayerImpl;
-import edu.uga.clubs.persistence.PersistenceLayer;
-import edu.uga.clubs.persistence.impl.DbUtils;
-import edu.uga.clubs.persistence.impl.PersistenceLayerImpl;
+import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.*;
+import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.object.impl.ObjectLayerImpl;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
+import edu.uga.cs.rentaride.persistence.impl.DbUtils;
+import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
 public class ReadTest
 {
@@ -34,53 +32,26 @@ public class ReadTest
          // obtain a reference to Persistence module and connect it to the ObjectModel        
          persistence = new PersistenceLayerImpl( conn, objectLayer ); 
          // connect the ObjectModel module to the Persistence module
-         objectLayer.setPersistence( persistence );   
-                  
-         try {
+       
+         objectLayer.setPersistence(persistence);
+         
+           
+        try {
              
-             System.out.println( "Club objects:" );
-             Iterator<Club> clubIter = objectLayer.findClub( null );
-             while( clubIter.hasNext() ) {
-                 Club c = clubIter.next();
-                 System.out.println( c );
-                 Person founder = objectLayer.findEstablishedBy( c );
-                 System.out.println( "   Founded by: " + founder );
-                 System.out.println( "   Members: " );
-                 Membership modelMembership = objectLayer.createMembership();
-                 modelMembership.setClub( c );
-                 Iterator<Membership> membershipIter = objectLayer.findMembership( modelMembership );
-                 while( membershipIter != null && membershipIter.hasNext() ) {
-                     Membership m = membershipIter.next();
-                     System.out.println( "      " + m.getPerson() );
-                 }
-             }
+             System.out.println( "RentalLocation objects:" );
              
-             System.out.println( "Person objects:" );
-             Iterator<Person> personIter = objectLayer.findPerson( null );
-             while( personIter.hasNext() ) {
-                 Person p = personIter.next();
-                 System.out.println( p );
-                 System.out.print( "   Founder of: " );
-                 clubIter = objectLayer.findEstablishedBy( p );
-                 while( clubIter != null && clubIter.hasNext() ) {
-                     Club c = clubIter.next();
-                     System.out.print( c + " " );
-                 }
-                 System.out.println();System.out.flush();
-                 System.out.println( "   Member of: " );
-                 Membership modelMembership = objectLayer.createMembership();
-                 modelMembership.setPerson( p );
-                 Iterator<Membership> membershipIter = objectLayer.findMembership( modelMembership );
-                 while( membershipIter != null && membershipIter.hasNext() ) {
-                     Membership m = membershipIter.next();
-                     System.out.println( "      " + m.getClub() );
-                 }
-             }
+             Iterator<RentalLocation> rlIter = objectLayer.findRentalLocation( null );
+          
 
+             while( rlIter.hasNext() ) {
+                 RentalLocation c = rlIter.next();
+                 System.out.println("RL2: " + c.getAddress());
+             }
+             
          }
-         catch( ClubsException ce)
+         catch( RARException ce)
          {
-             System.err.println( "ClubsException: " + ce );
+             System.err.println( "RARException: " + ce );
          }
          catch( Exception e)
          {

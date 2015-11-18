@@ -37,6 +37,9 @@ import edu.uga.cs.rentaride.entity.VehicleType;
  */
 public interface ObjectLayer
 {
+    
+    public void setPersistence(PersistenceLayer persistence);
+    
     /**
      * Create a new Administrator object, given the set of initial attribute values.
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.

@@ -44,8 +44,10 @@ public class WriteTest
          
          // obtain a reference to the ObjectModel module      
          objectLayer = new ObjectLayerImpl();
+         
          // obtain a reference to Persistence module and connect it to the ObjectModel        
-         persistence = new PersistenceLayerImpl( conn, objectLayer ); 
+         persistence = new PersistenceLayerImpl( conn, objectLayer );
+         
          // connect the ObjectModel module to the Persistence module
         // objectLayer.setPersistence( persistence );   
 
@@ -53,14 +55,22 @@ public class WriteTest
              
              // create a few people
 
-        	 admin = objectLayer.createAdministrator("jon", "doe", "adminuser", "admin@test.com", "pass", new Date());
+        	 //admin = objectLayer.createAdministrator("jon", "doe", "adminuser", "admin@test.com", "pass", new Date());
         	 
              /*mary = objectLayer.createPerson( "mary", "marypass", "mary@mail.com", "Mary", "Swift", "14 Oak Dr., Small Town, TX. 77888", "444-9876" );
              bob = objectLayer.createPerson( "bob", "bobpass", "bob@mail.com", "Robert", "Wilson", "33 Cedar Cr., Middle Town, NV. 81888", "567-7788" );
              julie = objectLayer.createPerson( "julie", "juliepass", "julie@mail.com", "Julie", "Hart", "99 Magnolia St., Splash Town, NY. 21888", "364-7592" );
              heather = objectLayer.createPerson( "heather", "heatherpass", "julie@mail.com", "Heather", "Brooks", "1 Pine Ave., Boom Town, GA. 30688", "339-9923" );
              */
-             persistence.storeAdministrator(admin);
+        	 
+        	 //comment = objectLayer.createComment("testcomm", objectLayer.createRental(), objectLayer.createCustomer("jon", "doe", "jd", "jd@uga.edu", "asdf", new Date(), new Date(), "GA", "2123", "123 main st", "1234abc", new Date()));
+        	 rentalLocation = objectLayer.createRentalLocation("testlocation1", "124 main st", 1);
+        	 persistence.storeRentalLocation(rentalLocation);
+        	
+        	 
+        	 
+        	 
+        	 //persistence.storeComment(comment);
             
              /*
              persistence.savePerson( mary );

@@ -1,5 +1,4 @@
 
-
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
@@ -52,7 +51,7 @@ class ReservationManager
                 stmt = (PreparedStatement) conn.prepareStatement( updateRSql );
 
             if( reservation.getCustomer() != null ) // name is unique unique and non null
-                stmt.setLong( 1, reservation.getCustomer().getId() );  // should we use long customerId instead of customer name string?
+                stmt.setString( 1, reservation.getCustomer().getUserName() );  
             else 
                 throw new RARException( "ReservationManager.save: can't save a Reservation: Customer undefined" );
 
@@ -71,16 +70,17 @@ class ReservationManager
             else
                 stmt.setNull( 4, java.sql.Types.INTEGER );
             
-            if( reservation.getPickupTime() != null )
-                stmt.setDate( 2, (Date) reservation.getPickupTime() );  
+            if( reservation.getRentalLocation() != null )
+                stmt.setString( 5, reservation.getRentalLocation().getAddress() );  
             else
-                stmt.setNull( 2, java.sql.Types.DATE );
+                stmt.setNull( 5, java.sql.Types.VARCHAR );
             
-            if( reservation.getPickupTime() != null )
-                stmt.setDate( 2, (Date) reservation.getPickupTime() );  
+            if( reservation.getVehicleType() != null )
+                stmt.setString( 6, reservation.getVehicleType().getType() );  
             else
-                stmt.setNull( 2, java.sql.Types.DATE );
+                stmt.setNull( 6, java.sql.Types.VARCHAR );
 
+            /*
             if( reservation.getEstablishedOn() != null ) {
                 java.util.Date jDate = reservation.getEstablishedOn();
                 java.sql.Date sDate = new java.sql.Date( jDate.getTime() );
@@ -88,18 +88,19 @@ class ReservationManager
             }
             else
                 stmt.setNull(3, java.sql.Types.DATE);
-
+            */
+            /*
             if( reservation.getFounder() != null && reservation.getFounder().isPersistent() )
                 stmt.setLong( 4, club.getFounder().getId() );
             else 
                 throw new ClubsException( "ClubManager.save: can't save a Club: founder is not set or not persistent" );
+            */
+            if( reservation.isPersistent() )
+                stmt.setLong( 5, reservation.getId() );
             
-            if( club.isPersistent() )
-                stmt.setLong( 5, club.getId() );
-
             inscnt = stmt.executeUpdate();
 
-            if( !club.isPersistent() ) {
+            if( !reservation.isPersistent() ) {
                 if( inscnt >= 1 ) {
                     String sql = "select last_insert_id()";
                     if( stmt.execute( sql ) ) { // statement returned a result
@@ -112,57 +113,69 @@ class ReservationManager
                         while( r.next() ) {
 
                             // retrieve the last insert auto_increment value
-                            clubId = r.getLong( 1 );
-                            if( clubId > 0 )
-                                club.setId( clubId ); // set this person's db id (proxy object)
+                            RId = r.getLong( 1 );
+                            if( RId > 0 )
+                            	reservation.setId( RId ); // set this person's db id (proxy object)
                         }
                     }
                 }
                 else
-                    throw new ClubsException( "ClubManager.save: failed to save a Club" );
+                    throw new RARException( "ReservationManager.save: failed to save a Reservation" );
             }
             else {
                 if( inscnt < 1 )
-                    throw new ClubsException( "ClubManager.save: failed to save a Club" ); 
+                    throw new RARException( "ReservationManager.save: failed to save a Reservation" ); 
             }
         }
         catch( SQLException e ) {
             e.printStackTrace();
-            throw new ClubsException( "ClubManager.save: failed to save a Club: " + e );
+            throw new RARException( "ReservationManager.save: failed to save a Reservation: " + e );
         }
     }
 
-    public Iterator<Club> restore(Club club) 
-            throws ClubsException
+    public Iterator<Reservation> restore(Reservation reservation) 
+            throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
-        String       selectClubSql = "select c.id, c.name, c.address, c.established, p.id, " +
-                                      "p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, " +
-                                      "p.phone from club c, person p where c.founderid = p.id";
+        String       selectRSql = " select r.customer, r.pickupTime, r.rental, r.rentalDuration, r.rentalLocation, " + 
+        							 " r.vehicleType, r.reservationID,   from Reservations r ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
         condition.setLength( 0 );
         
-        // form the query based on the given Club object instance
-        query.append( selectClubSql );
+        // form the query based on the given  object instance
+        query.append( selectRSql );
         
-        if( club != null ) {
-            if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and id = " + club.getId() );
-            else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and name = '" + club.getName() + "'" );
+        if( reservation != null ) {
+            if( reservation.getId() >= 0 ) // id is unique, so it is sufficient to get a 
+                query.append( " and id = " + reservation.getId() );
+            else if( reservation.getCustomer() != null ) // userName is unique, so it is sufficient to get a 
+                query.append( " and customer = '" + reservation.getCustomer() + "'" );
             else {
 
-                if( club.getAddress() != null )
-                    condition.append( " and address = '" + club.getAddress() + "'" );   
-
+                if( reservation.getPickupTime() != null )
+                    condition.append( " and pickupTime = '" + reservation.getPickupTime() + "'" ); 
+                
+                if( reservation.getRental() != null )
+                    condition.append( " and rental = '" + reservation.getRental() + "'" ); 
+                
+                if( reservation.getRentalDuration() != 0 )
+                    condition.append( " and rentalDuration = '" + reservation.getRentalDuration() + "'" ); 
+                
+                if( reservation.getRentalLocation() != null )
+                    condition.append( " and rentalLocation = '" + reservation.getRentalLocation() + "'" ); 
+                
+                if( reservation.getVehicleType() != null )
+                    condition.append( " and vehicleType = '" + reservation.getVehicleType() + "'" ); 
+                /*
                 if( club.getEstablishedOn() != null ) {
                     if( condition.length() > 0 )
                         condition.append( " and" );
                     condition.append( " established = '" + club.getEstablishedOn() + "'" );
                 }
+                */
                 /*
                 if( condition.length() > 0 ) {
                     query.append(  " where " );
@@ -180,18 +193,18 @@ class ReservationManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                return new ClubIterator( r, objectLayer );
+                return new ReservationIterator( r, objectLayer );
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new ClubsException( "ClubManager.restore: Could not restore persistent Club object; Root cause: " + e );
+            throw new RARException( "ReservationManager.restore: Could not restore persistent Reservation object; Root cause: " + e );
         }
 
-        throw new ClubsException( "ClubManager.restore: Could not restore persistent Club object" );
+        throw new RARException( "ReservationManager.restore: Could not restore persistent Reservation object" );
     }
-
-    public Person restoreEstablishedBy( Club club ) 
-            throws ClubsException
+/*
+    public Person restoreEstablishedBy( Reservation reservation ) 
+            throws RARException
     {
         String       selectPersonSql = "select p.id, p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, p.phone from person p, club c where p.id = c.founderid";              
         Statement    stmt = null;
@@ -203,7 +216,7 @@ class ReservationManager
         // form the query based on the given Person object instance
         query.append( selectPersonSql );
         
-        if( club != null ) {
+        if( reservation != null ) {
             if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
                 query.append( " and c.id = " + club.getId() );
             else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
@@ -231,7 +244,7 @@ class ReservationManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                Iterator<Person> personIter = new PersonIterator( r, objectLayer );
+                Iterator<Reservation> personIter = new ReservationIterator( r, objectLayer );
                 if( personIter != null && personIter.hasNext() ) {
                     return personIter.next();
                 }
@@ -246,29 +259,29 @@ class ReservationManager
         // if we reach this point, it's an error
         throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object" );
     }
-    
-    public void delete(Club club) 
-            throws ClubsException
+*/    
+    public void delete(Reservation reservation) 
+            throws RARException
     {
-        String               deleteClubSql = "delete from club where id = ?";              
+        String               deleteRSql = "delete from reservations where id = ?";              
         PreparedStatement    stmt = null;
         int                  inscnt;
              
-        if( !club.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+        if( !reservation.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
             return;
         
         try {
-            stmt = (PreparedStatement) conn.prepareStatement( deleteClubSql );         
-            stmt.setLong( 1, club.getId() );
+            stmt = (PreparedStatement) conn.prepareStatement( deleteRSql );         
+            stmt.setLong( 1, reservation.getId() );
             inscnt = stmt.executeUpdate();          
             if( inscnt == 1 ) {
                 return;
             }
             else
-                throw new ClubsException( "ClubManager.delete: failed to delete a Club" );
+                throw new RARException( "ReservationManager.delete: failed to delete a Reservation" );
         }
         catch( SQLException e ) {
             e.printStackTrace();
-            throw new ClubsException( "ClubManager.delete: failed to delete a Club: " + e );        }
+            throw new RARException( "ReservationManager.delete: failed to delete a Reservation: " + e );        }
     }
 }

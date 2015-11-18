@@ -176,7 +176,7 @@ CREATE TABLE `Vehicle` (
   `vehicleID` int(11) NOT NULL AUTO_INCREMENT,
 
   PRIMARY KEY(vehicleID)
- -- FOREIGN KEY REFERENCES RentalLocation(rentalID) 
+ -- FOREIGN KEY (vehicleID) REFERENCES RentalLocations (rentalID) 
 
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

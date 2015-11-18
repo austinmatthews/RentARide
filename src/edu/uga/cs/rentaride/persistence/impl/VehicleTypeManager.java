@@ -50,7 +50,7 @@ class VehicleTypeManager
 
             if( vehicleType.getType() != null ) // type is unique and non null
             	// This is me setting the value in col typeName in table VehicleType to the provided value
-            	stmt.setString( "typeName", vehicleType.getType() );
+            	stmt.setString( 1, vehicleType.getType() );
             else
                 throw new RARException( "VehicleTypeManager.save: can't save a VehicleType: name undefined" );
 /*
@@ -74,7 +74,7 @@ class VehicleTypeManager
                 throw new ClubsException( "ClubManager.save: can't save a Club: founder is not set or not persistent" );
 */
             if( vehicleType.isPersistent() )
-                stmt.setLong( 5, vehicleType.getId() );
+                stmt.setLong( 2, vehicleType.getId() );
 
             inscnt = stmt.executeUpdate();
 
@@ -128,9 +128,9 @@ class VehicleTypeManager
 
         if( vehicleType != null ) {
             if( vehicleType.getId() >= 0 ) // id is unique, so it is sufficient to get a VehicleType
-                query.append( " and id = " + vehicleType.getId() );
+                query.append( " and vehicleTypeId = " + vehicleType.getId() );
             else if( vehicleType.getType() != null ) // Type is unique, so it is sufficient to get a VehicleType
-                query.append( " and name = '" + vehicleType.getType() + "'" );
+                query.append( " and typeName = '" + vehicleType.getType() + "'" );
             else {
             	/*
                 if( club.getAddress() != null )
@@ -165,7 +165,7 @@ class VehicleTypeManager
             throw new RARException( "VehicleTypeManager.restore: Could not restore persistent VehicleType object; Root cause: " + e );
         }
 
-        throw new RARException( "ClubManager.restore: Could not restore persistent Club object" );
+        throw new RARException( "VehicleTypeManager.restore: Could not restore persistent VehicleType object" );
     }
     /*
      * I dont know what the equivalent of this would be for us
@@ -229,7 +229,7 @@ class VehicleTypeManager
     public void delete(VehicleType vehicleType)
             throws RARException
     {
-        String               deleteVTSql = "delete from VehicleType where id = ?";
+        String               deleteVTSql = "delete from VehicleType where vehicleTypeId = ?";
         PreparedStatement    stmt = null;
         int                  inscnt;
 

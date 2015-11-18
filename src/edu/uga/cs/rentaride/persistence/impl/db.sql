@@ -175,8 +175,8 @@ CREATE TABLE `Vehicle` (
   `vehicleCondition` ENUM('good', 'cleaningNeeded','maintenanceNeeded') NOT NULL,
   `vehicleID` int(11) NOT NULL AUTO_INCREMENT,
 
-  PRIMARY KEY(vehicleID)
- -- FOREIGN KEY (vehicleID) REFERENCES RentalLocations (rentalID) 
+  PRIMARY KEY(vehicleID),
+  FOREIGN KEY (vehicleID) REFERENCES RentalLocations (rentalID) 
 
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

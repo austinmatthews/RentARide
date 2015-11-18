@@ -378,7 +378,16 @@ public class PersistenceLayerImpl
      * @param reservation the Reservation to be linked
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeCustomerReservation( Customer customer, Reservation reservation ) throws RARException;
+    public void storeCustomerReservation( Customer customer, Reservation reservation ) throws RARException
+    {
+        if (customer == null)
+            throw new RARException("The customer is null");
+        if (!customer.isPersistent())
+            throw new RARException("The customer is not persistent");
+        
+        reservation.setCustomer( customer );
+        reservationManager.save( reservation );
+    }
 
     /** 
      * Return the Customer who created a given Reservation.
@@ -386,7 +395,10 @@ public class PersistenceLayerImpl
      * @return the Customer who made the Reservation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Customer restoreCustomerReservation( Reservation reservation ) throws RARException;
+    public Customer restoreCustomerReservation( Reservation reservation ) throws RARException
+    {
+        return reservationManager.restoreCustomerReservation( reservation );
+    }
 
     /** 
      * Return Reservations created by a given Customer.
@@ -394,7 +406,10 @@ public class PersistenceLayerImpl
      * @return an Iterator with all Reservation created by the Customer
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Reservation> restoreCustomerReservation( Customer customer ) throws RARException;
+    public Iterator<Reservation> restoreCustomerReservation( Customer customer ) throws RARException
+    {
+        return customerManager.restoreCustomerReservation( customer );
+    }
 
     /** 
      * Delete a link between a Customer and a Reservation created by the Customer.
@@ -402,7 +417,10 @@ public class PersistenceLayerImpl
      * @param reservation the Reservation
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteCustomerReservation( Customer customer, Reservation reservation ) throws RARException;
+    public void deleteCustomerReservation( Customer customer, Reservation reservation ) throws RARException
+    {
+        //
+    }
 
     // Reservation--hasLocation-->RentalLocation;   multiplicity: * - 1
     //
@@ -412,7 +430,16 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeReservationRentalLocation( Reservation reservation, RentalLocation rentalLocation ) throws RARException;
+    public void storeReservationRentalLocation( Reservation reservation, RentalLocation rentalLocation ) throws RARException
+    {
+        if (rentalLocation == null)
+            throw new RARException("The rental location is null");
+        if (!rentalLocation.isPersistent())
+            throw new RARException("The rental location is not persistent");
+        
+        reservation.setRentalLocation( rentalLocation );
+        reservationManager.save( reservation );
+    }
 
     /** 
      * Return the RentalLocation involved in a given Reservation.
@@ -420,7 +447,10 @@ public class PersistenceLayerImpl
      * @return the Customer who made the Reservation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public RentalLocation restoreReservationRentalLocation( Reservation reservation ) throws RARException;
+    public RentalLocation restoreReservationRentalLocation( Reservation reservation ) throws RARException
+    {
+        return reservationManager.restoreReservationRentalLocation( reservation );
+    }
 
     /** 
      * Return Reservations placed for a given RentalLocation.
@@ -428,7 +458,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of Reservations placed for the RentalLocation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Reservation> restoreReservationRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public Iterator<Reservation> restoreReservationRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+        return rentalLocationManager.restoreReservationRentalLocation( rentalLocation );
+    }
 
     /** 
      * Delete a link between a Reservation and a RentalLocation involved in the Reservation.
@@ -436,7 +469,10 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteReservationRentalLocation( Reservation reservation, RentalLocation rentalLocation ) throws RARException;
+    public void deleteReservationRentalLocation( Reservation reservation, RentalLocation rentalLocation ) throws RARException
+    {
+        //
+    }
 
     // Reservation--hasType-->VehicleType   multiplicity: * - 1
     //
@@ -446,14 +482,26 @@ public class PersistenceLayerImpl
      * @param vehicleType the VehilceType
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeReservationVehicleType( Reservation reservation, VehicleType vehicleType ) throws RARException;   
+    public void storeReservationVehicleType( Reservation reservation, VehicleType vehicleType ) throws RARException
+    {
+        if (vehicleType == null)
+            throw new RARException("The vehicle type is null");
+        if (!vehicleType.isPersistent())
+            throw new RARException("The vehicle type is not persistent");
+        
+        reservation.setRentalLocation( vehicleType );
+        reservationManager.save( reservation );
+    }
 
     /** 
      * Return the VehicleType involved in a given Reservation.
      * @param reservation the Reservation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public VehicleType restoreReservationVehicleType( Reservation reservation ) throws RARException;
+    public VehicleType restoreReservationVehicleType( Reservation reservation ) throws RARException
+    {
+        return reservationManager.restoreReservationVehicleType(reservation );
+    }
 
     /** 
      * Return Reservations involving a given VehicleType.
@@ -461,7 +509,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of VehicleTypes involved in the Reservation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Reservation> restoreReservationVehicleType( VehicleType vehicleType ) throws RARException;
+    public Iterator<Reservation> restoreReservationVehicleType( VehicleType vehicleType ) throws RARException
+    {
+        return vehicleManager.restoreReservationVehicleType( vehicleType );
+    }
 
     /** 
      * Delete a link between a Reservation and a VehicleType involved in the Reservation.
@@ -469,7 +520,10 @@ public class PersistenceLayerImpl
      * @param vehicleType the VehicleType
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteReservationVehicleType( Reservation reservation, VehicleType vehicleType ) throws RARException;  
+    public void deleteReservationVehicleType( Reservation reservation, VehicleType vehicleType ) throws RARException
+    {
+        //
+    }
     
     // Vehicle--locatedAt-->RentalLocation;   multiplicity: * - 1
     //
@@ -497,7 +551,7 @@ public class PersistenceLayerImpl
      */
     public RentalLocation restoreVehicleRentalLocation( Vehicle vehicle ) throws RARException
     {
-      //  return vehicleManager.restoreVehicleRentalLocation( Vehicle vehicle )
+        return vehicleManager.restoreVehicleRentalLocation( vehicle );
     }
 
     /** 
@@ -505,7 +559,10 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Vehicle> restoreVehicleRentalLocation( RentalLocation rentalLocation ) throws RARException;
+    public Iterator<Vehicle> restoreVehicleRentalLocation( RentalLocation rentalLocation ) throws RARException
+    {
+         return rentalLocationManager.restoreVehicleRentalLocation( rentalLocation );
+    }
 
     /** 
      * Delete a link between a Vehicle and a RentalLocation.
@@ -513,7 +570,10 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteVehicleRentalLocation( Vehicle vehicle, RentalLocation rentalLocation ) throws RARException;
+    public void deleteVehicleRentalLocation( Vehicle vehicle, RentalLocation rentalLocation ) throws RARException
+    {
+        //
+    }
 
     // Vehicle--hasType-->VehicleType   multiplicity: * - 1
     //
@@ -523,7 +583,16 @@ public class PersistenceLayerImpl
      * @param vehicleType the VehicleType
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException;
+    public void storeVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException
+    {
+        if (vehicleType == null)
+            throw new RARException("The vehicleType is null");
+        if (!vehicleType.isPersistent())
+            throw new RARException("The vehicleType is not persistent");
+        
+        vehicle.setRentalLocation( vehicleType );
+        vehicleManager.save( vehicle );
+    }
 
     /** 
      * Return the VehicleType of a given Vehicle.
@@ -531,7 +600,10 @@ public class PersistenceLayerImpl
      * @return the VehicleType of the Vehicle
      * @throws RARException in case an error occurred during the retrieve operation 
      */
-    public VehicleType restoreVehicleVehicleType( Vehicle vehicle ) throws RARException;
+    public VehicleType restoreVehicleVehicleType( Vehicle vehicle ) throws RARException
+    {
+        return vehicleManager.restoreVehicleVehicleType( vehicle );
+    }
 
     /** 
      * Return all Vehicles classified as having a given VehicleType.
@@ -539,7 +611,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of Vehicles having the VehicleType
      * @throws RARException in case an error occurred during the retrieve operation 
      */
-    public Iterator<Vehicle> restoreVehicleVehicleType( VehicleType vehicleType ) throws RARException;
+    public Iterator<Vehicle> restoreVehicleVehicleType( VehicleType vehicleType ) throws RARException
+    {
+        return vehicleTypeManager.restoreVehicleVehicleType( vehicleType );
+    }
 
     /** 
      * Delete a link between a Vehicle and a VehicleType.
@@ -547,7 +622,10 @@ public class PersistenceLayerImpl
      * @param vehicleType the VehicleType
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException;
+    public void deleteVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException
+    {
+        //
+    }
 
     // VehicleType--has-->PriceSetting   multiplicity: 1 - *
     //
@@ -557,7 +635,10 @@ public class PersistenceLayerImpl
      * @param priceSetting the HourlyPrice
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeVehicleTypeHourlyPrice( VehicleType vehicleType, HourlyPrice hourlyPrice ) throws RARException;
+    public void storeVehicleTypeHourlyPrice( VehicleType vehicleType, HourlyPrice hourlyPrice ) throws RARException
+    {
+        
+    }
 
     /** 
      * Return a VehicleType for this HourlyPrice setting.

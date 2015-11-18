@@ -61,6 +61,12 @@ public class ObjectLayerImpl
         System.out.println("ObjectLayerImpl.ObjectLayerImpl(persistence): initialized");
     }
     
+    public void setPersistence(PersistenceLayer persistence) {
+    	this.persistence = persistence;
+    	System.out.println("ObjectLayerImpl.setPersistence(persistence): initialized");
+    
+    }
+    
     /**
      * Create a new Administrator object, given the set of initial attribute values.
      * The UserStatus of the new Administrator object is UserStatus.ACTIVE.

@@ -479,14 +479,26 @@ public class PersistenceLayerImpl
      * @param rentalLocation the RentalLocation
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeVehicleRentalLocation( Vehicle vehicle, RentalLocation rentalLocation ) throws RARException;   
+    public void storeVehicleRentalLocation( Vehicle vehicle, RentalLocation rentalLocation ) throws RARException
+    {
+        if (rentalLocation == null)
+            throw new RARException("The rental location is null");
+        if (!rentalLocation.isPersistent())
+            throw new RARException("The rental location is not persistent");
+        
+        vehicle.setRentalLocation( rentalLocation );
+        vehicleManager.save( vehicle );
+    }
 
     /** 
      * Return the RentalLocation where a given Vehicle is located.
      * @param vehicle the Vehicle
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public RentalLocation restoreVehicleRentalLocation( Vehicle vehicle ) throws RARException;
+    public RentalLocation restoreVehicleRentalLocation( Vehicle vehicle ) throws RARException
+    {
+      //  return vehicleManager.restoreVehicleRentalLocation( Vehicle vehicle )
+    }
 
     /** 
      * Return the Vehicles located at a given RentalLocation.

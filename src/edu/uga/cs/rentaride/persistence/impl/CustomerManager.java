@@ -1,4 +1,3 @@
-
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
@@ -11,7 +10,10 @@ import java.util.Iterator;
 import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.Rental;
+import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
@@ -138,7 +140,6 @@ class CustomerManager
                 if( customer.getLicenseState() != null ) {
                     condition.append( " License State = '" + customer.getLicenseState() + "'" );
                 }
-                
                 if( customer.getMembershipExpiration() != null ) {
                     condition.append( " Membership Expiration = '" + customer.getMembershipExpiration().toString() + "'" );
                 }
@@ -161,6 +162,235 @@ class CustomerManager
         throw new RARException( "CustomerManager.restore: Could not restore persistent Customer object" );
     }
 
+    
+    public Iterator<Reservation> restoreCustomerReservation( Customer customer ) 
+            throws RARException
+    {
+        String selectPersonSql = "select c.firstName, c.lastName, c.userName, c.emailAddress, c.password, c.createdDate, c.userStatus, c.userType, r.customer, r,pickupTime, r.rental, r.rentalDuration, r.rentalLocation, r.vehicleType " +
+                                 "from reservation r, customer c where r.reservationID = c.id";
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Person object instance
+        query.append( selectPersonSql );
+        
+        if( customer != null ) {
+            
+        	if( customer.getId() >= 0 ) // id is unique, so it is sufficient to get a rentalLocation
+                query.append( " and c.id = " + customer.getId() );
+        	else if( customer.getUserName() != null )
+                query.append( " and c.userName = '" + customer.getUserName() + "'" );
+            else {
+                if( customer.getFirstName() != null )
+                    condition.append( " c.firstName = '" + customer.getFirstName() + "'" );
+                else
+                    condition.append( " AND c.firstName = '" + customer.getFirstName() + "'" );
+                
+                if( customer.getLastName() != null )
+                    condition.append( " c.lastName = '" + customer.getLastName() + "'" );
+                else
+                    condition.append( " AND c.lastName = '" + customer.getLastName() + "'" );
+                
+                if( customer.getEmailAddress() != null )
+                    condition.append( " c.emailAddress = '" + customer.getEmailAddress() + "'" );
+                else
+                    condition.append( " AND c.emailAddress = '" + customer.getEmailAddress() + "'" );
+                
+                if( customer.getPassword() != null )
+                    condition.append( " c.password = '" + customer.getPassword() + "'" );
+                else
+                    condition.append( " AND c.password = '" + customer.getPassword() + "'" );
+                
+                if( customer.getCreatedDate() != null )
+                    condition.append( " c.createdDate = '" + customer.getCreatedDate() + "'" );
+                else
+                    condition.append( " AND c.createdDate = '" + customer.getCreatedDate() + "'" );
+                
+                if( customer.getUserStatus() != null )
+                    condition.append( " c.userStatus = '" + customer.getUserStatus() + "'" );
+                else
+                    condition.append( " AND c.userStatus = '" + customer.getUserStatus() + "'" );  
+                
+                if( condition.length() > 0 ) {
+                    query.append( condition );
+                }
+            }
+        }
+                
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new ReservationIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "CustomerManager.restoreCustomerReservation: Could not restore persistent Reservation objects; Root cause: " + e );
+        }
+
+        throw new RARException( "CustomerManager.restoreCustomerReservation: Could not restore persistent Reservation objects" );
+    }
+    
+    public Iterator<Comment> restoreCustomerComment( Customer customer ) 
+            throws RARException
+    {
+        String selectPersonSql = "select c.firstName, c.lastName, c.userName, c.emailAddress, c.password, c.createdDate, c.userStatus, c.userType, com.commentDate, com.rental, com.comment " +
+                                 "from comment com, customer c where com.commentID = c.id";
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Person object instance
+        query.append( selectPersonSql );
+        
+        if( customer != null ) {
+            
+        	if( customer.getId() >= 0 ) // id is unique, so it is sufficient to get a rentalLocation
+                query.append( " and c.id = " + customer.getId() );
+        	else if( customer.getUserName() != null )
+                query.append( " and c.userName = '" + customer.getUserName() + "'" );
+            else {
+                if( customer.getFirstName() != null )
+                    condition.append( " c.firstName = '" + customer.getFirstName() + "'" );
+                else
+                    condition.append( " AND c.firstName = '" + customer.getFirstName() + "'" );
+                
+                if( customer.getLastName() != null )
+                    condition.append( " c.lastName = '" + customer.getLastName() + "'" );
+                else
+                    condition.append( " AND c.lastName = '" + customer.getLastName() + "'" );
+                
+                if( customer.getEmailAddress() != null )
+                    condition.append( " c.emailAddress = '" + customer.getEmailAddress() + "'" );
+                else
+                    condition.append( " AND c.emailAddress = '" + customer.getEmailAddress() + "'" );
+                
+                if( customer.getPassword() != null )
+                    condition.append( " c.password = '" + customer.getPassword() + "'" );
+                else
+                    condition.append( " AND c.password = '" + customer.getPassword() + "'" );
+                
+                if( customer.getCreatedDate() != null )
+                    condition.append( " c.createdDate = '" + customer.getCreatedDate() + "'" );
+                else
+                    condition.append( " AND c.createdDate = '" + customer.getCreatedDate() + "'" );
+                
+                if( customer.getUserStatus() != null )
+                    condition.append( " c.userStatus = '" + customer.getUserStatus() + "'" );
+                else
+                    condition.append( " AND c.userStatus = '" + customer.getUserStatus() + "'" );  
+                
+                if( condition.length() > 0 ) {
+                    query.append( condition );
+                }
+            }
+        }
+                
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new CommentIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "CustomerManager.restoreCustomerComment: Could not restore persistent Comment objects; Root cause: " + e );
+        }
+
+        throw new RARException( "CustomerManager.restoreCustomerComment: Could not restore persistent Comment objects" );
+    }
+    
+    
+    
+    
+    
+    public Iterator<Rental> restoreRentalCustomer( Customer customer ) 
+            throws RARException
+    {
+        String selectPersonSql = "select c.firstName, c.lastName, c.userName, c.emailAddress, c.password, c.createdDate, c.userStatus, c.userType, r.customer, r.pickupTime, r.returnTime " +
+                                 "from rental r, customer c where r.rentalNo = c.id";
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Person object instance
+        query.append( selectPersonSql );
+        
+        if( customer != null ) {
+            
+        	if( customer.getId() >= 0 ) // id is unique, so it is sufficient to get a rentalLocation
+                query.append( " and c.id = " + customer.getId() );
+        	else if( customer.getUserName() != null )
+                query.append( " and c.userName = '" + customer.getUserName() + "'" );
+            else {
+                if( customer.getFirstName() != null )
+                    condition.append( " c.firstName = '" + customer.getFirstName() + "'" );
+                else
+                    condition.append( " AND c.firstName = '" + customer.getFirstName() + "'" );
+                
+                if( customer.getLastName() != null )
+                    condition.append( " c.lastName = '" + customer.getLastName() + "'" );
+                else
+                    condition.append( " AND c.lastName = '" + customer.getLastName() + "'" );
+                
+                if( customer.getEmailAddress() != null )
+                    condition.append( " c.emailAddress = '" + customer.getEmailAddress() + "'" );
+                else
+                    condition.append( " AND c.emailAddress = '" + customer.getEmailAddress() + "'" );
+                
+                if( customer.getPassword() != null )
+                    condition.append( " c.password = '" + customer.getPassword() + "'" );
+                else
+                    condition.append( " AND c.password = '" + customer.getPassword() + "'" );
+                
+                if( customer.getCreatedDate() != null )
+                    condition.append( " c.createdDate = '" + customer.getCreatedDate() + "'" );
+                else
+                    condition.append( " AND c.createdDate = '" + customer.getCreatedDate() + "'" );
+                
+                if( customer.getUserStatus() != null )
+                    condition.append( " c.userStatus = '" + customer.getUserStatus() + "'" );
+                else
+                    condition.append( " AND c.userStatus = '" + customer.getUserStatus() + "'" );  
+                
+                if( condition.length() > 0 ) {
+                    query.append( condition );
+                }
+            }
+        }
+                
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new RentalIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "CustomerManager.restoreRentalCustomer: Could not restore persistent Rental objects; Root cause: " + e );
+        }
+
+        throw new RARException( "CustomerManager.restoreRentalCustomer: Could not restore persistent Rental objects" );
+    }
     
     public void delete(Customer customer)
             throws RARException
@@ -187,5 +417,4 @@ class CustomerManager
             throw new RARException( "CustomerManager.delete: failed to delete a Customer: " + e );        }
     }
 }
-
-
+    

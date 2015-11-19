@@ -160,7 +160,7 @@ class VehicleManager
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
-        String       selectClubSql = "select v.registrationTag, v.lastService, v.make, v.mileage, v.model, v.rentalLocation, " + 
+        String       selectVSql = "select v.registrationTag, v.lastService, v.make, v.mileage, v.model, v.rentalLocation, " + 
         							 " v.status, v.vehicleType, v.vehicleYear, v.vehicleCondition, v.vehicleID, from Vehicle v" ;
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
@@ -169,7 +169,7 @@ class VehicleManager
         condition.setLength( 0 );
         
         // form the query based on the given Club object instance
-        query.append( selectClubSql );
+        query.append( selectVSql );
         
         if( vehicle != null ) {
             if( vehicle.getId() >= 0 ) // id is unique, so it is sufficient to get a person
@@ -237,6 +237,172 @@ class VehicleManager
         }
 
         throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle object" );
+    }
+    
+    RentalLocation restoreVehicleRentalLocation( Vehicle vehicle )
+            throws RARException
+    {
+        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        String       selectRLSql = "select rl.address, rl.capacity, rl.locationName, v.registrationTag, v.lastService, v.make, v.mileage, v.model, v.rentalLocation, " + 
+        							 " v.status, v.vehicleType, v.vehicleYear, v.vehicleCondition, v.vehicleID, from Vehicle v, RentalLocations rl where v.vehicleId = rl.renatalID " ;
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Club object instance
+        query.append( selectRLSql );
+        
+        if( vehicle != null ) {
+            if( vehicle.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and id = " + vehicle.getId() );
+            else if( vehicle.getRegistrationTag() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and registrationTag = '" + vehicle.getRegistrationTag() + "'" );
+            else {
+
+                if( vehicle.getLastServiced() != null )
+                    query.append( " and lastService = '" + vehicle.getLastServiced() + "'" );   
+                
+                if( vehicle.getMake() != null )
+                    query.append( " and make = '" + vehicle.getMake() + "'" );   
+                
+                if( vehicle.getMileage() != 0 )
+                    query.append( " and mileage = '" + vehicle.getMileage() + "'" );   
+                
+                if( vehicle.getModel() != null )
+                    query.append( " and model = '" + vehicle.getModel() + "'" );   
+                
+                if( vehicle.getRentalLocation() != null )
+                    query.append( " and rentalLocation = '" + vehicle.getRentalLocation() + "'" );   
+                
+                if( vehicle.getStatus() != null )
+                    query.append( " and status = '" + vehicle.getStatus() + "'" );   
+                
+                if( vehicle.getVehicleType() != null )
+                    query.append( " and vehicleType = '" + vehicle.getVehicleType() + "'" );   
+                
+                if( vehicle.getYear()!= 0 )
+                    query.append( " and vehicleYear = '" + vehicle.getYear() + "'" );   
+                
+                if( vehicle.getCondition() != null )
+                    query.append( " and vehicleCondition = '" + vehicle.getCondition() + "'" );  
+                
+                /*
+                if( club.getEstablishedOn() != null ) {
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " established = '" + club.getEstablishedOn() + "'" );
+                }
+                */
+                /*
+                if( condition.length() > 0 ) {
+                    query.append(  " where " );
+                    query.append( condition );
+                }
+                */
+            }
+        }
+        
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new RentalLocationIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "VehicleManager.restore: Could not restore persistent RenatlLocation object; Root cause: " + e );
+        }
+
+        throw new RARException( "VehicleManager.restore: Could not restore persistent RentalLocation object" );
+    }
+
+ VehicleType restoreVehicleVehicleType( Vehicle vehicle )
+            throws RARException
+    {
+        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        String       selectVTSql = "select vt.typeName, v.registrationTag, v.lastService, v.make, v.mileage, v.model, v.rentalLocation, " + 
+        							 " v.status, v.vehicleType, v.vehicleYear, v.vehicleCondition, v.vehicleID, from Vehicle v, VehicleType vt where v.vehicleId = vt.vehicleTypeId " ;
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Club object instance
+        query.append( selectRLSql );
+        
+        if( vehicle != null ) {
+            if( vehicle.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and id = " + vehicle.getId() );
+            else if( vehicle.getRegistrationTag() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and registrationTag = '" + vehicle.getRegistrationTag() + "'" );
+            else {
+
+                if( vehicle.getLastServiced() != null )
+                    query.append( " and lastService = '" + vehicle.getLastServiced() + "'" );   
+                
+                if( vehicle.getMake() != null )
+                    query.append( " and make = '" + vehicle.getMake() + "'" );   
+                
+                if( vehicle.getMileage() != 0 )
+                    query.append( " and mileage = '" + vehicle.getMileage() + "'" );   
+                
+                if( vehicle.getModel() != null )
+                    query.append( " and model = '" + vehicle.getModel() + "'" );   
+                
+                if( vehicle.getRentalLocation() != null )
+                    query.append( " and rentalLocation = '" + vehicle.getRentalLocation() + "'" );   
+                
+                if( vehicle.getStatus() != null )
+                    query.append( " and status = '" + vehicle.getStatus() + "'" );   
+                
+                if( vehicle.getVehicleType() != null )
+                    query.append( " and vehicleType = '" + vehicle.getVehicleType() + "'" );   
+                
+                if( vehicle.getYear()!= 0 )
+                    query.append( " and vehicleYear = '" + vehicle.getYear() + "'" );   
+                
+                if( vehicle.getCondition() != null )
+                    query.append( " and vehicleCondition = '" + vehicle.getCondition() + "'" );  
+                
+                /*
+                if( club.getEstablishedOn() != null ) {
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " established = '" + club.getEstablishedOn() + "'" );
+                }
+                */
+                /*
+                if( condition.length() > 0 ) {
+                    query.append(  " where " );
+                    query.append( condition );
+                }
+                */
+            }
+        }
+        
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new VehicleTypeIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "VehicleManager.restore: Could not restore persistent VehicleType object; Root cause: " + e );
+        }
+
+        throw new RARException( "VehicleManager.restore: Could not restore persistent VehicleType object" );
     }
 
 

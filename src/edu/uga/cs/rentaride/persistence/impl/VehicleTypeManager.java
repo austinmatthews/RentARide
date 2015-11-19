@@ -167,41 +167,40 @@ class VehicleTypeManager
 
         throw new RARException( "VehicleTypeManager.restore: Could not restore persistent VehicleType object" );
     }
-    /*
-     * I dont know what the equivalent of this would be for us
-    public Person restoreEstablishedBy( Club club )
-            throws ClubsException
+
+    public Iterator<HourlyPrice> restoreVehicleTypeHourlyPrice( VehicleType vehicleType )
+            throws RARException
     {
-        String       selectPersonSql = "select p.id, p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, p.phone from person p, club c where p.id = c.founderid";
+        String       selectPersonSql = " select hp.maxHours, hp.minHours, hp.price, " +
+        							   "  vt.typeName, vt.vehicleTypeId from HourlyPrice hp, VehicleType vt where hp.hourlyPriceID = vt.vehicleTypeId";                    
+
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
         condition.setLength( 0 );
-
+        
         // form the query based on the given Person object instance
         query.append( selectPersonSql );
-
-        if( club != null ) {
-            if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and c.id = " + club.getId() );
-            else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and c.name = '" + club.getName() + "'" );
+        
+        if( vehicleType != null ) {
+            if( vehicleType.getId() >= 0 ) // id is unique, so it is sufficient to get a 
+                query.append( " and vt.vehicleTypeId = " + vehicleType.getId() );
+            //else if( vehicleType.getType() != null ) // userName is unique, so it is sufficient to get a 
+            //    query.append( " and vt.vehicleType = '" + vehicleType.getType() + "'" );
             else {
 
-                if( club.getAddress() != null )
-                    condition.append( " and c.address = '" + club.getAddress() + "'" );
+                if( vehicleType.getType() != null )
+                    condition.append( " and vt.vehicleType = '" + vehicleType.getType() + "'" );   
 
-                if( club.getEstablishedOn() != null ) {
-                    condition.append( " and c.established = '" + club.getEstablishedOn() + "'" );
-                }
+               
 
                 if( condition.length() > 0 ) {
                     query.append( condition );
                 }
             }
         }
-
+                
         try {
 
             stmt = conn.createStatement();
@@ -210,22 +209,125 @@ class VehicleTypeManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                Iterator<Person> personIter = new PersonIterator( r, objectLayer );
-                if( personIter != null && personIter.hasNext() ) {
-                    return personIter.next();
-                }
-                else
-                    return null;
+                return new HourlyPriceIterator( r, objectLayer );
+
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object; Root cause: " + e );
+            throw new RARException( "VehicleManager.restoreReservationVehicleType: Could not restore persistent HourlyPrice object; Root cause: " + e );
         }
 
         // if we reach this point, it's an error
-        throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object" );
+        throw new RARException( "VehicleManager.restoreReservationVehicleType: Could not restore persistent HourlyPrice object" );
     }
-    */
+    
+    public Iterator<Vehicle> restoreVehicleVehicleType( VehicleType vehicleType )
+            throws RARException
+    {
+        String       selectPersonSql = "select v.registrationTag, v.lastService, v.make, v.mileage, v.model, v.rentalLocation, v.status, v.vehicleType, " +
+        							   " v.vehicleYear, v.vehicleCondition, v.vehicleID" +
+        							   "  vt.typeName, vt.vehicleTypeId from Vehicle v, VehicleType vt where v.vehicleID = vt.vehicleTypeId";                    
+
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Person object instance
+        query.append( selectPersonSql );
+        
+        if( vehicleType != null ) {
+            if( vehicleType.getId() >= 0 ) // id is unique, so it is sufficient to get a 
+                query.append( " and vt.vehicleTypeId = " + vehicleType.getId() );
+            //else if( vehicleType.getType() != null ) // userName is unique, so it is sufficient to get a 
+            //    query.append( " and vt.vehicleType = '" + vehicleType.getType() + "'" );
+            else {
+
+                if( vehicleType.getType() != null )
+                    condition.append( " and vt.vehicleType = '" + vehicleType.getType() + "'" );   
+
+               
+
+                if( condition.length() > 0 ) {
+                    query.append( condition );
+                }
+            }
+        }
+                
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new VehicleIterator( r, objectLayer );
+
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "VehicleManager.restoreReservationVehicleType: Could not restore persistent Vehicle object; Root cause: " + e );
+        }
+
+        // if we reach this point, it's an error
+        throw new RARException( "VehicleManager.restoreReservationVehicleType: Could not restore persistent Vehicle object" );
+    }
+    
+    public Iterator<Reservation> restoreReservationVehicleType( VehicleType vehicleType )
+            throws RARException
+    {
+        String       selectPersonSql = "select r.customer, r.pickupTime, r.rental, r.rentalDuration, r.rentalLocation, r.vehicleType, r.reservationID, " + 
+        							   "  vt.typeName, vt.vehicleTypeId from RentalLocations r, VehicleType vt where r.reservationID = vt.vehicleTypeId";                    
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Person object instance
+        query.append( selectPersonSql );
+        
+        if( vehicleType != null ) {
+            if( vehicleType.getId() >= 0 ) // id is unique, so it is sufficient to get a 
+                query.append( " and vt.vehicleTypeId = " + vehicleType.getId() );
+            //else if( vehicleType.getType() != null ) // userName is unique, so it is sufficient to get a 
+            //    query.append( " and vt.vehicleType = '" + vehicleType.getType() + "'" );
+            else {
+
+                if( vehicleType.getType() != null )
+                    condition.append( " and vt.vehicleType = '" + vehicleType.getType() + "'" );   
+
+               
+
+                if( condition.length() > 0 ) {
+                    query.append( condition );
+                }
+            }
+        }
+                
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new ReservationIterator( r, objectLayer );
+
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "VehicleManager.restoreReservationVehicleType: Could not restore persistent Reservation object; Root cause: " + e );
+        }
+
+        // if we reach this point, it's an error
+        throw new RARException( "VehicleManager.restoreReservationVehicleType: Could not restore persistent Reservation object" );
+    }
+    
+    
     public void delete(VehicleType vehicleType)
             throws RARException
     {

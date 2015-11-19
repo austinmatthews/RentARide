@@ -102,42 +102,45 @@ class CommentManager
         }
     }
 
-    public Iterator<CommentImpl> restore(CommentImpl club) 
+       Customer restoreCustomerComment( Comment comment )
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
-        String       selectCommentSql = "select c.commentID, c.commentDate, c.rental, c.comment " +
-                                      "p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, " +
-                                      "p.phone from club c, person p where c.founderid = p.id";
+        String       selectCSql = "select c.commentID, c.commentDate, c.rental, c.comment " +
+                                      " from Comments c, Customers cu where 1 = 1 ";
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
         condition.setLength( 0 );
         
         // form the query based on the given Club object instance
-        query.append( selectClubSql );
+        query.append( selectCSql );
         
-        if( club != null ) {
-            if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and id = " + club.getId() );
-            else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and name = '" + club.getName() + "'" );
+        if( comment != null ) {
+            if( comment.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and c.commentID = " + comment.getId() );
+            else if( comment.getRental() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and c.rental = '" + comment.getRental() + "'" );
             else {
 
-                if( club.getAddress() != null )
-                    condition.append( " and address = '" + club.getAddress() + "'" );   
-
+                if( comment.getDate() != null )
+                    condition.append( " and c.commentDate = '" + comment.getDate() + "'" );   
+                if( comment.getComment() != null )
+                    condition.append( " and c.comment = '" + comment.getComment() + "'" );   
+       
+                /*
                 if( club.getEstablishedOn() != null ) {
                     if( condition.length() > 0 )
                         condition.append( " and" );
                     condition.append( " established = '" + club.getEstablishedOn() + "'" );
                 }
-                /*
+                */
+                
                 if( condition.length() > 0 ) {
-                    query.append(  " where " );
+                    //query.append(  " where " );
                     query.append( condition );
                 }
-                */
+                
             }
         }
         
@@ -149,50 +152,59 @@ class CommentManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                return new ClubIterator( r, objectLayer );
+                return new CommentIterator( r, objectLayer );
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new ClubsException( "ClubManager.restore: Could not restore persistent Club object; Root cause: " + e );
+            throw new RARException( "CommentManager.restore: Could not restore persistent Comment object; Root cause: " + e );
         }
 
-        throw new ClubsException( "ClubManager.restore: Could not restore persistent Club object" );
+        throw new RARException( "CommentManager.restore: Could not restore persistent Comment object" );
     }
 
-    /*
-    public Person restoreEstablishedBy( Club club ) 
-            throws ClubsException
+    
+    Rental restoreRentalComment( Comment comment ) 
+            throws RARException
     {
-        String       selectPersonSql = "select p.id, p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, p.phone from person p, club c where p.id = c.founderid";              
-        Statement    stmt = null;
+        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        String       selectCSql = "select r.customer, r.pickupTime, r.returnTime, c.commentID, c.commentDate, c.rental, c.comment " +
+                                      " from Comments c, Rentals r where r.rentalNo = c.commentID ";
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
         condition.setLength( 0 );
         
-        // form the query based on the given Person object instance
-        query.append( selectPersonSql );
+        // form the query based on the given Club object instance
+        query.append( selectCSql );
         
-        if( club != null ) {
-            if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and c.id = " + club.getId() );
-            else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and c.name = '" + club.getName() + "'" );
+        if( comment != null ) {
+            if( comment.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and c.commentID = " + comment.getId() );
+            else if( comment.getRental() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and c.rental = '" + comment.getRental() + "'" );
             else {
 
-                if( club.getAddress() != null )
-                    condition.append( " and c.address = '" + club.getAddress() + "'" );   
-
+                if( comment.getDate() != null )
+                    condition.append( " and c.commentDate = '" + comment.getDate() + "'" );   
+                if( comment.getComment() != null )
+                    condition.append( " and c.comment = '" + comment.getComment() + "'" );   
+       
+                /*
                 if( club.getEstablishedOn() != null ) {
-                    condition.append( " and c.established = '" + club.getEstablishedOn() + "'" );
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " established = '" + club.getEstablishedOn() + "'" );
                 }
-
+                */
+                
                 if( condition.length() > 0 ) {
+                    //query.append(  " where " );
                     query.append( condition );
                 }
+                
             }
         }
-                
+        
         try {
 
             stmt = conn.createStatement();
@@ -201,22 +213,77 @@ class CommentManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                Iterator<Person> personIter = new PersonIterator( r, objectLayer );
-                if( personIter != null && personIter.hasNext() ) {
-                    return personIter.next();
-                }
-                else
-                    return null;
+                return new RentalIterator( r, objectLayer );
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object; Root cause: " + e );
+            throw new RARException( "CommentManager.restore: Could not restore persistent Rental object; Root cause: " + e );
         }
 
-        // if we reach this point, it's an error
-        throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object" );
+        throw new RARException( "CommentManager.restore: Could not restore persistent Rental object" );
     }
-    */
+
+        public Iterator<CommentImpl> restore(CommentImpl comment) 
+            throws RARException
+    {
+        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        String       selectCSql = "select c.commentID, c.commentDate, c.rental, c.comment " +
+                                      " from Comments c where 1 = 1 ";
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+        
+        // form the query based on the given Club object instance
+        query.append( selectCSql );
+        
+        if( comment != null ) {
+            if( comment.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and c.commentID = " + comment.getId() );
+            else if( comment.getRental() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and c.rental = '" + comment.getRental() + "'" );
+            else {
+
+                if( comment.getDate() != null )
+                    condition.append( " and c.commentDate = '" + comment.getDate() + "'" );   
+                if( comment.getComment() != null )
+                    condition.append( " and c.comment = '" + comment.getComment() + "'" );   
+       
+                /*
+                if( club.getEstablishedOn() != null ) {
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " established = '" + club.getEstablishedOn() + "'" );
+                }
+                */
+                
+                if( condition.length() > 0 ) {
+                    //query.append(  " where " );
+                    query.append( condition );
+                }
+                
+            }
+        }
+        
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new CommentIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "CommentManager.restore: Could not restore persistent Comment object; Root cause: " + e );
+        }
+
+        throw new RARException( "CommentManager.restore: Could not restore persistent Comment object" );
+    }
+    
+    
     public void delete(CommentImpl comment) 
             throws RARException
     {

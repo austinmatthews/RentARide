@@ -28,6 +28,7 @@ public class ReservationImpl
     private Customer customer;
     private VehicleType vehicleType;
     private RentalLocation rentalLocation;
+    private Rental rental;
     
     /**
      * 

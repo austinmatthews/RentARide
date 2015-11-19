@@ -385,8 +385,11 @@ public class PersistenceLayerImpl
         if (!customer.isPersistent())
             throw new RARException("The customer is not persistent");
         
+        Rental rental = reservation.getRental();
+        rental.setCustomer(customer);
         reservation.setCustomer( customer );
         reservationManager.save( reservation );
+        rentalManager.save( rental );
     }
 
     /** 
@@ -419,7 +422,11 @@ public class PersistenceLayerImpl
      */
     public void deleteCustomerReservation( Customer customer, Reservation reservation ) throws RARException
     {
-        //
+        Rental rental = reservation.getRental();
+        rental.setCustomer(null);
+        reservation.setCustomer( null );
+        reservationManager.save( reservation );
+        rentalManager.save( rental );
     }
 
     // Reservation--hasLocation-->RentalLocation;   multiplicity: * - 1
@@ -471,7 +478,8 @@ public class PersistenceLayerImpl
      */
     public void deleteReservationRentalLocation( Reservation reservation, RentalLocation rentalLocation ) throws RARException
     {
-        //
+        reservation.setRentalLocation( null );
+        reservationManager.save( reservation );
     }
 
     // Reservation--hasType-->VehicleType   multiplicity: * - 1
@@ -522,7 +530,8 @@ public class PersistenceLayerImpl
      */
     public void deleteReservationVehicleType( Reservation reservation, VehicleType vehicleType ) throws RARException
     {
-        //
+        reservation.setRentalLocation( null );
+        reservationManager.save( reservation );
     }
     
     // Vehicle--locatedAt-->RentalLocation;   multiplicity: * - 1
@@ -572,7 +581,8 @@ public class PersistenceLayerImpl
      */
     public void deleteVehicleRentalLocation( Vehicle vehicle, RentalLocation rentalLocation ) throws RARException
     {
-        //
+        vehicle.setRentalLocation( null );
+        vehicleManager.save( vehicle );
     }
 
     // Vehicle--hasType-->VehicleType   multiplicity: * - 1
@@ -624,7 +634,8 @@ public class PersistenceLayerImpl
      */
     public void deleteVehicleVehicleType( Vehicle vehicle, VehicleType vehicleType ) throws RARException
     {
-        //
+        vehicle.setVehicleType( null );
+        vehicleManager.save( vehicle );
     }
 
     // VehicleType--has-->PriceSetting   multiplicity: 1 - *
@@ -676,7 +687,8 @@ public class PersistenceLayerImpl
      */
     public void deleteVehicleTypeHourlyPrice( VehicleType vehicleType, HourlyPrice hourlyPrice ) throws RARException
     {
-        //
+        hourlyPrice.setVehicleType( null );
+        hourlyPriceManager.save( hourlyprice );
     }
 
     // Rental--describedBy-->Comment   multiplicity: 1 - *
@@ -694,6 +706,8 @@ public class PersistenceLayerImpl
         if (!rental.isPersistent())
             throw new RARException("The rental is not persistent");
         
+        Customer customer = rental.getCustomer();
+        comment.setCustomer(customer);
         comment.setRental( rental );
         commentManager.save( comment );
     }
@@ -728,7 +742,9 @@ public class PersistenceLayerImpl
      */
     public void deleteRentalComment( Rental rental, Comment comment ) throws RARException
     {
-        //
+        comment.setCustomer(null);
+        comment.setRental( null );
+        commentManager.save( comment );
     }
 
     // Customer--commentedBy-->Comment   multiplicity: 1 - *

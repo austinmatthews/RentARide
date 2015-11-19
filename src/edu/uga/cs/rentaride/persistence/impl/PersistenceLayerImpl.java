@@ -590,7 +590,7 @@ public class PersistenceLayerImpl
         if (!vehicleType.isPersistent())
             throw new RARException("The vehicleType is not persistent");
         
-        vehicle.setRentalLocation( vehicleType );
+        vehicle.setVehicleType( vehicleType );
         vehicleManager.save( vehicle );
     }
 
@@ -637,7 +637,13 @@ public class PersistenceLayerImpl
      */
     public void storeVehicleTypeHourlyPrice( VehicleType vehicleType, HourlyPrice hourlyPrice ) throws RARException
     {
+        if (vehicleType == null)
+            throw new RARException("The vehicleType is null");
+        if (!vehicleType.isPersistent())
+            throw new RARException("The vehicleType is not persistent");
         
+        hourlyPrice.setVehicleType( vehicleType );
+        hourlyPriceManager.save( hourlyprice );
     }
 
     /** 
@@ -646,7 +652,10 @@ public class PersistenceLayerImpl
      * @return the VehicleType of this HourlyPrice
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public VehicleType restoreVehicleTypeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException;
+    public VehicleType restoreVehicleTypeHourlyPrice( HourlyPrice hourlyPrice ) throws RARException
+    {
+        return hourlyPriceManager.restoreVehicleTypeHourlyPrice( hourlyPrice );
+    }
 
     /** 
      * Return all HourlyPrice settings for a given VehicleType.
@@ -654,7 +663,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of HourlyPrice objects for the VehicleType
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<HourlyPrice> restoreVehicleTypeHourlyPrice( VehicleType vehicleType ) throws RARException;    
+    public Iterator<HourlyPrice> restoreVehicleTypeHourlyPrice( VehicleType vehicleType ) throws RARException
+    {
+        return vehicleTypeeManager.restoreVehicleTypeHourlyPrice( vehicleType );
+    }
 
     /** 
      * Delete a link between a VehicleType and an HourlyPrice.
@@ -662,7 +674,10 @@ public class PersistenceLayerImpl
      * @param hourlyPrice the HourlyPrice
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteVehicleTypeHourlyPrice( VehicleType vehicleType, HourlyPrice hourlyPrice ) throws RARException;
+    public void deleteVehicleTypeHourlyPrice( VehicleType vehicleType, HourlyPrice hourlyPrice ) throws RARException
+    {
+        //
+    }
 
     // Rental--describedBy-->Comment   multiplicity: 1 - *
     //
@@ -672,7 +687,16 @@ public class PersistenceLayerImpl
      * @param comment the Comment
      * @throws RARException in case an error occurred during the store operation 
      */
-    public void storeRentalComment( Rental rental, Comment comment ) throws RARException;   
+    public void storeRentalComment( Rental rental, Comment comment ) throws RARException
+    {
+        if (rental == null)
+            throw new RARException("The rental is null");
+        if (!rental.isPersistent())
+            throw new RARException("The rental is not persistent");
+        
+        comment.setRental( rental );
+        commentManager.save( comment );
+    }
 
     /** 
      * Return a Rental described by a Comment.
@@ -680,7 +704,10 @@ public class PersistenceLayerImpl
      * @return the Rental described by the Comment
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Rental restoreRentalComment( Comment comment ) throws RARException;
+    public Rental restoreRentalComment( Comment comment ) throws RARException
+    {
+        return commentManager.restoreRentalComment(comment);
+    }
 
     /** 
      * Return all Comments describing a Rental.
@@ -688,7 +715,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of Comment objects for the Rental
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Comment> restoreRentalComment( Rental rental ) throws RARException;    
+    public Iterator<Comment> restoreRentalComment( Rental rental ) throws RARException
+    {
+        return rentalManager.restoreRentalComment(rental);
+    }
 
     /** 
      * Delete a link between a Rental and a Comment describing the Rental.
@@ -696,7 +726,10 @@ public class PersistenceLayerImpl
      * @param comment the Comment
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteRentalComment( Rental rental, Comment comment ) throws RARException;
+    public void deleteRentalComment( Rental rental, Comment comment ) throws RARException
+    {
+        //
+    }
 
     // Customer--commentedBy-->Comment   multiplicity: 1 - *
     //
@@ -720,7 +753,10 @@ public class PersistenceLayerImpl
      * @return the Customer who made the Comment
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Customer restoreCustomerComment( Comment comment ) throws RARException;
+    public Customer restoreCustomerComment( Comment comment ) throws RARException
+    {
+        return commentManager.restoreCustomerComment( comment ); 
+    }
 
     /** 
      * Return all Comments made by a Customer.
@@ -728,7 +764,10 @@ public class PersistenceLayerImpl
      * @return an Iterator of Comment objects commented by the Customer
      * @throws RARException in case an error occurred during the restore operation 
      */
-    public Iterator<Comment> restoreCustomerComment( Customer customer ) throws RARException;    
+    public Iterator<Comment> restoreCustomerComment( Customer customer ) throws RARException
+    {
+        return customerManager.restoreCustomerComment( customer ); 
+    }
 
     /** 
      * Delete a link between a Customer and a Comment.
@@ -760,7 +799,10 @@ public class PersistenceLayerImpl
      * @return the Customer involved in the Rental
      * @throws RARException in case either the rental is null or another error occurs
      */
-    public Customer restoreRentalCustomer( Rental rental ) throws RARException;
+    public Customer restoreRentalCustomer( Rental rental ) throws RARException
+    {
+        return rentalManger.restoreRentalCustomer( rental );
+    }
     
     /** 
      * Return all Rentals by a given Customer.
@@ -768,7 +810,10 @@ public class PersistenceLayerImpl
      * @return an iterator of Rentals of the Customer
      * @throws RARException in case either customer is null or another error occurs
      */
-    public Iterator<Rental> restoreRentalCustomer( Customer customer ) throws RARException;
+    public Iterator<Rental> restoreRentalCustomer( Customer customer ) throws RARException
+    {
+        return customerManager.restoreRentalCustomer( customer );
+    }
     
     /** 
      * Delete a link between a Rental and a Customer involved in it.

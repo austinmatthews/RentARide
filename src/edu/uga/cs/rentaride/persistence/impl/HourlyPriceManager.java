@@ -119,7 +119,7 @@ class HourlyPriceManager
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
-        String       selectClubSql = "select hp.maxHours, hp.minHours, hp.price from HourlyPrice hp where hourlyPriceID = id ";
+        String       selectHPSql = "select hp.maxHours, hp.minHours, hp.price from HourlyPrice hp where hourlyPriceID = id ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -127,11 +127,11 @@ class HourlyPriceManager
         condition.setLength( 0 );
         
         // form the query based on the given Club object instance
-        query.append( selectClubSql );
+        query.append( selectHPSql );
         
         if( hourlyPrice != null ) {
             if( hourlyPrice.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and id = " + hourlyPrice.getId() );
+                query.append( " and hourlyPriceID = " + hourlyPrice.getId() );
             //else if( hourlyPrice.getName() != null ) // userName is unique, so it is sufficient to get a person
             //   query.append( " and name = '" + club.getName() + "'" );
             else {
@@ -171,41 +171,44 @@ class HourlyPriceManager
         throw new RARException( "HourlyPriceManager.restore: Could not restore persistent HourlyPrice object" );
     }
     
-    /*
-    public Person restoreEstablishedBy( Club club ) 
-
-            throws ClubsException
+       VehicleType restoreVehicleTypeHourlyPrice( HourlyPrice hourlyPrice )
+            throws RARException
     {
-        String       selectPersonSql = "select p.id, p.username, p.userpass, p.email, p.firstname, p.lastname, p.address, p.phone from person p, club c where p.id = c.founderid";              
+        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        String       selectHPSql = "select vt.typeName, hp.maxHours, hp.minHours, hp.price from HourlyPrice hp, VehicleType vt where hp.hourlyPriceID = vt.vehicleTypeId ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
         condition.setLength( 0 );
         
-        // form the query based on the given Person object instance
-        query.append( selectPersonSql );
+        // form the query based on the given Club object instance
+        query.append( selectHPSql );
         
-        if( club != null ) {
-            if( club.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and c.id = " + club.getId() );
-            else if( club.getName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and c.name = '" + club.getName() + "'" );
+        if( hourlyPrice != null ) {
+            if( hourlyPrice.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and hourlyPriceID = " + hourlyPrice.getId() );
+            //else if( hourlyPrice.getName() != null ) // userName is unique, so it is sufficient to get a person
+            //   query.append( " and name = '" + club.getName() + "'" );
             else {
 
-                if( club.getAddress() != null )
-                    condition.append( " and c.address = '" + club.getAddress() + "'" );   
+                if( hourlyPrice.getMaxHours() != 0 )
+                	query.append( " and maxHours = '" + hourlyPrice.getMaxHours() + "'" );   
 
-                if( club.getEstablishedOn() != null ) {
-                    condition.append( " and c.established = '" + club.getEstablishedOn() + "'" );
+                if( hourlyPrice.getMinHours() != 0 ) {
+                    // if( condition.length() > 0 )
+                    //    condition.append( " and" );
+                    query.append( " and minHours = '" + hourlyPrice.getMinHours() + "'" );
                 }
-
+                /*
                 if( condition.length() > 0 ) {
+                    query.append(  " where " );
                     query.append( condition );
                 }
+                */
             }
         }
-                
+        
         try {
 
             stmt = conn.createStatement();
@@ -214,22 +217,16 @@ class HourlyPriceManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                Iterator<Person> personIter = new PersonIterator( r, objectLayer );
-                if( personIter != null && personIter.hasNext() ) {
-                    return personIter.next();
-                }
-                else
-                    return null;
+                return new VehicleTypeIterator( r, objectLayer );
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object; Root cause: " + e );
+            throw new RARException( "HourlyPriceManager.restore: Could not restore persistent VehicleType object; Root cause: " + e );
         }
 
-        // if we reach this point, it's an error
-        throw new ClubsException( "ClubManager.restoreEstablishedBy: Could not restore persistent Person object" );
+        throw new RARException( "HourlyPriceManager.restore: Could not restore persistent VehicleType object" );
     }
-    */
+
 
     public void delete(HourlyPrice hourlyPrice) 
             throws RARException

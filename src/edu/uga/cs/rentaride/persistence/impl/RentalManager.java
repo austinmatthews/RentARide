@@ -52,12 +52,12 @@ class RentalManager
             if( rental.getPickupTime() != null )
                 stmt.setDate( 2, (Date) rental.getPickupTime() );
             else
-                throw new RARException( "rental.save: can't save a rental: Pickup Time is not set or not persistent" );
+                throw new RARException( "Rental.save: can't save a rental: Pickup Time is not set or not persistent" );
 
             if( rental.getReturnTime() != null )
                 stmt.setDate( 3, (Date) rental.getReturnTime() );
             else
-            	 throw new RARException( "rental.save: can't save a rental: Return Time is not set or not persistent" );
+            	 throw new RARException( "Rental.save: can't save a rental: Return Time is not set or not persistent" );
        
             if( rental.getVehicle().getCondition() != null )
                 stmt.setString( 4, rental.getVehicle().getCondition().toString() );
@@ -107,7 +107,7 @@ class RentalManager
             throws RARException
     {
         String       selectRSql = "select rent.customer, rent.pickupTime, rent.returnTime, rent.condition " +
-                                      " from Rentals rent where ";
+                                      " from Rentals rent where 1 = 1 ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -119,7 +119,7 @@ class RentalManager
 
         if( rental != null ) {
             if( rental.getId() >= 0 ){ // id is unique, so it is sufficient to get a Rental
-                query.append( " and id = " + rental.getId() );
+                query.append( " and rentalNo = " + rental.getId() );
             } else { 
             	if( rental.getCustomer() != null ) // Type is unique, so it is sufficient to get a Rental
                 condition.append( " and Customer = '" + rental.getCustomer().toString() + "'" );
@@ -136,6 +136,112 @@ class RentalManager
             }
         }
 
+        query.append(condition);
+        
+        try {
+
+            stmt = conn.createStatement();
+
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new RentalIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "RentalManager.restore: Could not restore persistent Rental object; Root cause: " + e );
+        }
+
+        throw new RARException( "RentalManager.restore: Could not restore persistent Rental object" );
+    }
+
+
+    Iterator<Comment> restoreRentalComment( Rental rental )
+            throws RARException
+    {
+        String       selectRSql = "select c.commendDate, c.comment, c.rental, rent.customer, rent.pickupTime, rent.returnTime, rent.condition " +
+                                      " from Rentals rent, Comment c where 1 = 1 ";
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+
+        // form the query based on the given Rental object instance
+        query.append( selectRSql );
+
+        if( rental != null ) {
+            if( rental.getId() >= 0 ){ // id is unique, so it is sufficient to get a Rental
+                query.append( " and rentalNo = " + rental.getId() );
+            } else { 
+            	if( rental.getCustomer() != null ) // Type is unique, so it is sufficient to get a Rental
+                condition.append( " and Customer = '" + rental.getCustomer().toString() + "'" );
+                        
+                if( rental.getPickupTime() != null )
+                    condition.append( " and Pickup Time = '" + rental.getPickupTime().toString() + "'" );
+
+                if( rental.getReturnTime() != null )
+                    condition.append( " and Return Time = '" + rental.getPickupTime().toString() + "'" );  
+       
+                if( rental.getVehicle().getCondition() != null ) {
+                    condition.append( " Condition = '" + rental.getVehicle().getCondition().toString() + "'" );
+                }
+            }
+        }
+
+        query.append(condition);
+        
+        try {
+
+            stmt = conn.createStatement();
+
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new CommentIterator( r, objectLayer );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "RentalManager.restore: Could not restore persistent Comment object; Root cause: " + e );
+        }
+
+        throw new RARException( "RentalManager.restore: Could not restore persistent Comment object" );
+    }
+
+
+    Customer restoreRentalCustomer( Rental rental )
+            throws RARException
+    {
+        String       selectRSql = "select rent.customer, rent.pickupTime, rent.returnTime, rent.condition " +
+                                      " from Rentals rent where 1 = 1 ";
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+
+        // form the query based on the given Rental object instance
+        query.append( selectRSql );
+
+        if( rental != null ) {
+            if( rental.getId() >= 0 ){ // id is unique, so it is sufficient to get a Rental
+                query.append( " and rentalNo = " + rental.getId() );
+            } else { 
+            	if( rental.getCustomer() != null ) // Type is unique, so it is sufficient to get a Rental
+                condition.append( " and Customer = '" + rental.getCustomer().toString() + "'" );
+                        
+                if( rental.getPickupTime() != null )
+                    condition.append( " and Pickup Time = '" + rental.getPickupTime().toString() + "'" );
+
+                if( rental.getReturnTime() != null )
+                    condition.append( " and Return Time = '" + rental.getPickupTime().toString() + "'" );  
+       
+                if( rental.getVehicle().getCondition() != null ) {
+                    condition.append( " Condition = '" + rental.getVehicle().getCondition().toString() + "'" );
+                }
+            }
+        }
+
+        query.append(condition);
+        
         try {
 
             stmt = conn.createStatement();

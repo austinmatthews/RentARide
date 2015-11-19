@@ -109,16 +109,14 @@ public class ReservationImpl
     public void           setRentalLocation( RentalLocation rentalLocation ){
         this.rentalLocation = rentalLocation;
     }
+	
+    public Rental getRental() 
+    {
+	return rental;
+    }
 
-	@Override
-	public Rental getRental() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setRental(Rental rental) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setRental(Rental rental) 
+    {
+	this.rental = rental;
+    }
 }

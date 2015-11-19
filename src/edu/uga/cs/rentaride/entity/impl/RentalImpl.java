@@ -121,20 +121,8 @@ public class RentalImpl
     /** Set the charges involved in this rental.
      * @param charges the new charges for this rental
      */
-    public void setCustomer( int charges ){
+    public void setCharges( int charges ){
         this.charges = charges;
     }
 
-	@Override
-	public void setCharges(int charges) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Customer setCustomer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
 }

@@ -3,7 +3,6 @@ package edu.uga.cs.rentaride.object;
 import java.util.Date;
 import java.util.Iterator;
 
-
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
@@ -17,6 +16,7 @@ import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 
 
 

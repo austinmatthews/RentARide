@@ -16,14 +16,14 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.entity.Person;
-import edu.uga.clubs.logic.LogicLayer;
-import edu.uga.clubs.logic.impl.LogicLayerImpl;
-import edu.uga.clubs.object.ObjectLayer;
-import edu.uga.clubs.object.impl.ObjectLayerImpl;
-import edu.uga.clubs.persistence.PersistenceLayer;
-import edu.uga.clubs.persistence.impl.PersistenceLayerImpl;
+import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.User;
+import edu.uga.cs.rentaride.LogicLayer;
+import edu.uga.cs.rentaride.logic.impl.LogicLayerImpl;
+import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.object.impl.ObjectLayerImpl;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
+import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
 
 /***************************************************************
@@ -36,7 +36,7 @@ public class Session
     private Connection conn;
     private ObjectLayer objectLayer;
     private LogicLayer logicLayer;
-    private Person person;
+    private User user;
     private String id;
     private Date expiration;
     private static Logger log = SessionManager.getLog();
@@ -69,21 +69,21 @@ public class Session
      * Gets the GVUser for which the session is created.
      * @return the loggedIn user
      */
-    public Person getUser()
+    public User getUser()
     {
         extendExpiration();
-        return person;
+        return user;
     }
     
     /***********************************************************
      * Sets the loggedIn user to the new created session.
      * @param  person the user to be associated with the session.
      */
-    public void setUser(Person person) 
-            throws ClubsException
+    public void setUser(User user) 
+            throws RARException
     {
         extendExpiration();
-        this.person = person;
+        this.user = user;
     }
     
     /***********************************************************
@@ -159,12 +159,12 @@ public class Session
         try {
             SessionManager.removeSession( this );
         } 
-        catch( ClubsException e ) {
+        catch( RARException e ) {
             log.error( e.toString(), e );
             try {
                 throw e;
             } 
-            catch (ClubsException e1) {
+            catch (RARException e1) {
                 e1.printStackTrace();
             }
         }

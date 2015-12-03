@@ -1,15 +1,15 @@
 <html>
-<head><title>Clubs Interface</title>
+<head><title>Customer Interface</title>
 </head>
 <body>
 
-<h1>Welcome to Clubs Management System</h1>
+<h1>Welcome to RentARide Customer Management System</h1>
 
 <h3>You are logged in as ${username}
 
 <p>You may:
 <ol>
-<li>
+<!--<li>
 List all <a href="FindAllPersons"> persons</a>
 </li>
 <li>
@@ -29,11 +29,11 @@ a new person record</a>
 Select a person and a club and
 <a href="JoinClubPersonsClubsList"> enroll the person
 in the club.</a>
-</li>
+</li>-->
 <li>
 <a href="Logout"> Logout</a> from the Clubs system.
 </li>
-</ol>
+</ol> 
 
 </body>
 </html>

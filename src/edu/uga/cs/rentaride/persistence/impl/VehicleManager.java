@@ -18,6 +18,8 @@ import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
+import java.util.*;
+import java.sql.*;
 
 class VehicleManager
 {
@@ -59,7 +61,7 @@ class VehicleManager
                 throw new RARException( "VenhicleManager.save: can't save a Vehicle: name undefined" );
 
             if( vehicle.getLastServiced() != null )
-                stmt.setDate( 2, (Date) vehicle.getLastServiced() );
+                stmt.setDate( 2, new Date(vehicle.getLastServiced().getTime()) );
             else
                 stmt.setNull( 2, java.sql.Types.DATE );
             
@@ -101,7 +103,7 @@ class VehicleManager
             if( vehicle.getCondition() != null )
                 stmt.setString( 10, vehicle.getCondition().toString() );
             else
-                stmt.setNull( 10, java.sql.Types.DATE );
+                stmt.setNull( 10, java.sql.Types.VARCHAR );
 
             /*
             if( vehicle.getEstablishedOn() != null ) {
@@ -118,9 +120,13 @@ class VehicleManager
                 throw new ClubsException( "ClubManager.save: can't save a Club: founder is not set or not persistent" );
             */
             
-            if( vehicle.isPersistent() )
+            if( vehicle.isPersistent() ) {
                 stmt.setLong( 11, vehicle.getId() );
-
+            } else {
+            	
+            	stmt.setLong(11, 0);
+            }
+         
             inscnt = stmt.executeUpdate();
 
             if( !vehicle.isPersistent() ) {
@@ -161,7 +167,7 @@ class VehicleManager
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
         String       selectVSql = "select v.registrationTag, v.lastService, v.make, v.mileage, v.model, v.rentalLocation, " + 
-        							 " v.status, v.vehicleType, v.vehicleYear, v.vehicleCondition, v.vehicleID, from Vehicle v" ;
+        							 " v.status, v.vehicleType, v.vehicleYear, v.vehicleCondition, v.vehicleID from Vehicle v where 1=1" ;
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -224,7 +230,7 @@ class VehicleManager
         try {
 
             stmt = conn.createStatement();
-
+            System.out.println("stmt: " + query);
             // retrieve the persistent Person object
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result

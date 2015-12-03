@@ -28,6 +28,7 @@ import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
 import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 
 /**
@@ -47,7 +48,7 @@ import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
 public class ObjectLayerImpl
     implements ObjectLayer
 {
-	PersistenceLayerImpl persistence = null;
+	PersistenceLayer persistence = null;
     
     public ObjectLayerImpl()
     {
@@ -304,7 +305,7 @@ public class ObjectLayerImpl
      */
     public Rental createRental( Reservation reservation, Customer customer, Vehicle vehicle, Date pickupTime ) throws RARException
     {
-        return new RentalImpl( pickupTime, null, reservation, vehicle, customer, null);
+        return new RentalImpl( pickupTime, null, reservation, vehicle, customer, 0);
     }
 
     /**
@@ -313,7 +314,7 @@ public class ObjectLayerImpl
      */
     public Rental createRental()
     {
-        return new RentalImpl( null, null, null, null, null, null);
+        return new RentalImpl( null, null, null, null, null, 0);
     }
 
     /**
@@ -718,7 +719,7 @@ public class ObjectLayerImpl
      */
     public Iterator<Vehicle> restoreVehicleRentalLocation( RentalLocation rentalLocation ) throws RARException
     {
-        return persistence.restoreVehicleRentalLocation( rentalLocation );
+        return persistence.restoreVehicletRentalLocation( rentalLocation );
     }
     
     /**
@@ -989,7 +990,7 @@ public class ObjectLayerImpl
      */
     public Customer restoreRentalCustomer( Rental rental ) throws RARException
     {
-    	persistence.restoreRentalCustomer( rental );
+    	return persistence.restoreRentalCustomer( rental );
     }
     
     /** 
@@ -1000,8 +1001,22 @@ public class ObjectLayerImpl
      */
     public Iterator<Rental> restoreRentalCustomer( Customer customer ) throws RARException
     {
-    	persistence.restoreRentalCustomer( customer );
+    	return persistence.restoreRentalCustomer( customer );
     }
+
+
+	@Override
+	public RentARideConfig findRentARideCfg() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<Vehicle> restoreVehicletRentalLocation(
+			RentalLocation rentalLocation) throws RARException {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     /** 
      * Delete a link between a Rental and a Customer involved in it.

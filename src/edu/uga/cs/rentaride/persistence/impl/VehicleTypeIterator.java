@@ -46,7 +46,7 @@ public class VehicleTypeIterator
         if( more ) {
 
             try {
-            	id = rs.getLong("id");
+            	id = rs.getLong("vehicleTypeId");
                 type = rs.getString("TypeName");
                 more = rs.next();
             }

@@ -120,7 +120,7 @@ public class CustomerImpl
 	@Override
 	public String getFirstName() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getFirstName();
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class CustomerImpl
 	@Override
 	public String getLastName() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getLastName();
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class CustomerImpl
 	@Override
 	public String getUserName() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getUserName();
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class CustomerImpl
 	@Override
 	public String getEmailAddress() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getEmailAddress();
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class CustomerImpl
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getPassword();
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class CustomerImpl
 	@Override
 	public Date getCreatedDate() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getCreatedDate();
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class CustomerImpl
 	@Override
 	public UserStatus getUserStatus() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getUserStatus();
 	}
 
 	@Override
@@ -204,7 +204,7 @@ public class CustomerImpl
 	@Override
 	public String getResidenceAddress() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getResidenceAddress();
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class CustomerImpl
 	@Override
 	public long getId() {
 		// TODO Auto-generated method stub
-		return 0;
+		return super.getId();
 	}
 
 	@Override
@@ -228,6 +228,6 @@ public class CustomerImpl
 	@Override
 	public boolean isPersistent() {
 		// TODO Auto-generated method stub
-		return false;
+		return super.isPersistent();
 	}
 }

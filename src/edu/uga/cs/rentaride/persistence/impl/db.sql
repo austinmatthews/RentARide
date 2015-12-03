@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS team9;
 
 USE team9;
 
-DROP TABLE IF EXISTS 'Comments';
+DROP TABLE IF EXISTS `Comments`;
 DROP TABLE IF EXISTS `HourlyPrice`;
 DROP TABLE IF EXISTS `Rental`;
 DROP TABLE IF EXISTS `RentalLocations`;
@@ -73,9 +73,7 @@ CREATE TABLE `Rental` (
   `returnTime` datetime NOT NULL,
   PRIMARY KEY(rentalNo),
 
-  INDEX(customer),
-  FOREIGN KEY(customer)
-  	  REFERENCES Users(userName)
+  INDEX(customer)
 
   
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -142,17 +140,22 @@ CREATE TABLE `Reservations` (
 --
 
 CREATE TABLE `Users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `userName` varchar(255) NOT NULL,
   `emailAddress` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `createdDate` datetime NOT NULL,
-  `userStatus` ENUM('active','removed','terminated') NOT NULL,
+  `userStatus` ENUM('ACTIVE','REMOVED','TERMINATED') NOT NULL,
   `userType` ENUM('admin','customer') NOT NULL, 
+  `creditCardExpiration` datetime NOT NULL,
+  `creditCardNumber` varchar(255) NOT NULL,
+  `licenseNumber` varchar(255) NOT NULL,
+  `licenseState` varchar(255) NOT NULL,
+  `membershipExpiration` datetime NOT NULL,
 
-  PRIMARY KEY(userName)
+  PRIMARY KEY(id)
 
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -170,10 +173,10 @@ CREATE TABLE `Vehicle` (
   `mileage` int(11) NOT NULL,
   `model` varchar(255) NOT NULL,
   `rentalLocation` varchar(255) NOT NULL,
-  `status` ENUM('inLocation','inRental') NOT NULL,
+  `status` ENUM('INLOCATION','INRENTAL') NOT NULL,
   `vehicleType` varchar(255) NOT NULL,
   `vehicleYear` int(11) NOT NULL,
-  `vehicleCondition` ENUM('good', 'cleaningNeeded','maintenanceNeeded') NOT NULL,
+  `vehicleCondition` ENUM('GOOD', 'NEEDSCLEANING','NEEDSMAINTENANCE') NOT NULL,
   `vehicleID` int(11) NOT NULL AUTO_INCREMENT,
 
   PRIMARY KEY(vehicleID),

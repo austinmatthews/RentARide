@@ -12,6 +12,8 @@ import java.util.Iterator;
 import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.HourlyPrice;
+import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
@@ -115,7 +117,7 @@ class VehicleTypeManager
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
-        String       selectVTSql = "select vt.id, vt.typeName " +
+        String       selectVTSql = "select vt.vehicleTypeId, vt.typeName " +
                                       " from VehicleType vt ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );

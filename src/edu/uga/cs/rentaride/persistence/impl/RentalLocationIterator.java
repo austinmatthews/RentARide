@@ -49,7 +49,7 @@ public class RentalLocationIterator
         if( more ) {
 
             try {
-            	id = rs.getLong("id");
+            	id = rs.getLong("rentalId");
                 name = rs.getString("locationName");
                 address = rs.getString("address");
                 capacity = rs.getInt("capacity");

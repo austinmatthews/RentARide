@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
+import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
@@ -217,7 +218,7 @@ class HourlyPriceManager
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                return new VehicleTypeIterator( r, objectLayer );
+                return new VehicleTypeIterator( r, objectLayer ).next();
             }
         }
         catch( Exception e ) {      // just in case...

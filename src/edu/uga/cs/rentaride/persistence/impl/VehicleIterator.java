@@ -14,7 +14,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 //import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.object.ObjectLayer;
-
+import edu.uga.cs.rentaride.entity.*;
 
 public class VehicleIterator
     implements Iterator<Vehicle>
@@ -66,7 +66,7 @@ public class VehicleIterator
         if( more ) {
 
             try {
-            	id = rs.getLong("id");
+            	id = rs.getLong("vehicleID");
                 registrationTag = rs.getString( "registrationTag" );
                 lastServiced = rs.getDate( "lastService" );
                 make = rs.getString( "make" );

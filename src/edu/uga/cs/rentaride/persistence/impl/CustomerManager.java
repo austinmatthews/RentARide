@@ -31,8 +31,8 @@ class CustomerManager
     public void save(Customer customer)
             throws RARException
     {
-        String               insertCSql = "insert into Customer ( creditCardExpiration, creditCardNumber, licenseNumber, licenseState, membershipExpiration) values ( ?, ?, ?, ?, ?)";
-        String               updateCSql = "update Customer set creditCardExpiration = ?, creditCardNumber = ?, licenseNumber = ?, licenseState = ?, membershipExpiration = ? where id = ? ";
+        String               insertCSql = "insert into Users ( creditCardExpiration, creditCardNumber, licenseNumber, licenseState, membershipExpiration, firstName, lastName,userName,emailAddress,createdDate,password) values ( ?, ?, ?, ?, ?,?,?,?,?,?,?)";
+        String               updateCSql = "update Users set creditCardExpiration = ?, creditCardNumber = ?, licenseNumber = ?, licenseState = ?, membershipExpiration = ? where id = ? ";
         PreparedStatement    stmt = null;
         int                  inscnt;
         long                 CId;
@@ -47,7 +47,7 @@ class CustomerManager
 
             if( customer.getCreditCardExpiration() != null ) // type is unique and non null
             	// This is me setting the value in col typeName in table VehicleType to the provided value
-            	stmt.setDate( 1, (Date) customer.getCreditCardExpiration());
+            	stmt.setDate( 1, new java.sql.Date(customer.getCreditCardExpiration().getTime()));
             else
                 throw new RARException( "Customer.save: can't save a Customer: Customer undefined" );
 
@@ -67,13 +67,42 @@ class CustomerManager
             	 throw new RARException( "customer.save: can't save a customer: License State is not set or not persistent" );
        
             if( customer.getMembershipExpiration() != null )
-                stmt.setDate( 5, (Date) customer.getMembershipExpiration() );
+                stmt.setDate( 5, new java.sql.Date(customer.getMembershipExpiration().getTime() ));
             else
             	 throw new RARException( "customer.save: can't save a customer: Membership Expiration is not set or not persistent" );
        
+            if (customer.getFirstName() != null) 
+            	stmt.setString(6, customer.getFirstName());
+            else
+            	throw new RARException( "customer.save: can't save a customer: firstName is not set or not persistent" );
             
+            if(customer.getLastName() != null)
+            	stmt.setString(7, customer.getLastName());
+            else
+            	throw new RARException( "customer.save: can't save a customer: lastName is not set or not persistent" );
+           
+            if(customer.getUserName() != null)
+            	stmt.setString(8, customer.getUserName());
+            else
+            	throw new RARException( "customer.save: can't save a customer: lastName is not set or not persistent" );
+           
+            if(customer.getEmailAddress() != null)
+            	stmt.setString(9, customer.getEmailAddress());
+            else
+            	throw new RARException( "customer.save: can't save a customer: email is not set or not persistent" );
+           
+            if(customer.getCreatedDate() != null)
+            	stmt.setDate(10, new java.sql.Date(customer.getCreatedDate().getTime()));
+            else
+            	throw new RARException( "customer.save: can't save a customer: lastName is not set or not persistent" );
+           
+            if(customer.getPassword() != null)
+            	stmt.setString(11,customer.getPassword());
+            else
+            	throw new RARException( "customer.save: can't save a customer: password is not set or not persistent" );
+           
             if( customer.isPersistent() )
-                stmt.setLong( 6, customer.getId() );
+                stmt.setLong( 12, customer.getId() );
 
             inscnt = stmt.executeUpdate();
 
@@ -114,7 +143,7 @@ class CustomerManager
             throws RARException
     {
         String       selectCSql = "select c.creditCardExpiration, c.creditCardNumber, c.licenseNumber, c.licenseState, c.membershipExpiration " +
-                                      " from Customers c where ";
+                                      " from Users c where ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );

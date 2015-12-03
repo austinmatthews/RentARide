@@ -33,7 +33,7 @@ class RentalLocationManager
             throws RARException
     {
         String               insertRLSql = "insert into RentalLocations ( address, locationName, capacity ) values ( ?, ?, ? )";
-        String               updateRLSql = "update RentalLocations set address, = ? locationName = ?, capacity = ? where rentalID = ? ";
+        String               updateRLSql = "update RentalLocations set address = ?, locationName = ?, capacity = ? where rentalID = ? ";
         PreparedStatement    stmt = null;
         int                  inscnt;
         long                 RLId;
@@ -105,8 +105,8 @@ class RentalLocationManager
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from rentalLocation";
-        String       selectRLSql = "select rl.address, rl.capacity, rl.locationName " +
-                                      " from RentalLocations rl where ";
+    	String       selectRLSql = "select rl.rentalID ,rl.address, rl.capacity, rl.locationName " +
+                " from RentalLocations rl ";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -118,7 +118,7 @@ class RentalLocationManager
 
         if( rentalLocation != null ) {
             if( rentalLocation.getId() >= 0 ){ // id is unique, so it is sufficient to get a RentalLocation
-                query.append( " and id = " + rentalLocation.getId() );
+                query.append( " and rentalID = " + rentalLocation.getId() );
             } else { 
             	if( rentalLocation.getName() != null ) // Type is unique, so it is sufficient to get a RentalLocation
                 condition.append( " and locationName = '" + rentalLocation.getName() + "'" );

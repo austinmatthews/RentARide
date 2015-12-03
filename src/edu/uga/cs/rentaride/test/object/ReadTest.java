@@ -34,19 +34,36 @@ public class ReadTest
          // connect the ObjectModel module to the Persistence module
        
          objectLayer.setPersistence(persistence);
-         
            
         try {
              
-             System.out.println( "RentalLocation objects:" );
-             
+             System.out.println( "RentalLocation objects:" );             
              Iterator<RentalLocation> rlIter = objectLayer.findRentalLocation( null );
-          
-
              while( rlIter.hasNext() ) {
                  RentalLocation c = rlIter.next();
-                 System.out.println("RL2: " + c.getAddress());
+                 System.out.println("RL Addr: " + c.getAddress() +"RL Name: " + c.getName() + "\tRL Cap: " + c.getCapacity());
              }
+             
+             System.out.println("VehicleTypes:");
+             
+             Iterator<VehicleType> vtIter = objectLayer.findVehicleType(null);
+             
+             while (vtIter.hasNext()) {
+            	 VehicleType vt = vtIter.next();
+            	 System.out.println(vt.getType());
+             }
+             
+             Vehicle modelVehicle = objectLayer.createVehicle(null, "nissan", null, 0, null, 0, null, null, null, null);
+             
+             Iterator<Vehicle> vIter = objectLayer.findVehicle(modelVehicle);
+             System.out.println("Vehicles with make nissan: ");
+             
+             while (vIter.hasNext()) {
+            	 Vehicle v = vIter.next();
+            	 System.out.println(v.getRegistrationTag());
+      
+             }
+             
              
          }
          catch( RARException ce)

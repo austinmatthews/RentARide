@@ -29,11 +29,11 @@ public abstract class DbAccessConfig
 
     /** The JDBC connection string/URL.
      */
-    static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/team9";
+    static final String DB_CONNECTION_URL = "jdbc:mysql://uml.cs.uga.edu/team9";
 
     /** The database user name.
      */
-    static  String DB_CONNECTION_USERNAME = "root";
+    static  String DB_CONNECTION_USERNAME = "team9";
 
     /** The password for the database user.
      */

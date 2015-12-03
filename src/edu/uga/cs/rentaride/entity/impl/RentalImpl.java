@@ -125,4 +125,10 @@ public class RentalImpl
         this.charges = charges;
     }
 
+	@Override
+	public Customer setCustomer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

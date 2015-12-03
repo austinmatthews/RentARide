@@ -68,7 +68,8 @@ public class CommentIterator
                 throw new NoSuchElementException( "CommentIterator: No next Comment object; root cause: " + e );
             }
             
-            rental = objectLayer.findRental(rentalNo);
+            
+            rental = objectLayer.findRental(modelRental)(rentalNo);
             customer = objectLayer.findCustomer(customerID);
             
             try {

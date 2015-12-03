@@ -11,15 +11,16 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.impl.*;
+import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.object.impl.ObjectLayerImpl;
 
 
 class CommentManager
 {
-    private ObjectLayerImpl objectLayer = null;
+    private ObjectLayer objectLayer = null;
     private Connection   conn = null;
     
-    public CommentManager( Connection conn, ObjectLayerImpl objectLayer )
+    public CommentManager( Connection conn, ObjectLayer objectLayer )
     {
         this.conn = conn;
         this.objectLayer = objectLayer;

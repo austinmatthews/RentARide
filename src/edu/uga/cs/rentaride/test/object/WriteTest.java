@@ -49,73 +49,43 @@ public class WriteTest
          persistence = new PersistenceLayerImpl( conn, objectLayer );
          
          // connect the ObjectModel module to the Persistence module
-        // objectLayer.setPersistence( persistence );   
+         objectLayer.setPersistence( persistence );   
 
          try {
              
-             // create a few people
-
-        	 //admin = objectLayer.createAdministrator("jon", "doe", "adminuser", "admin@test.com", "pass", new Date());
         	 
-             /*mary = objectLayer.createPerson( "mary", "marypass", "mary@mail.com", "Mary", "Swift", "14 Oak Dr., Small Town, TX. 77888", "444-9876" );
-             bob = objectLayer.createPerson( "bob", "bobpass", "bob@mail.com", "Robert", "Wilson", "33 Cedar Cr., Middle Town, NV. 81888", "567-7788" );
-             julie = objectLayer.createPerson( "julie", "juliepass", "julie@mail.com", "Julie", "Hart", "99 Magnolia St., Splash Town, NY. 21888", "364-7592" );
-             heather = objectLayer.createPerson( "heather", "heatherpass", "julie@mail.com", "Heather", "Brooks", "1 Pine Ave., Boom Town, GA. 30688", "339-9923" );
-             */
-        	 
-        	 //comment = objectLayer.createComment("testcomm", objectLayer.createRental(), objectLayer.createCustomer("jon", "doe", "jd", "jd@uga.edu", "asdf", new Date(), new Date(), "GA", "2123", "123 main st", "1234abc", new Date()));
-        	 rentalLocation = objectLayer.createRentalLocation("testlocation1", "124 main st", 1);
+        	//save rentallocation works
+        	 rentalLocation = objectLayer.createRentalLocation("testlocation121233333", "124123 main st", 1);
         	 persistence.storeRentalLocation(rentalLocation);
         	
+        	 //need to add customer attribute sto db
         	 
+        	 customer = objectLayer.createCustomer("jon", "doe", "jduser", "jd@test.com", "pass", new Date(), new Date(), "GA", "1234", "123 main st", "99999", new Date());
+        	 persistence.storeCustomer(customer);
         	 
-        	 
-        	 //persistence.storeComment(comment);
+        	
             
-             /*
-             persistence.savePerson( mary );
-             persistence.savePerson( bob );
-             persistence.savePerson( julie );
-             persistence.savePerson( heather );
-             */
-             
-             /*
-             bridge = objectLayer.createClub( "Bridge", "33 Leaf St., Blossom, OR. 88888", new Date(), joe );
-             persistence.saveClub( bridge );
-             
-             chess = objectLayer.createClub( "Chess", "734 Pine Straw Dr., Bloom, KY. 48878", new Date(), mary );
-             persistence.saveClub( chess );
-             
-             tennis = objectLayer.createClub( "Tennis", "333 Wide St., Flower, RI. 17345", new Date(), mary );
-             persistence.saveClub( tennis );
-             
-             running = objectLayer.createClub( "Running", "445 Pace St., Quicker, Wy. 77546", new Date(), bob );
-             persistence.saveClub( running );
-             
-             membership = objectLayer.createMembership( joe, bridge, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( bob, bridge, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( heather, bridge, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( mary, chess, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( mary, tennis, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( julie, tennis, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( bob, tennis, new Date() );
-             persistence.saveMembership( membership );
-             
-             membership = objectLayer.createMembership( joe, chess, new Date() );
-             persistence.saveMembership( membership );
-             */
+        	 /* no create rentalconfig?
+        	 config = objectLayer.
+            */
+        	 
+        	 //save vehicletype works
+        	 vehicleType = objectLayer.createVehicleType("Truck");
+        	 persistence.storeVehicleType(vehicleType);
+        	 
+        	 //some sort of sql mismatch
+        	
+        	 vehicle = objectLayer.createVehicle(vehicleType, "nissan", "frontier", 2006, "123ABC", 40000, new Date(), rentalLocation, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+        	 persistence.storeVehicle(vehicle);
+        	 
+        	 
+        	 /* needs customer first
+        	 Date pickupTime = new Date();
+        	 int rentalDuration = 2;
+			reservation = objectLayer.createReservation(vehicleType, rentalLocation, customer, pickupTime, rentalDuration );
+        	 */
+        	 
+        	 
              System.out.println( "Entity objects created and saved in the persistence module" );
              
          }

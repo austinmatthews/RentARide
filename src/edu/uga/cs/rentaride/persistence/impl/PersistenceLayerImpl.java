@@ -35,12 +35,12 @@ public class PersistenceLayerImpl
     private CommentManager commentManager = null;
     private CustomerManager customerManager = null;
     private HourlyPriceManager hourlyPriceManager = null;
-    private RentARideConfigManager rentARideConfigManager = null;
-    private RentalManager rentalManger = null;
-    private RentalLocationManager rentalLocationManger = null;
-    private ReservationManager reservationManger = null;
-    private VehicleManager vehicleManger = null;
-    private VehicleTypeManager vehicleTypeManger = null;
+   // private RentARideConfigManager rentARideConfigManager = null;
+    private RentalManager rentalManager = null;
+    private RentalLocationManager rentalLocationManager = null;
+    private ReservationManager reservationManager = null;
+    private VehicleManager vehicleManager = null;
+    private VehicleTypeManager vehicleTypeManager = null;
     
     public PersistenceLayerImpl( Connection conn, ObjectLayer objectLayer )
     {
@@ -48,12 +48,12 @@ public class PersistenceLayerImpl
         commentManager = new CommentManager( conn, objectLayer);
         customerManager = new CustomerManager( conn, objectLayer);
         hourlyPriceManager = new HourlyPriceManager( conn, objectLayer);
-        rentARideConfigManager = new RentARideConfigManager( conn, objectLayer);
-        rentalManger = new RentalManger( conn, objectLayer);
-        rentalLocationManger = new RentalLocationManger( conn, objectLayer);
-        reservationManger = new ReservationManger( conn, objectLayer);
-        vehicleManger = new VehicleManger( conn, objectLayer);
-        vehicleTypeManger = new VehicleTypeManger( conn, objectLayer);
+        //rentARideConfigManager = new RentARideConfigManager( conn, objectLayer);
+        rentalManager = new RentalManager( conn, objectLayer);
+        rentalLocationManager = new RentalLocationManager( conn, objectLayer);
+        reservationManager = new ReservationManager( conn, objectLayer);
+        vehicleManager = new VehicleManager( conn, objectLayer);
+        vehicleTypeManager = new VehicleTypeManager( conn, objectLayer);
         System.out.println("PersistenceLayerImpl.PersistenceLayerImpl(conn,objectLayer): initialized");
     }
     
@@ -286,6 +286,7 @@ public class PersistenceLayerImpl
      */
     public Iterator<Comment> restoreComment( Comment modelComment ) throws RARException
     {
+   
         return commentManager.restore( modelComment );
     }
     
@@ -306,7 +307,7 @@ public class PersistenceLayerImpl
      * @param comment the Comment to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    public void deleteComment( Comment coment ) throws RARException
+    public void deleteComment( Comment comment ) throws RARException
     {
         commentManager.delete( comment );
     }
@@ -817,7 +818,7 @@ public class PersistenceLayerImpl
      */
     public Customer restoreRentalCustomer( Rental rental ) throws RARException
     {
-        return rentalManger.restoreRentalCustomer( rental );
+        return rentalManager.restoreRentalCustomer( rental );
     }
     
     /** 
@@ -830,6 +831,13 @@ public class PersistenceLayerImpl
     {
         return customerManager.restoreRentalCustomer( customer );
     }
+
+	@Override
+	public Iterator<Vehicle> restoreVehicletRentalLocation(
+			RentalLocation rentalLocation) throws RARException {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     /** 
      * Delete a link between a Rental and a Customer involved in it.

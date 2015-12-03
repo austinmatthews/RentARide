@@ -1,12 +1,14 @@
-package edu.uga.clubs.logic.impl;
+package edu.uga.rentaride.logic.impl;
 
 import java.util.Iterator;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.entity.Person;
-import edu.uga.clubs.object.ObjectLayer;
-import edu.uga.clubs.session.Session;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.rentaride.RARException;
+import edu.uga.rentaride.entity.User;
+import edu.uga.rentaride.entity.Customer;
+import edu.uga.rentaride.entity.Administrator;
+import edu.uga.rentaride.object.ObjectLayer;
+import edu.uga.rentaride.session.Session;
+import edu.uga.rentaride.session.SessionManager;
 
 public class LoginCtrl
 { 
@@ -18,22 +20,32 @@ public class LoginCtrl
     }
     
     public String login( Session session, String userName, String password )
-            throws ClubsException
+            throws RARException
     {
         String ssid = null;
         
-        Person modelPerson = objectLayer.createPerson();
-        modelPerson.setUserName( userName );
-        modelPerson.setPassword( password );
-        Iterator<Person> persons = objectLayer.findPerson( modelPerson );
-        if( persons.hasNext() ) {
-            Person person = persons.next();
-            session.setUser( person );
+        Customer modelCustomer = objectLayer.createCustomer();
+        modelCustomer.setUserName( userName );
+        modelCustomer.setPassword( password );
+        Iterator<Customer> customers = objectLayer.findCustomer( modelCustomer );
+        if( customers.hasNext() ) {
+            Customer customer = customers.next();
+            session.setUser( customer );
             ssid = SessionManager.storeSession( session );
         }
         else
-            throw new ClubsException( "SessionManager.login: Invalid User Name or Password" );
-        
+            Administrator modelAdministrator = objectLayer.createAdministrator();
+            modelAdministrator.setUserName( userName );
+            modelAdministrator.setPassword( password );
+            Iterator<Administrator> administrators = objectLayer.findAdministrator( modelAdministrator );
+            if( administrators.hasNext() ) {
+                Administrator administrator = administrators.next();
+                session.setUser( administrator );
+                ssid = SessionManager.storeSession( session );
+            }
+            else
+                throw new RARException( "SessionManager.login: Invalid User Name or Password" );
+        }
         return ssid;
     }
 }

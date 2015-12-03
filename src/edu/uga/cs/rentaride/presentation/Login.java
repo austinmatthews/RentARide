@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.clubs.logic.LogicLayer;
-import edu.uga.clubs.session.Session;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.rentaride.logic.LogicLayer;
+import edu.uga.rentaride.session.Session;
+import edu.uga.rentaride.session.SessionManager;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -86,7 +86,7 @@ public class Login
                 session = SessionManager.createSession();
             }
             catch ( Exception e ) {
-                ClubsError.error( cfg, toClient, e );
+                RARError.error( cfg, toClient, e );
                 return;
             }
         }
@@ -99,7 +99,7 @@ public class Login
         password = req.getParameter( "password" );
 
         if( username == null || password == null ) {
-            ClubsError.error( cfg, toClient, "Missing user name or password" );
+            RARError.error( cfg, toClient, "Missing user name or password" );
             return;
         }
 
@@ -110,7 +110,7 @@ public class Login
             System.out.println( "Connection: " + session.getConnection() );
         } 
         catch ( Exception e ) {
-            ClubsError.error( cfg, toClient, e );
+            RARError.error( cfg, toClient, e );
             return;
         }
 

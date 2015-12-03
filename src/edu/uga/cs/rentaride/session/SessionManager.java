@@ -10,9 +10,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.entity.Person;
-import edu.uga.clubs.persistence.impl.DbUtils;
+import edu.uga.cs.rentaride.ClubsException;
+import edu.uga.cs.rentaride.entity.User;
+import edu.uga.cs.rentaride.persistence.impl.DbUtils;
 
 
 
@@ -46,7 +46,7 @@ public class SessionManager
     } 
     
     public static Session createSession() 
-            throws ClubsException 
+            throws RARException 
     {
         Connection conn = null;
         Session s = null;
@@ -55,7 +55,7 @@ public class SessionManager
         try {
             conn = DbUtils.connect();
         } catch (Exception seq) {
-            throw new ClubsException( "SessionManager.login: Unable to get a database connection" );
+            throw new RARException( "SessionManager.login: Unable to get a database connection" );
         }
         
         // initialize a new Session object
@@ -129,21 +129,21 @@ public class SessionManager
     }
     */
     public static String storeSession( Session session ) 
-            throws ClubsException
+            throws RARException
     {
-        Person person = session.getUser();
+        User user = session.getUser();
         
-        if( loggedIn.containsKey(person.getUserName()) ) {
-            Session qs = loggedIn.get(person.getUserName());
-            qs.setUser(person);
+        if( loggedIn.containsKey(user.getUserName()) ) {
+            Session qs = loggedIn.get(user.getUserName());
+            qs.setUser(user);
             return qs.getSessionId();
         }
                 
-        String ssid = secureHash( "CLUBS" + System.nanoTime() );
+        String ssid = secureHash( "RENTARIDE" + System.nanoTime() );
         session.setSessionId( ssid );
         
         sessions.put( ssid, session );
-        loggedIn.put( person.getUserName(), session );
+        loggedIn.put( user.getUserName(), session );
         session.start();
         return ssid;
     }
@@ -195,7 +195,7 @@ public class SessionManager
      * @throws GVException
      */
     public static void logout(Session s) 
-            throws ClubsException
+            throws RARException
     {
         s.setExpiration(new Date());
         s.interrupt();
@@ -208,7 +208,7 @@ public class SessionManager
      * @throws GVException
      */
     public static void logout(String ssid) 
-            throws ClubsException
+            throws RARException
     {
         Session s = getSessionById(ssid);
         s.setExpiration(new Date());
@@ -222,14 +222,14 @@ public class SessionManager
      * @throws GVException
      */
     protected static void removeSession( Session s ) 
-            throws ClubsException
+            throws RARException
     {
         try { 
             s.getConnection().close();
         } 
         catch( SQLException sqe ) { 
             log.error( "SessionManager.removeSession: cannot close connection", sqe );
-            throw new ClubsException( "SessionManager.removeSession: Cannot close connection" );
+            throw new RARException( "SessionManager.removeSession: Cannot close connection" );
         } // try
         sessions.remove( s.getSessionId() );
         loggedIn.remove( s.getUser().getUserName() );
@@ -250,7 +250,7 @@ public class SessionManager
      * @throws ClubsException 
      */
     public static String secureHash( String input ) 
-            throws ClubsException
+            throws RARException
     {
         StringBuilder output = new StringBuilder();
         try {
@@ -268,7 +268,7 @@ public class SessionManager
         catch( Exception e ) {
             log.error(
                     "SessionManager.secureHash: Invalid Encryption Algorithm", e );
-            throw new ClubsException(
+            throw new RARException(
                     "SessionManager.secureHash: Invalid Encryption Algorithm" );
         }
         return output.toString();

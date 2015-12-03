@@ -12,14 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.logic.LogicLayer;
-import edu.uga.clubs.session.Session;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.cs.rentaride.ClubsException;
+import edu.uga.cs.rentaride.logic.LogicLayer;
+import edu.uga.cs.rentaride.session.Session;
+import edu.uga.cs.rentaride.session.SessionManager;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 
 
 public class Logout 
@@ -68,7 +67,7 @@ public class Logout
                 System.out.println( "Already have ssid: " + ssid );
                 Session session = SessionManager.getSessionById( ssid );
                 if( session == null ) {
-                    ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+                    RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
                     return; 
                 }
                 LogicLayer logicLayer = session.getLogicLayer();
@@ -78,7 +77,7 @@ public class Logout
                     httpSession.invalidate();
                     System.out.println( "Invalidated http session" );
                 }
-                catch( ClubsException e ) {
+                catch( RARException e ) {
                     e.printStackTrace();
                 }
             }

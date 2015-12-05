@@ -1,22 +1,23 @@
 /**
  * 
  */
-package edu.uga.clubs.logic.impl;
+package edu.uga.cs.rentaride.logic.impl;
 
 import java.sql.Connection;
 import java.util.List;
 
-import edu.uga.clubs.ClubsException;
-import edu.uga.clubs.entity.Club;
-import edu.uga.clubs.entity.Person;
-import edu.uga.clubs.logic.LogicLayer;
-import edu.uga.clubs.object.ObjectLayer;
-import edu.uga.clubs.object.impl.ObjectLayerImpl;
-import edu.uga.clubs.persistence.PersistenceLayer;
-import edu.uga.clubs.persistence.impl.PersistenceLayerImpl;
-import edu.uga.clubs.session.Session;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.User;
+import edu.uga.cs.rentaride.logic.LogicLayer;
+import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.object.impl.ObjectLayerImpl;
+import edu.uga.cs.rentaride.persistence.PersistenceLayer;
+import edu.uga.cs.rentaride.persistence.impl.PersistenceLayerImpl;
+import edu.uga.cs.rentaride.session.Session;
+import edu.uga.cs.rentaride.session.SessionManager;
 
+//$$$$$ ADD entity import statements when you add your usecases to this $$$$$$
 
 /**
  * @author team 9

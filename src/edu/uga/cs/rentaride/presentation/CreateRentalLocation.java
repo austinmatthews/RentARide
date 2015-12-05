@@ -1,15 +1,15 @@
 //
-// Class:       CreateClub
+// Class:       CreateRentalLocation
 //
 // Type:        Servlet
 //
-// K.J. Kochut
+// Lauren Clapper
 //
 //
 //
 
 
-package edu.uga.clubs.presentation;
+package edu.uga.cs.rentaride.presentation;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,9 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.clubs.logic.LogicLayer;
-import edu.uga.clubs.session.Session;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.cs.rentaride.logic.LogicLayer;
+import edu.uga.cs.rentaride.session.Session;
+import edu.uga.cs.rentaride.session.SessionManager;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -33,22 +33,22 @@ import freemarker.template.TemplateException;
 
 
 
-// Servlet class CreateClub
+// Servlet class CreateRentalLocation
 //
-// doPost starts the execution of the Create Club Use Case
+// doPost starts the execution of the Create Rental Location Use Case
 //
 //   parameters:
 //
-//	club_name    string
-//	club_address string
-//      founder_id   long (as a string)
+//	name    string
+//	address string
+//  capacity   int
 //
-public class CreateClub
+public class CreateRentalLocation
     extends HttpServlet 
 {
     private static final long serialVersionUID = 1L;
     static  String         templateDir = "WEB-INF/templates";
-    static  String         resultTemplateName = "CreateClub-Result.ftl";
+    static  String         resultTemplateName = "CreateRentalLocation-Result.ftl";
 
     private Configuration  cfg; 
 
@@ -69,11 +69,11 @@ public class CreateClub
     {
         Template       resultTemplate = null;
         BufferedWriter toClient = null;
-        String	       club_name = null;
-        String	       club_addr = null;
-        String         person_id_str;
-        long           founder_id;
-        long	       club_id = 0;
+        String	       name = null;
+        String	       addr = null;
+        String         capacity_str;
+        int            capacity = 0;
+        long	       rentalLocation_id = 0;
         LogicLayer     logicLayer = null;
         HttpSession    httpSession;
         Session        session;
@@ -101,62 +101,62 @@ public class CreateClub
 
         httpSession = req.getSession();
         if( httpSession == null ) {       // assume not logged in!
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
 
         ssid = (String) httpSession.getAttribute( "ssid" );
         if( ssid == null ) {       // not logged in!
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
 
         session = SessionManager.getSessionById( ssid );
         if( session == null ) {
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return; 
         }
         
         logicLayer = session.getLogicLayer();
         if( logicLayer == null ) {
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return; 
         }
 
         // Get the form parameters
         //
-        club_name = req.getParameter( "club_name" );
-        club_addr = req.getParameter( "club_address" );
-        person_id_str = req.getParameter( "founder_id" );
+        name = req.getParameter( "name" );
+        addr = req.getParameter( "address" );
+        capacity_str = req.getParameter( "capacity" );
 
-        if( club_name == null || club_addr == null ) {
-            ClubsError.error( cfg, toClient, "Unspecified club name or club address" );
+        if( name == null || addr == null) {
+            RARError.error( cfg, toClient, "Unspecified name or address" );
             return;
         }
 
-        if( person_id_str == null ) {
-            ClubsError.error( cfg, toClient, "Unspecified founder_id" );
+        if( capacity_str == null ) {
+            RARError.error( cfg, toClient, "Unspecified capacity" );
             return;
         }
 
         try {
-            founder_id = Long.parseLong( person_id_str );
+            capacity = Integer.parseInt( capacity_str );
         }
         catch( Exception e ) {
-            ClubsError.error( cfg, toClient, "founder_id should be a number and is: " + person_id_str );
+            RARError.error( cfg, toClient, "capacity should be a number and is: " + capacity_str );
             return;
         }
 
-        if( founder_id <= 0 ) {
-            ClubsError.error( cfg, toClient, "Non-positive founder_id: " + founder_id );
+        if( capacity <= 0 ) {
+            RARError.error( cfg, toClient, "Non-positive capacity: " + capacity );
             return;
         }
 
         try {
-            club_id = logicLayer.createClub( club_name, club_addr, founder_id );
+            rentalLocation_id = logicLayer.createRentalLocation( name, addr, capacity );
         } 
         catch ( Exception e ) {
-            ClubsError.error( cfg, toClient, e );
+            RARError.error( cfg, toClient, e );
             return;
         }
 
@@ -166,8 +166,8 @@ public class CreateClub
 
         // Build the data-model
         //
-        root.put( "club_name", club_name );
-        root.put( "club_id", new Long( club_id ) );
+        root.put( "name", name );
+        root.put( "rentalLocation_id", new Long( rentalLocation_id ) );
 
         // Merge the data-model and the template
         //

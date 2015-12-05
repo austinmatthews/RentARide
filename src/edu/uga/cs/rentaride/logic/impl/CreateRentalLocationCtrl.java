@@ -28,37 +28,21 @@ public class CreateRentalLocationCtrl {
     public long createRentalLocation( String name, String addr, int capacity )
             throws RARException
     { 
-        RentalLocation 		  club  = null;
-        RentalLocation      modelRentalLocation = null;
-        Iterator<RentalLocation>      clubIter = null;
-        Person              founder = null;
-        Person              modelPerson = null;
-        Iterator<Person>    personIter = null;
+        RentalLocation 	            rentalLocation  = null;
+        RentalLocation              modelRentalLocation = null;
+        Iterator<RentalLocation>    rentalLocationIter = null;
 
-        // check if a club with this name already exists (name is unique)
-        modelClub = objectLayer.createClub();
-        modelClub.setName( club_name );
-        clubIter = objectLayer.findClub( modelClub );
-        if( clubIter.hasNext() )
-            throw new ClubsException( "A club with this name already exists: " + club_name );
+        // check if a rental location with this name already exists (name is unique)
+        modelRentalLocation = objectLayer.createRentalLocation();
+        modelRentalLocation.setName( name );
+        rentalLocationIter = objectLayer.findRentalLocation( modelRentalLocation );
+        if( rentalLocationIter.hasNext() )
+            throw new RARException( "A rental location with this name already exists: " + name );
 
-        // retrieve the founder person
-        modelPerson = objectLayer.createPerson();
-        modelPerson.setId( founderId );
-        personIter = objectLayer.findPerson( modelPerson );
-        while( personIter.hasNext() ) {
-            founder = personIter.next();
-        }
+        // create the rentalLocation
+        rentalLocation = objectLayer.createRentalLocation( name, addr, capacity );
+        objectLayer.storeRentalLocation( rentalLocation );
 
-        // check if the person actually exists
-        if( founder == null )
-            throw new ClubsException( "A person with this id does not exist: " + founderId );
-
-        // create the club
-        estab = new Date();		// mark it as created now
-        club = objectLayer.createClub( club_name, club_addr, estab, founder );
-        objectLayer.storeClub( club );
-
-        return club.getId();
+        return rentalLocation.getId();
     }
 }

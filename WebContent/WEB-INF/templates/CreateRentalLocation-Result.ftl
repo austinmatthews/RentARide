@@ -11,7 +11,7 @@
 
 <p>has been created.
 
-<p>The identifier of the <tt>${name}</tt> club is <tt>${rentalLocation_id}</tt>
+<p>The identifier of the <tt>${name}</tt> rental location is <tt>${rentalLocation_id}</tt>
 
 <p><p>Back to the <a href="ShowMainWindow"> main window</a>
 

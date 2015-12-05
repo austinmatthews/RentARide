@@ -31,6 +31,10 @@ Select a person and a club and
 in the club.</a>
 </li>-->
 <li>
+Create <a href="CreateRentalLocation.html">
+a new rental location record</a>
+</li>
+<li>
 <a href="Logout"> Logout</a> from the RentARide system.
 </li>
 </ol> 

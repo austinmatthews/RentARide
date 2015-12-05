@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.clubs.entity.Person;
-import edu.uga.clubs.session.Session;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.cs.rentaride.entity.Person;
+import edu.uga.cs.rentaride.session.Session;
+import edu.uga.cs.rentaride.session.SessionManager;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -71,25 +71,25 @@ public class ShowMainWindow
         
         httpSession = req.getSession();
         if( httpSession == null ) {       // not logged in!
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
         
         ssid = (String) httpSession.getAttribute( "ssid" );
         if( ssid == null ) {       // assume not logged in!
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
 
         session = SessionManager.getSessionById( ssid );
         if( session == null ){
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
         
-        Person person = session.getUser();
+        User person = session.getUser();
         if( person == null ) {
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;   
         }
         username = person.getUserName();

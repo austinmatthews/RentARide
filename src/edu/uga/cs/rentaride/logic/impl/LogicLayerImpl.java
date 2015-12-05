@@ -19,7 +19,7 @@ import edu.uga.clubs.session.SessionManager;
 
 
 /**
- * @author Krys J. Kochut
+ * @author team 9
  *
  */
 public class LogicLayerImpl 
@@ -40,7 +40,7 @@ public class LogicLayerImpl
         this.objectLayer = objectLayer;
         System.out.println( "LogicLayerImpl.LogicLayerImpl(objectLayer): initialized" );
     }
-
+/*
     public List<Club> findAllClubs() 
             throws ClubsException
     {
@@ -87,14 +87,22 @@ public class LogicLayerImpl
         FindClubMembersCtrl ctrlFindClubMembers = new FindClubMembersCtrl( objectLayer );
         return ctrlFindClubMembers.findClubMembers( clubName );
     }
+    */
+    
+    public long createRentalLocation(String name, String addr, int capacity)
+            throws RARException
+    {
+        CreateRentalLocationCtrl ctrlCreateRentalLocation = new CreateRentalLocationCtrl (objectLayer);
+        return ctrlCreateRentalLocation.createRentalLocation( name, addr, capacity );
+    }
 
-    public void logout( String ssid ) throws ClubsException
+    public void logout( String ssid ) throws RARException
     {
         SessionManager.logout( ssid );
     }
 
     public String login( Session session, String userName, String password ) 
-            throws ClubsException
+            throws RARException
     {
         LoginCtrl ctrlVerifyPerson = new LoginCtrl( objectLayer );
         return ctrlVerifyPerson.login( session, userName, password );

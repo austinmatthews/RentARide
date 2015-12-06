@@ -8,11 +8,11 @@
 
 <p>A new vehicle:
 
-<p><tt>${name}</tt>
+<p><tt>${registrationTag}</tt>
 
 <p>has been created.
 
-<p>The identifier of the <tt>${name}</tt> vehicle is <tt>${vehicle_id}</tt>
+<p>The identifier of the <tt>${registrationTag}</tt> vehicle is <tt>${vehicle_id}</tt>
 
 <p><p>Back to the <a href="ShowMainWindow"> main window</a>
 

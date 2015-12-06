@@ -153,7 +153,7 @@ public class CreateVehicle
         }
 
         try {
-            rentalLocation_id = logicLayer.createRentalLocation( name, addr, capacity );
+            vehicle_id = logicLayer.createVehicle( args );
         } 
         catch ( Exception e ) {
             RARError.error( cfg, toClient, e );
@@ -167,7 +167,7 @@ public class CreateVehicle
         // Build the data-model
         //
         root.put( "name", name );
-        root.put( "rentalLocation_id", new Long( rentalLocation_id ) );
+        root.put( "vehicle_id", new Long( vehicle_id ) );
 
         // Merge the data-model and the template
         //

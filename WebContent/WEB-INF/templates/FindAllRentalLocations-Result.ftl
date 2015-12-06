@@ -7,23 +7,19 @@
 </head>
 
 <body>
-<h1>Currently active clubs</h1>
+<h1>Currently active rental locations</h1>
 
 <table width="70%"  border="0" cellpadding="1" cellspacing="2" >
   <tr>
-    <td><b>Id</b></td>
     <td><b>Name</b></td>
     <td><b>Address</b></td>
-    <td><b>Established</b></td>
-    <td><b>Established By</b></td>
+    <td><b>Capacity</b></td>
   </tr>
- <#list clubs as club>
+ <#list rentalLocations as rentalLocation>
   <tr>
-    <td>${club[0]}</td>
-    <td>${club[1]}</td>
-    <td>${club[2]}</td>
-    <td>${club[3]}</td>
-    <td>${club[4]}</td>
+    <td>${rentalLocation[0]}</td>
+    <td>${rentalLocation[1]}</td>
+    <td>${rentalLocation[2]}</td>
   </tr>
  </#list></table>
   

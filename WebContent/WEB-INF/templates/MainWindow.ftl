@@ -35,6 +35,10 @@ Create <a href="CreateRentalLocation.html">
 a new rental location record</a>
 </li>
 <li>
+Create <a href="CreateVehicle.html"> 
+a new vehicle record </a>
+</li>
+<li>
 <a href="Logout"> Logout</a> from the RentARide system.
 </li>
 </ol> 

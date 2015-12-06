@@ -8,6 +8,8 @@ import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.User;
 import edu.uga.cs.rentaride.session.Session;
 
+//add needed imports as you add your methods
+
 public interface LogicLayer
 {
    /* public List<Club>         findAllClubs() throws ClubsException;

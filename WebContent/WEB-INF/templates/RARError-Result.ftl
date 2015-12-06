@@ -1,9 +1,9 @@
 <html>
-<head><title>Clubs Exception</title>
+<head><title>Rent A Ride Exception</title>
 </head>
 <body>
 
-<h1>Clubs Exception was caught</h1>
+<h1>Rent A Ride Exception was caught</h1>
 
 <p>Cannot fulfill the request.
 <p>Reason: <tt>${reason}</tt>

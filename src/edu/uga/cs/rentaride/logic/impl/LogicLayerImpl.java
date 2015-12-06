@@ -41,14 +41,14 @@ public class LogicLayerImpl
         this.objectLayer = objectLayer;
         System.out.println( "LogicLayerImpl.LogicLayerImpl(objectLayer): initialized" );
     }
-/*
-    public List<Club> findAllClubs() 
-            throws ClubsException
-    {
-        FindAllClubsCtrl ctrlFindAllClubs = new FindAllClubsCtrl( objectLayer );
-        return ctrlFindAllClubs.findAllClubs();
-    }
 
+    public List<RentalLocation> findAllRentalLocations() 
+            throws RARException
+    {
+        FindAllRentalLocationsCtrl ctrlFindAllRentalLocations = new FindAllRentalLocationsCtrl( objectLayer );
+        return ctrlFindAllRentalLocations.findAllRentalLocations();
+    }
+/*
     public List<Person> findAllPersons() 
             throws ClubsException
     {

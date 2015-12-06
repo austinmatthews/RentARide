@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.uga.uga.cs.ClubsException;
+import edu.uga.uga.cs.RARException;
 import edu.uga.uga.cs.entity.RentalLocation;
 import edu.uga.uga.cs.object.ObjectLayer;
 
@@ -28,8 +28,8 @@ public class FindAllRentalLocationsCtrl {
         this.objectLayer = objectModel;
     }
 
-    public List<RentalLocation> findAllClubs()
-            throws ClubsException
+    public List<RentalLocation> findAllRentalLocations()
+            throws RARException
     {
         List<RentalLocation> 	    rentalLocations  = null;
         Iterator<RentalLocation> 	rentalLocationIter = null;

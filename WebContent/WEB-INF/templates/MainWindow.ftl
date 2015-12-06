@@ -31,6 +31,9 @@ Select a person and a club and
 in the club.</a>
 </li>-->
 <li>
+List all <a href="FindAllRentalLocations"> rental locations</a>
+</li>
+<li>
 Create <a href="CreateRentalLocation.html">
 a new rental location record</a>
 </li>

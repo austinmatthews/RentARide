@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -69,11 +70,21 @@ public class CreateVehicle
     {
         Template       resultTemplate = null;
         BufferedWriter toClient = null;
-        String	       name = null;
-        String	       addr = null;
-        String         capacity_str;
-        int            capacity = 0;
-        long	       rentalLocation_id = 0;
+        String      registrationTag;
+        Date        lastSevice;
+        int         mileage;
+        String      model;
+        String      make;
+        String      rentalLocation_str;
+        RentalLocation rentalLocation;
+        String      status_str;
+        ENUM<Status> status;
+        String      vehicleType_str;
+        VehicleType vehicleType;
+        int         vehicleYear;
+        String      vehicleCondition_str;
+        VehicleCondition vehicleCondition;
+        long	    vehicle_id = 0;
         LogicLayer     logicLayer = null;
         HttpSession    httpSession;
         Session        session;
@@ -125,9 +136,17 @@ public class CreateVehicle
 
         // Get the form parameters
         //
-        name = req.getParameter( "name" );
-        addr = req.getParameter( "address" );
-        capacity_str = req.getParameter( "capacity" );
+        registrationTag = req.getParameter( "registrationTag" );
+        lastService     = req.getParameter( "lastService" );
+        mileage         = req.getParameter( "mileage" );
+        model           = req.getParameter( "model" );
+        make            = req.getParameter( "make" );
+        rentalLocation_str  = req.getParameter( "rentalLocation" );
+        status_str          = req.getParameter( "status" );
+        vehicleType_str     = req.getParameter( "vehicleType" );
+        vehicleYear     = req.getParameter( "vehicleYear" );
+        vehicleCondition_str = req.getParameter( "vehicleCondition" );
+
 
         if( name == null || addr == null) {
             RARError.error( cfg, toClient, "Unspecified name or address" );

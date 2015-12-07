@@ -9,6 +9,8 @@ import java.util.List;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.User;
+import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.logic.LogicLayer;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.object.impl.ObjectLayerImpl;
@@ -48,6 +50,23 @@ public class LogicLayerImpl
         FindAllRentalLocationsCtrl ctrlFindAllRentalLocations = new FindAllRentalLocationsCtrl( objectLayer );
         return ctrlFindAllRentalLocations.findAllRentalLocations();
     }
+    
+    /*public long createVehicle(String registrationTag, Date lastService, String make, 
+                               int mileage, String model, String rentalLocation, ENUM status, 
+                               String vehicleType, int vehicleYear, ENUM vehicleCondition)
+        throws RARException
+    {
+        CreateVehicleCtrl ctrlCreateVehicle = new CreateVehicleCtrl (objectLayer);
+        return ctrlCreateVehicle.createVehicle( name, addr, capacity );
+    }
+    
+    public List<Vehicle> findAllVehicles() 
+            throws RARException
+    {
+        FindAllVehiclesCtrl ctrlFindAllVehicles = new FindAllVehiclesCtrl( objectLayer );
+        return ctrlFindAllVehicles.findAllVehicles();
+    }
+    */
 /*
     public List<Person> findAllPersons() 
             throws ClubsException

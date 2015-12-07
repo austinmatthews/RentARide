@@ -172,7 +172,11 @@ public class CreateVehicle
         }
 
         try {
-            vehicle_id = logicLayer.createVehicle( args );
+            
+            
+            vehicle_id = logicLayer.createVehicle( vehicleType_str, make, model, year, registrationTag, mileage, 
+                                                    lastServiced, rentalLocation_str, vehicleCondition_str, vehicleCondition_str, 
+                                                    vehicleStatus_str );
         } 
         catch ( Exception e ) {
             RARError.error( cfg, toClient, e );
@@ -185,7 +189,9 @@ public class CreateVehicle
 
         // Build the data-model
         //
-        root.put( "name", name );
+        root.put( "make", make );
+        root.put( "model", model );
+        root.put( "registrationTag", registrationTag                                                                             );
         root.put( "vehicle_id", new Long( vehicle_id ) );
 
         // Merge the data-model and the template

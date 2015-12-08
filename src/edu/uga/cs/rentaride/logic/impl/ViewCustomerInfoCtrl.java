@@ -25,7 +25,7 @@ public class ViewCustomerInfoCtrl {
         this.objectLayer = objectModel;
     }
 
-    public List<User> ViewCustomerInfo()
+    public List<User> ViewCustomerInfo(String username)
             throws RARException
     {
         List<Customer> 	    customers  = null;
@@ -36,7 +36,8 @@ public class ViewCustomerInfoCtrl {
         
         // retrieve all Customer objects
         //
-        customerIter = objectLayer.findCustomer( null );
+        Customer modelCustomer = objectLayer.createCustomer(null,null,null,null,null,null,null,null,null,username,null,null,null);
+        customerIter = objectLayer.findCustomer( modelCustomer );
         while( customerIter.hasNext() ) {
             customer = customerIter.next();
             System.out.println( customer);

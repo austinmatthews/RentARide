@@ -1,6 +1,6 @@
 // Gnu Emacs C++ mode:  -*- Java -*-
 //
-// Class:	ViewCustomerInfo
+// Class:	AllCustomerInfo
 //
 // Type:	Servlet
 //

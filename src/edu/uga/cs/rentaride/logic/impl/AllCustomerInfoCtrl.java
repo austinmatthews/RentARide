@@ -20,7 +20,7 @@ public class ViewCustomerInfoCtrl {
     
     private ObjectLayer objectLayer = null;
     
-    public ViewCustomerInfoCtrl( ObjectLayer objectModel )
+    public AllCustomerInfoCtrl( ObjectLayer objectModel )
     {
         this.objectLayer = objectModel;
     }

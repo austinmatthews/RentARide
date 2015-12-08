@@ -29,7 +29,7 @@ public interface LogicLayer
     public List<Customer>        AllCustomerInfo() throws RARException;
     public List<Customer>        ViewCustomerInfo() throws RARException;
     
-    public List<Vehicle>         ViewAllVehicles() throws RARException;
+    public List<Vehicle>         FindAllVehicles() throws RARException;
     
     public long                  createVehicleType(String type) throws RARException;
 }

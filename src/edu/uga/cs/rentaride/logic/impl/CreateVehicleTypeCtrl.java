@@ -20,7 +20,7 @@ public class CreateVehicleTypeCtrl {
         this.objectLayer = objectModel;
     }
     
-    public long createVehicelType( String type)
+    public long createVehicleType( String type)
             throws RARException
     { 
         VehicleType	            vehicleType  = null;

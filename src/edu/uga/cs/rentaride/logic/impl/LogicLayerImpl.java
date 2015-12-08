@@ -51,6 +51,13 @@ public class LogicLayerImpl
         return ctrlFindAllRentalLocations.findAllRentalLocations();
     }
     
+    public List<VehicleType> findAllVehicleTypes() 
+            throws RARException
+    {
+        FindAllVehicleTypesCtrl ctrlFindAllVehicleTypes = new FindAllVehicleTypesCtrl( objectLayer );
+        return ctrlFindAllVehicleTypes.findAllRentVehicleTypes();
+    }
+    
     /*public long createVehicle(String registrationTag, Date lastService, String make, 
                                int mileage, String model, String rentalLocation, ENUM status, 
                                String vehicleType, int vehicleYear, ENUM vehicleCondition)

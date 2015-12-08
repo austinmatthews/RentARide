@@ -26,8 +26,7 @@ public class CreateCustomerCtrl {
     }
     
     public long createCustomer( String firstName, String lastName, String userName, String emailAddress, 
-            String password, String licenseState, 
-            String licenseNumber, String residenceAddress, String cardNumber, Date cardExpiration  )
+            String password, String licenseState, String licenseNumber, String residenceAddress, String cardNumber, Date cardExpiration  )
             throws RARException
     { 
         Customer 	            customer  = null;

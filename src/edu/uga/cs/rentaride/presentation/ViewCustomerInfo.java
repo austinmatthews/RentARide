@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.logic.LogicLayer;
 import edu.uga.cs.rentaride.session.Session;
 import edu.uga.cs.rentaride.session.SessionManager;
@@ -44,7 +44,7 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class FindAllRentalLocations
+public class ViewCustomerInfo
 
 extends HttpServlet 
 
@@ -76,7 +76,10 @@ extends HttpServlet
         //List<List<Object>>      rentalLocations = null;
         //List<Object>            rentalLocation = null;
         //RentalLocation   	      c  = null;
-        
+        List<Customer>          cv = null;
+        List<List<Object>>      customers = null;
+        List<Object>            customer    = null;
+        Customer                c = null;
         
         
         HttpSession             httpSession;
@@ -137,20 +140,30 @@ extends HttpServlet
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            rv = logicLayer.viewCustomerInfo();
+            cv = logicLayer.viewCustomerInfo();
 
             // Build the data-model
             //
-            rentalLocations = new LinkedList<List<Object>>();
-            root.put( "rentalLocations", rentalLocations );
+            customers = new LinkedList<List<Object>>();
+            root.put( "customers", customers );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                //c = (RentalLocation) rv.get( i );
-                //rentalLocation = new LinkedList<Object>();
-                //rentalLocation.add( c.getName() );
-                //rentalLocation.add( c.getAddress() );
-                //rentalLocation.add( c.getCapacity() );
-                //rentalLocations.add( rentalLocation );
+                c = (Customer) cv.get( i );
+                customer = new LinkedList<Object>();
+                customer.add( c.getFirstName() );
+                customer.add( c.getLastName() );
+                customer.add( c.getUserName() );
+                customer.add( c.getEmailAddress() );
+                customer.add( c.getPassword() );
+                customer.add( c.getCreatedDate() );
+                customer.add( c.getUserStatus() );
+                customer.add( c.getResidenceAddress() );
+                customer.add( c.getMembershipExpiration() );
+                customer.add( c.getLicenseState() );
+                customer.add( c.getLicenseNumber() );
+                customer.add( c.getCreditCardNumber() );
+                customer.add( c.getCreditCardExpiration() );
+                customers.add( customer );
             }
         } 
         catch( Exception e) {

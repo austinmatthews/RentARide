@@ -36,7 +36,7 @@ public class ViewCustomerInfoCtrl {
         
         // retrieve all Customer objects
         //
-        Customer modelCustomer = objectLayer.createCustomer(null,null,null,null,null,null,null,null,null,username,null,null,null);
+        Customer modelCustomer = objectLayer.createCustomer(null,null,null,null,null,null,null,null,username,null,null,null,null);
         customerIter = objectLayer.findCustomer( modelCustomer );
         while( customerIter.hasNext() ) {
             customer = customerIter.next();

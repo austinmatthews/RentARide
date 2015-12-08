@@ -27,4 +27,5 @@ public interface LogicLayer
     public long                  createRentalLocation(String name, String addr, int capacity) throws RARException;
     
     public List<Customer>        ViewCustomerInfo() throws RARException;
+    public long createVehicleType(String type);
 }

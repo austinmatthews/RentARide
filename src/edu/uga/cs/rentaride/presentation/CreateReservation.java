@@ -33,23 +33,23 @@ import freemarker.template.TemplateException;
 
 
 
-
-
 // Servlet class Create Reservation
 //
 // doPost starts the execution of the Create Reservation Use Case
 //
 //   parameters:
 //
-//	person_id   string representing a person id (long value)
-//	club_name   string
+//	RL_name   string 
+//	Vehicle_type   string
+//  pickup      string
+//  duration    string
 //
 public class JoinClub
     extends HttpServlet 
 {
     private static final long serialVersionUID = 1L;
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "JoinClub-Result.ftl";
+    static  String            resultTemplateName = "CreateReservation-Result.ftl";
 
     private Configuration  cfg;
 
@@ -71,9 +71,12 @@ public class JoinClub
         Template       resultTemplate = null;
         BufferedWriter toClient = null;
         LogicLayer     logicLayer = null;
-        String	       person_id_str = null;
-        long	       person_id = 0;
-        String         club_name  = null;
+        String	       RL_name = null;
+        String         Vehicle_type = null;
+        String         pickup = null;
+        String         duration = null;
+        int	           duration_int = 0;
+        long           customerId = 0;
         HttpSession    httpSession;
         Session        session;
         String         ssid;
@@ -83,19 +86,19 @@ public class JoinClub
         ssid = (String) httpSession.getAttribute( "ssid" );
 
         if( ssid == null ) {       // not logged in!
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
 
         session = SessionManager.getSessionById( ssid );
         if( session == null ) {
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return; 
         }
         
         logicLayer = session.getLogicLayer();
         if( logicLayer == null ) {
-            ClubsError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RARError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return; 
         }
 
@@ -121,35 +124,52 @@ public class JoinClub
 
         // Get the form parameters
         //
-        person_id_str = req.getParameter( "person_id" );
+        RL_name = req.getParameter( "RL_name" );
 
-        if( person_id_str == null ) {
-            ClubsError.error( cfg, toClient, "Unspecified person_id" );
+        if( RL_name == null ) {
+            RARError.error( cfg, toClient, "Unspecified Rental location" );
+            return;
+        }
+        
+        Vehicle_type = req.getParameter( "Vehicle_type" );
+
+        if( Vehicle_type == null ) {
+            RARError.error( cfg, toClient, "Unspecified Vehicle Type" );
+            return;
+        }
+        
+        pickup = req.getParameter( "pickup" );
+
+        if( pickup == null ) {
+            RARError.error( cfg, toClient, "Unspecified pickup" );
+            return;
+        }
+        
+        duration = req.getParameter( "duration" );
+
+        if( duration == null ) {
+            RARError.error( cfg, toClient, "Unspecified duration" );
             return;
         }
 
         try {
-            person_id = Long.parseLong( person_id_str );
+            duration_int = Integer.parseInt( duration );
         }
         catch( Exception e ) {
-            ClubsError.error( cfg, toClient, "person_id should be a number and is: " + person_id_str );
+            RARError.error( cfg, toClient, "duration should be a number and is: " + duration );
             return;
         }
 
-        if( person_id <= 0 ) {
-            ClubsError.error( cfg, toClient, "Non-positive person_id: " + person_id );
+        if( duration <= 0 ) {
+            ClubsError.error( cfg, toClient, "Non-positive duration: " + duration );
             return;
         }
-
-        club_name = req.getParameter( "club_name" );
-
-        if( club_name == null ) {
-            ClubsError.error( cfg, toClient, "Unspecified club name or club address" );
-            return;
-        }
+        
+        User user = session.getUser();
+        customerId = user.getID();
 
         try {
-            logicLayer.joinClub( person_id, club_name );
+            logicLayer.createReservation( pickup, duration, RL_name, customerId, Vehicle_type );
         } 
         catch( Exception e ) {
             ClubsError.error( cfg, toClient, e );
@@ -162,8 +182,11 @@ public class JoinClub
 
         // Build the data-model
         //
-        root.put( "club_name", club_name );
-        root.put( "person_id", new Long( person_id ) );
+        root.put( "customerId", customerId );
+        root.put( "RL_name", RL_name );
+        root.put( "Vehicle_type",  Vehicle_type );
+        root.put( "pickup", pickup );
+        root.put( "duration",  duration );
 
         // Merge the data-model and the template
         //

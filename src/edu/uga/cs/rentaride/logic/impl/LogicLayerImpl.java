@@ -122,6 +122,13 @@ public class LogicLayerImpl
         CreateRentalLocationCtrl ctrlCreateRentalLocation = new CreateRentalLocationCtrl (objectLayer);
         return ctrlCreateRentalLocation.createRentalLocation( name, addr, capacity );
     }
+    
+     public long createVehicleType(String name)
+            throws RARException
+    {
+        CreateVehicleTypeCtrl ctrlCreateVehicleType = new CreateVehicleTypeCtrl (objectLayer);
+        return ctrlCreateVehicleType.createVehicleType( name );
+    }
 
     public void logout( String ssid ) throws RARException
     {

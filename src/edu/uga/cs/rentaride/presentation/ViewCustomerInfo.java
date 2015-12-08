@@ -80,7 +80,7 @@ extends HttpServlet
         List<List<Object>>      customers = null;
         List<Object>            customer    = null;
         Customer                c = null;
-        
+        String  username = null;
         
         HttpSession             httpSession;
         Session                 session;

@@ -32,9 +32,9 @@ public class ViewCustomerInfoCtrl {
         Iterator<Customer> 	customerIter = null;
         Customer     	    customer = null;
 
-        users = new LinkedList<Customer>();
+        customers = new LinkedList<Customer>();
         
-        // retrieve all User objects
+        // retrieve all Customer objects
         //
         customerIter = objectLayer.ViewCustomerInfo( null );
         while( customerIter.hasNext() ) {

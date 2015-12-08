@@ -69,13 +69,18 @@ public class CreateCustomer
     {
         Template       resultTemplate = null;
         BufferedWriter toClient = null;
-        String	       name = null;
-        String	       addr = null;
-        String         capacity_str;
-        int            capacity = 0;
         
+        String firstName;
+        String lastName;
+        String userName;
+        String emailAddress;
+        String password;
+        String licenseState;
+        String licenseNumber;
+        String residenceAddress;
+        String cardNumber;
+        String cardExpiration;
         
-        long	       rentalLocation_id = 0;
         LogicLayer     logicLayer = null;
         HttpSession    httpSession;
         Session        session;
@@ -127,9 +132,16 @@ public class CreateCustomer
 
         // Get the form parameters
         //
-        name = req.getParameter( "name" );
-        addr = req.getParameter( "address" );
-        capacity_str = req.getParameter( "capacity" );
+        firstName = req.getParameter( "firstName" );
+        lastName = req.getParameter( "lastName" );
+        userName = req.getParameter( "userName" );
+        emailAddress = req.getParameter( "emailAddress" );
+        password = req.getParameter( "password" );
+        licenseState = req.getParameter( "licenseState" );
+        licenseNumber = req.getParameter( "licenseNumber" );
+        address = req.getParameter( "address" );
+        cardNumber = req.getParameter( "cardNumber" );
+        cardExpiration
 
         if( name == null || addr == null) {
             RARError.error( cfg, toClient, "Unspecified name or address" );

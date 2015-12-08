@@ -55,7 +55,7 @@ public class LogicLayerImpl
             throws RARException
     {
         FindAllVehicleTypesCtrl ctrlFindAllVehicleTypes = new FindAllVehicleTypesCtrl( objectLayer );
-        return ctrlFindAllVehicleTypes.findAllRentVehicleTypes();
+        return ctrlFindAllVehicleTypes.findAllVehicleTypes();
     }
     
     /*public long createVehicle(String registrationTag, Date lastService, String make, 

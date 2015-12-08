@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.uga.uga.cs.RARException;
-import edu.uga.uga.cs.entity.RentalLocation;
+import edu.uga.uga.cs.entity.Customer;
 import edu.uga.uga.cs.object.ObjectLayer;
 
 
@@ -28,21 +28,21 @@ public class ViewCustomerInfoCtrl {
     public List<User> ViewCustomerInfo()
             throws RARException
     {
-        List<User> 	    users  = null;
-        Iterator<User> 	userIter = null;
-        User     	      user = null;
+        List<Customer> 	    customers  = null;
+        Iterator<Customer> 	customerIter = null;
+        Customer     	    customer = null;
 
-        users = new LinkedList<User>();
+        users = new LinkedList<Customer>();
         
         // retrieve all User objects
         //
-        userIter = objectLayer.ViewCustomerInfo( null );
-        while( userIter.hasNext() ) {
-            user = userIter.next();
-            System.out.println( user);
-            users.add( user );
+        customerIter = objectLayer.ViewCustomerInfo( null );
+        while( customerIter.hasNext() ) {
+            customer = customerIter.next();
+            System.out.println( customer);
+            customers.add( customer );
         }
 
-        return users;
+        return customers;
     }
 }

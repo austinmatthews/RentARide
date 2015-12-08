@@ -36,7 +36,7 @@ public class ViewCustomerInfoCtrl {
         
         // retrieve all Customer objects
         //
-        customerIter = objectLayer.ViewCustomerInfo( null );
+        customerIter = objectLayer.findCustomer( null );
         while( customerIter.hasNext() ) {
             customer = customerIter.next();
             System.out.println( customer);
